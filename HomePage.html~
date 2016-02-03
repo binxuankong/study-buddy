@@ -2,8 +2,8 @@
 <html>
 
   <head>
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href=Template.css> 
+    <link rel="stylesheet" href="CSS/bootstrap.css">
+    <link rel="stylesheet" href="CSS/HomePage.css"> 
   </head>
 
   <body>
@@ -11,10 +11,10 @@
       <div class="container">
         <ul class="pull-left">
            <a href="HomePage.html"><li id="webpagename">
-          <img src="logo.png"></img>Study Buddy</li></a>
+          <img src="Images/logo.png"></img>Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
-          <li><a href="#"><img src="user.png"></a></li>
+          <li><a href="#"><img src="Images/user.png"></a></li>
           <li id="signup"><a href="#">Sign Up/Log In</a></li>
         </ul>
       </div>
@@ -22,20 +22,29 @@
 
     <div class="jumbotron">
       <div class="container">
-	      
-	      
-	      
-
-
-	
+        <h1>It's study time.</h1>
+        <a href="#">START NOW</a>
       </div>
     </div>
+    
+    <div class="body">
+      <table>
+        <tbody>
+          <tr>
+            <td id="module"><a href="CreateModule.php">Submit a module</a></td>
+            <td id="question"><a href="SubmitQuestion.php">Submit a question</a></td>
+            <td id="timer"><a href="#">Set timer</a></td>
+            <td id="forum"><a href="#">Check scores</a></td>
+          </tr>
+        </tbody>
+      </table>
+	</div>
 
     <div class="learn-more">
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <h2><img src="logo.png"></img>Study Buddy</h2>
+            <h2><img src="Images/logo.png"></img>Study Buddy</h2>
           </div>
           <div class="col-md-3">
             <h3>About Us</h3>

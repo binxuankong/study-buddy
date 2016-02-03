@@ -2,15 +2,15 @@
 <html>
 
   <head>
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href=Template.css> 
+    <link rel="stylesheet" href="CSS/bootstrap.css">
+    <link rel="stylesheet" href="CSS/Template.css"> 
   </head>
 
   <body>
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
-           <a href="HomePage.html"><li id="webpagename">
+          <a href="HomePage.html"><li id="webpagename">
           <img src="logo.png"></img>Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
@@ -22,6 +22,41 @@
 
     <div class="jumbotron">
       <div class="container">
+	      
+	      <h2> Submit a Question </h2>
+	      
+	      <form action="">
+	        Enter the Module for this question:
+	        <select name="module">
+	        </select> 
+	        
+	        
+	        Enter the question:
+	        <br>
+	        <textarea name="question" rows="5" cols="50">
+	        </textarea>
+	        <br>
+	        
+	        Enter up to 5 Answers for this question:
+	        <br>
+	        (check any answers that are correct)
+	        <br>
+	        
+	        1. <input type="text" name="ans1"> 
+	           <input type="checkbox" name="correctanswer"><br>
+	        2. <input type="text" name="ans2"> 
+	           <input type="checkbox" name="correctanswer"><br>
+	        3. <input type="text" name="ans3"> 
+	           <input type="checkbox" name="correctanswer"><br>
+          4. <input type="text" name="ans4"> 
+	           <input type="checkbox" name="correctanswer"><br>
+	        5. <input type="text" name="ans5"> 
+	           <input type="checkbox" name="correctanswer"><br><br>
+	        
+	        <input type="submit" value="Submit Question">
+	       </form>
+	         
+	      
 	      
 	      
 	      
