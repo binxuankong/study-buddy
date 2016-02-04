@@ -10,7 +10,7 @@
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
-          <a href="HomePage.html"><li id="webpagename">
+          <a href="index.html"><li id="webpagename">
           <img src="Images/logo.png"></img>Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
