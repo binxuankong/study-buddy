@@ -1,0 +1,121 @@
+.nav div {
+  background-color: #f7f7f7;
+  top: -2px;
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+}
+
+.pull-left {
+  margin-top: 12px;
+}
+
+#webpagename {
+  color: #5a5a5a;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.pull-left img {
+  width: 58px;
+  height: 58px;
+  margin-top: -8px;
+  margin-left: 80px;
+}
+
+.pull-right {
+  margin-top: 22px;
+}
+
+.pull-right img {
+  position: relative;
+  margin-top: -3px;
+  width: 26px;
+  height: 26px;
+}
+
+.nav a {
+  color: #5a5a5a;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 20px 6px;
+  text-transform: uppercase;
+}
+
+#signup {
+  margin-right: 60px;
+}
+
+.nav li {
+  display: inline;
+}
+
+.heading {
+  width: 100%;
+  height: 200px;
+  background-color: #4da5ff;
+}
+
+.heading .container {
+  position: relative;
+  top: 88px;
+  margin-left: 290px;
+}
+
+.heading h1 {
+  color: black;
+  font-size: 58px;  
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+.body .container {
+  position: relative;
+  top: 28px;
+  margin-left: 160px;
+  margin-bottom: 62px;
+}
+
+.body p {
+  word-wrap: break-word;
+  width: 880px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
+.body input[type="radio"]{
+  margin: 0 10px 0 10px;
+}
+
+.learn-more {
+  background-color: #f7f7f7;
+}
+
+.learn-more h2 {
+  margin-top: 6px;
+  font-family: sans-serif;
+  color: #5a5a5a;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.learn-more img {
+  margin-top: -12px;
+  margin-left: -44px;
+  position: relative;
+  width: 58px;
+  height: 58px;
+}
+
+.learn-more h3 {
+  margin-top: 20px;
+  font-family: sans-serif;
+  color: #5a5a5a;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.learn-more a {
+  color: #4da5ff;
+}
