@@ -53,8 +53,10 @@
 
 .jumbotron {
   margin-top: 16px;
+  background-image: url('../Images/engineer_draw_stuff.jpg');
   width: 100%;
   height: 856px;
+  background-size: cover;
 }
 
 .jumbotron .container {
@@ -116,6 +118,26 @@
     1px -1px 0 #000,
     -1px 1px 0 #000,
     1px 1px 0 #000; 
+}
+
+#module {
+  background-image: url(../Images/module_background.jpg);
+  background-size: cover;
+}
+
+#question {
+  background-image: url(../Images/question_background.jpg);
+  background-size: cover;
+}
+
+#getstarted {
+  background-image: url(../Images/timer_background.jpg);
+  background-size: cover;
+}
+
+#bugreport {
+  background-image: url(../Images/forum_background.jpg);
+  background-size: cover;
 }
 
 .learn-more {

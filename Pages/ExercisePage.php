@@ -2,8 +2,8 @@
 <html>
 
   <head>
-    <link rel="stylesheet" href="CSS/bootstrap.css">
-    <link rel="stylesheet" href="CSS/ExercisePage.css"> 
+    <link rel="stylesheet" href="../CSS/bootstrap.css">
+    <link rel="stylesheet" href="../CSS/ExercisePage.css"> 
     <title>Exercise Page</title>
   </head>
 
@@ -24,11 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
-           <a href="HomePage.html"><img src="Images/new_logo.png" alt="Studdy Buddy">
+           <a href="../index.html"><img src="../Images/new_logo.png" alt="Studdy Buddy">
            <li id="webpagename">Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
-          <li><a href="#"><img src="Images/new_user.png" alt="User Profile"></a></li>
+          <li><a href="#"><img src="../Images/new_user.png" alt="User Profile"></a></li>
           <li id="signup"><a href="#">Sign Up/Log In</a></li>
         </ul>
       </div>
@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <h2><img src="logo.png"></img>Study Buddy</h2>
+            <h2><img src="../Images/new_logo.png" alt="Studdy Buddy"></img>Study Buddy</h2>
           </div>
           <div class="col-md-3">
             <h3>About Us</h3>

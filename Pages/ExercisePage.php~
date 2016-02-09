@@ -2,8 +2,8 @@
 <html>
 
   <head>
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href=ExercisePage.css> 
+    <link rel="stylesheet" href="CSS/bootstrap.css">
+    <link rel="stylesheet" href="CSS/ExercisePage.css"> 
     <title>Exercise Page</title>
   </head>
 
@@ -24,10 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
-          <li id="webpagename"><img src="logo.png"></img>Study Buddy</li>
+           <a href="HomePage.html"><img src="Images/new_logo.png" alt="Studdy Buddy">
+           <li id="webpagename">Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
-          <li><a href="#"><img src="user.png"></a></li>
+          <li><a href="#"><img src="Images/new_user.png" alt="User Profile"></a></li>
           <li id="signup"><a href="#">Sign Up/Log In</a></li>
         </ul>
       </div>
@@ -105,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="col-md-3">
             <h3>Solutions</h3>
             <p>Contact us if you encounter any bugs or problems and let us solve your problems.</p>
-            <p><a href="#">Report a bug</a></p>
+            <p><a href="Feedback.html">Report a bug</a></p>
           </div>
         </div>
       </div>
