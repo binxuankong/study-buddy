@@ -19,18 +19,6 @@
 
 #webpagename:hover {
   color: #0097fa;
-
-}
-
-#hiddentext {
-  position: relative;
-  bottom: 30px;
-  left: 0px;
-  visibility: hidden;
-}
-
-#hiddentext:hover {
-  visibility:visible;
 }
 
 .pull-left img {
