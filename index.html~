@@ -16,6 +16,7 @@
         <ul class="pull-left">
            <a href="HomePage.html"><img src="Images/new_logo.png" alt="Studdy Buddy">
            <li id="webpagename">Study Buddy</li></a>
+           <p id="hiddentext">Homepage</p>
         </ul>
         <ul class="pull-right">
           <li><a href="#"><img src="Images/new_user.png" alt="User Profile"></a></li>

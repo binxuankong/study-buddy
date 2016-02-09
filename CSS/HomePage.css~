@@ -22,6 +22,17 @@
 
 }
 
+#hiddentext {
+  position: relative;
+  bottom: 30px;
+  left: 0px;
+  visibility: hidden;
+}
+
+#hiddentext:hover {
+  visibility:visible;
+}
+
 .pull-left img {
   width: 58px;
   height: 58px;
