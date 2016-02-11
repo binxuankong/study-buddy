@@ -4,10 +4,11 @@
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/ExercisePage.css"> 
+    <script src="myscript.js"></script>
     <title>Exercise Page</title>
   </head>
 
-  <body>
+  <body onbeforeunload="confirmExit(600000)"> <!-- Change time as input by user from parrent page--> <!-- Change time by score user get-->
 <!-- php code here-->
 <?php
 // Define variables and set to empty values.
@@ -47,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
           <div class="col-md-10">
 <!--Get questions and answers from database-->
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form id="frml" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <p>1. The Eiffel Tower is located where in Paris?<br><br>
   (A)<input type="radio" name="answer" value="A">Bois de Boulogne<br>
   (B)<input type="radio" name="answer" value="B">Champ de Mars<br>
