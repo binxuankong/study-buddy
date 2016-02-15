@@ -3,8 +3,8 @@
 
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
-    <link rel="stylesheet" href="../CSS/Template.css"> 
-    <title>Feedback</title>
+    <link rel="stylesheet" href="../CSS/Template.css">
+    <title>Create Module</title>
   </head>
 
   <body>
@@ -23,7 +23,7 @@
 
     <div class="heading">
       <div class="container">
-        <h1>Feedback Form</h1>
+        <h1>Create a Module</h1>
       </div>
     </div>
 
@@ -33,23 +33,25 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-10">
- 
-        <p>
-          We welcome any feedback or comments you may have about our application.
-      
-          <form action = "MAILTO:benlister010@gmail.com" method="post" enctype="text/plain">
-          <p>      
-          Subject:<br>
-          <input type:"text" name="subject" size="51"> <br>
-          Your Comments:<br>
-          <textarea name="Comments" rows="10" cols="50">
-          </textarea> <br><br>
-		      
-          <input type="submit" value="Send Feedback">	
-          </p>	
-          </form>
+	      
+        <form action="">
+	<p>         
+          Module Code:
+          <input type="text" name="code" value="e.g. COMP16121">
+          <br><br>
+          Module Name:
+          <input type="text" name="name" size="50"
+          value="e.g. Object Orientated Programming with Java">
+          <br><br>
+          Module Description:<br>
+          <textarea name="description" value="e.g. First Year Java Course 
+          for Computer Science" rows="4" cols="63">
+          </textarea>
+          <br><br><br>
+          <input type="submit" value="Submit Module">
         </p>
-
+        </form>
+	      
           </div>
           <div class="col-md-1">
           </div>
@@ -74,7 +76,7 @@
             <p><a href="#">Get going with Study Buddy</a></p>
           </div>
           <div class="col-md-3">
-            <h3>Solutions</h3>
+            <h3>Feedback</h3>
             <p>Contact us if you encounter any bugs or problems and let us solve your problems.</p>
             <p><a href="Feedback.html">Report a bug</a></p>
           </div>
