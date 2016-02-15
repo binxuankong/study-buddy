@@ -1,63 +1,147 @@
-<?php
+<?php 
 
-class Timer 
-{
+function setTimeout ($func, $microseconds) 
+{ 
+    return Timers::setTimeout($func, $microseconds); 
+} 
 
-   var $classname = "Timer";
-   var $start     = 0;
-   var $stop      = 0;
-   var $elapsed   = 0;
+ 
+function setInterval ($func, $microseconds) 
+{ 
+    return Timers::setInterval($func, $microseconds); 
+} 
 
-   //Constructor
-   function Timer( $start = true ) 
-   {
-      if ( $start )
-         $this->start();
-   }
+ 
+function clearTimeout ($func, $microseconds) 
+{ 
+    return Timers::setTimeout($func, $microseconds); 
+} 
 
-   //Start counting time
-   function start() 
-   {
-      $this->start = $this->_gettime();
-   }
+ 
+function clearInterval ($interval) 
+{ 
+    return Timers::clearInterval($interval); 
+} 
 
-   //Stop counting time
-   function stop() 
-   {
-      $this->stop    = $this->_gettime();
-      $this->elapsed = $this->_compute();
-   }
+ 
+class Timers 
+{ 
+  private static $timers = array();  
+  private static $numTimers = 0; 
+  private static $intervals = array(); 
+  private static $numIntervals = 0; 
 
-   //Calculate elapsed time
-   function elapsed() 
-   {
-      if ( !$elapsed )
-         $this->stop();
+  public static function tick () 
+  {  
+    $time = self::microtime(); 
+        
+    foreach (self::$timers as $position => $timer) 
+    { 
+      if ($time >= $timer['time']) 
+      { 
+        call_user_func($timer['function']); 
+        unset(self::$timers[$position]); 
+      } 
+    } 
+        
+    foreach (self::$intervals as $position => $timer) 
+    { 
+      if ($time >= $timer['time']) 
+      { 
+        call_user_func($timer['function']); 
+        self::$intervals[$position]['time'] = self::microtime() + self::$intervals[$position]['microseconds']; 
+      } 
+    } 
+  } 
+  
+  public static function microtime () 
+  { 
+    list($m, $s) = explode(' ', microtime()); 
+    return round(((float)$m + (float)$s) * 1000000); 
+  } 
+     
+  public static function shutdown () 
+  { 
+    foreach (self::$timers as $position => $timer) 
+    { 
+      call_user_func($timer['function']); 
+      unset(self::$timers[$position]); 
+    } 
+        
+    foreach (self::$intervals as $position => $interval) 
+    { 
+      call_user_func($interval['function']); 
+      unset(self::$intervals[$position]); 
+    }  
+  } 
+    
+  public static function setTimeout ($func, $microseconds) 
+  { 
+    if (!is_callable($func)) 
+    { 
+      if (is_string($func)) 
+      { 
+        $func = create_function('', $func); 
+      } 
 
-      return $this->elapsed;
-   }
+      else 
+      { 
+        throw new InvalidArgumentException(); 
+      } 
+    } 
+        
+    self::$timers[++self::$numTimers] = array('time' => self::microtime() + $microseconds, 'function' => $func,); 
+        
+    return self::$numTimers; 
+  } 
+    
+  public static function setInterval ($func, $microseconds) 
+  { 
+    if (!is_callable($func)) 
+    { 
+      if (is_string($func)) 
+      { 
+        $func = create_function('', $func); 
+      } 
 
-   //Resets timer
-   function reset() 
-   {
-      $this->start   = 0;
-      $this->stop    = 0;
-      $this->elapsed = 0;
-   }
+      else 
+      { 
+        throw new InvalidArgumentException(); 
+      } 
+    } 
+        
+    self::$intervals[++self::$numIntervals] = array('time' => self::microtime() + $microseconds, 
+                                                    'function' => $func, 'microseconds' => $microseconds,); 
+        
+    return self::$numIntervals; 
+  } 
+    
+  public static function clearTimeout ($timer) 
+  { 
+    if (isset(self::$timers[$timer])) 
+    { 
+      unset(self::$timers[$timer]); 
+      return true; 
+    } 
+        
+    return false; 
+  } 
+    
 
-   //Get current time
-   function _gettime() 
-   {
-      $mtime = microtime();
-      $mtime = explode( " ", $mtime );
-      return $mtime[1] + $mtime[0];
-   }
+  public static function clearInterval ($interval) 
+  { 
+    if (isset(self::$intervals[$interval])) 
+    { 
+      unset(self::$intervals[$interval]); 
+      return true; 
+    } 
+        
+    return false; 
+  } 
 
-   //Compute the elapsed time
-   function _compute() 
-   {
-      return $this->stop - $this->start;
-   }
-}
+} 
+ 
+register_tick_function(array('Timers','tick')); 
+register_shutdown_function(array('Timers','shutdown')); 
 
-?>
+?> 
