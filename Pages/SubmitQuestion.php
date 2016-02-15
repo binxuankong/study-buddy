@@ -21,49 +21,55 @@
       </div>
     </div>
 
-    <div class="jumbotron">
+    <div class="heading">
       <div class="container">
-	      
-	      <h2> Submit a Question </h2>
-	      
-	      <form action="">
-	        Enter the Module for this question:
-	        <select name="module">
-	        </select> 
-	        
-	        
-	        Enter the question:
-	        <br>
-	        <textarea name="question" rows="5" cols="50">
-	        </textarea>
-	        <br>
-	        
-	        Enter up to 5 Answers for this question:
-	        <br>
-	        (check any answers that are correct)
-	        <br>
-	        
-	        1. <input type="text" name="ans1"> 
-	           <input type="checkbox" name="correctanswer"><br>
-	        2. <input type="text" name="ans2"> 
-	           <input type="checkbox" name="correctanswer"><br>
-	        3. <input type="text" name="ans3"> 
-	           <input type="checkbox" name="correctanswer"><br>
-          4. <input type="text" name="ans4"> 
-	           <input type="checkbox" name="correctanswer"><br>
-	        5. <input type="text" name="ans5"> 
-	           <input type="checkbox" name="correctanswer"><br><br>
-	        
-	        <input type="submit" value="Submit Question">
-	       </form>
-	         
-	      
-	      
-	      
-	      
+        <h1>Submit a Question</h1>
+      </div>
+    </div>
 
+    <div class="body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-10">
+	      
+         <form action="">
+         <p>
+           Enter the Module for this question:
+           <select name="module">
+           </select>
 
+           <br>
+           Enter the question:
+           <br>
+           <textarea name="question" rows="3" cols="80">
+           </textarea>
+           <br>
+	        
+           Enter up to 5 Answers for this question:
+           <br>
+           (check any answers that are correct)
+           <br>
+	        
+           1. <input type="text" name="ans1" size="64"> 
+              <input type="checkbox" name="correctanswer"><br>
+           2. <input type="text" name="ans2" size="64"> 
+              <input type="checkbox" name="correctanswer"><br>
+           3. <input type="text" name="ans3" size="64"> 
+              <input type="checkbox" name="correctanswer"><br>
+           4. <input type="text" name="ans4" size="64"> 
+              <input type="checkbox" name="correctanswer"><br>
+           5. <input type="text" name="ans5" size="64"> 
+              <input type="checkbox" name="correctanswer"><br>
+           <br><br>
+           <input type="submit" value="Submit Question">
+         </form>
 	
+          </div>
+          <div class="col-md-1">
+          </div>
+        </div>
       </div>
     </div>
 
