@@ -9,7 +9,6 @@
 
   <body>
     <div class="nav">
-    <div class="nav">
       <div class="container">
         <ul class="pull-left">
            <a href="../index.html"><img src="../Images/new_logo.png" alt="Studdy Buddy">
@@ -22,33 +21,41 @@
       </div>
     </div>
 
-    <div class="jumbotron">
+    <div class="heading">
       <div class="container">
-	      
-	      <h2> Create a new Module </h2>
-	      <form action="">
-	        
-	          
-	          Module Code:  
-	          <input type="text" name="code" value="e.g. COMP16121">
-	          <br>
-	          Module Name:
-	          <input type="text" name="name" size="50"
-	          value="e.g. Object Orientated Programming witrh Java">
-	          <br>
-	          Module Description:<br>
-	         <textarea name="description" value="e.g. First Year Java Course 
-	          for Computer Science" cols="50">
-	         </textarea>
-	          <br><br>
-	          <input type="submit" value="Submit Module">
-	   
-	        
-	      </form>
-	      
+        <h1>Create a Module</h1>
+      </div>
+    </div>
 
-
-	
+    <div class="body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-10">
+	      
+        <form action="">
+	<p>         
+          Module Code:
+          <input type="text" name="code" value="e.g. COMP16121">
+          <br><br>
+          Module Name:
+          <input type="text" name="name" size="50"
+          value="e.g. Object Orientated Programming with Java">
+          <br><br>
+          Module Description:<br>
+          <textarea name="description" value="e.g. First Year Java Course 
+          for Computer Science" rows="4" cols="63">
+          </textarea>
+          <br><br><br>
+          <input type="submit" value="Submit Module">
+        </p>
+        </form>
+	      
+          </div>
+          <div class="col-md-1">
+          </div>
+        </div>
       </div>
     </div>
 
