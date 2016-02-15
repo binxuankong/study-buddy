@@ -8,6 +8,7 @@
 <script type="text/javascript"> 
 var timer;
 
+// Open a window after given time.
 function popup(time) 
 {
 var mylink = "ExercisePage.php";
@@ -18,12 +19,15 @@ timer = setTimeout(openwindow(mylink,windowname), time);
 
 } 
 
+// Open a window containing exercise page.
 function openwindow(mylink, windowname)
 {
   var myWindow = window.open(mylink, windowname, 'type=fullwindow,fullscreen=yes,height=screen.availHeight,width=screen.availWidth,left=0,top=0,resizeable=no');
   myWindow.focus();
 }
 
+// Change between start and stop button when user click it.
+// Stop timer if user click stop.
 function changeButton()
 {
   if (document.getElementById("Start/Stop") == "Start")
@@ -35,6 +39,8 @@ function changeButton()
   }
 } // changeButton
 
+// Check if user has answered all questions.
+// If not, pop up exercise window in 1 ms.
 function confirmExit(time) {
 var form = document.getElementById("frml");
 var full = true;

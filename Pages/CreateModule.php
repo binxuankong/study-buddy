@@ -23,6 +23,7 @@
 
     <div class="heading">
       <div class="container">
+
         <h1>Create a Module</h1>
       </div>
     </div>
@@ -33,6 +34,12 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-10">
+
+            <?php    
+        if(isset($_POST['SubmitButton'])){ //check if form was submitted
+          $input = $_POST['inputText']; //get input text
+          echo "Success! You entered: ".$input;
+        }  ?>
 	      
         <form action="">
 	<p>         
@@ -51,6 +58,7 @@
           <input type="submit" value="Submit Module">
         </p>
         </form>
+
 	      
           </div>
           <div class="col-md-1">

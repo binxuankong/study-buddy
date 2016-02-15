@@ -3,7 +3,8 @@
 
   <head>
     <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href=ExercisePage.css> 
+    <link rel="stylesheet" href=ExercisePage.css>
+    <script src="myscript.js"></script>
     <title>Exercise Page</title>
   </head>
 
