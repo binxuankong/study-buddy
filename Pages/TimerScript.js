@@ -1,21 +1,47 @@
-// <button id="Start/Stop" onclick="clickButton(3000);">Start</button> <!--Time is in millisecond-->
+// <button id="Start-Stop" onclick="clickButton(3000);">Start</button> <!--Time is in millisecond-->
 
 var timer;
 var start;
+var time = 600;
 
+function increaseTime()
+{
+  time = time + 30;
+  displayTime();
+}
+
+function decreaseTime()
+{
+  if(time != 0)
+  {
+    time = time - 30;
+  }
+  displayTime();
+}
+
+function displayTime()
+{
+  var seconds = "00";
+  if(time % 60 == 30)
+  {
+    seconds = "30";
+  }
+  var timeString = "".concat(Math.floor(time / 60), ":", seconds);
+  document.getElementById("time").innerHTML = timeString;
+}
 // Change between start and stop button when user click it.
 // Stop timer if user click stop.
 function clickButton(time)
 {
   if (!start)
   {
-    document.getElementById("Start/Stop").innerHTML = "Stop";
+    document.getElementById("Start-Stop").innerHTML = "Stop";
     start = true;
     popup(time);
   }
   else
   {
-    document.getElementById("Start/Stop").innerHTML = "Start";
+    document.getElementById("Start-Stop").innerHTML = "Start";
     start = false;
     clearTimeout(timer);
   }
