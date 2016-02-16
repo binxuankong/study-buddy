@@ -35,20 +35,73 @@
           </div>
           <div class="col-md-10">
 
-          <?php    
+
+          <!-- Some code from www.w3school.com -->
+          <?php  
+          $codeErr = $nameErr = $descriptionErr = "";
+          $name = $code = $description = $message = "";
+
+          if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (empty($_POST["name"])) {
+              $nameErr = "Course name is required";
+            } else {
+              $name = test_input($_POST["name"]);
+              if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
+                $nameErr = "Only letters and white space allowed"; 
+              }
+            }
+
+            if (empty($_POST["code"])) {
+              $codeErr = "Course code is required";
+            } else {
+              $code = test_input($_POST["code"]);
+            }
+
+            if (empty($_POST["description"])) {
+              $descriptionErr = "Course description is required";
+            } else {
+              $description = test_input($_POST["description"]);
+            }
+
+            if ($codeErr == "" and $nameErr == "" and $descriptionErr == "") {
+              $message = "Thank you for contributing to Study Buddy. The module is created successfully.";
+            }
+          }
+
+          function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+          }
+
+          
+
+
+
           ?>
+
+
+          <?php 
+            echo $message;
+          ?>
+          <br><br>
 	      
-          <form action="">
+
+          <form method="post">
 	        <p>         
           Module Code:
-          <input type="text" name="code" placeholder="e.g. COMP16121">
+          <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>">
+          <span class="error"><?php echo $codeErr;?></span>
           <br><br>
           Module Name:
           <input type="text" name="name" size="50"
-          placeholder="e.g. Object Orientated Programming with Java">
+          placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>">
+          <span class="error"><?php echo $nameErr;?></span>
           <br><br>
           Module Description:<br>
-          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63"></textarea>
+          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63"><?php echo $description;?></textarea>
+          <span class="error"><?php echo $descriptionErr;?></span>
           <br><br><br>
           <input type="submit" value="Submit Module">
           </p>
