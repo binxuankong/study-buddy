@@ -19,18 +19,23 @@ if ($num_questions_returned < 1){
 // Create an array to hold all the returned questions.
 $allQuestionsArray = array();
 
+// Add all the questions from the result to the questions array.
+while ($row = $query_result->fetch_assoc()) {
+    $allQuestionsArray[] = $row;
+}
+
 // Create an array which pick 5 random entires out of the array.
 $questionsArray = array_rand($allQuestionsArray, 5);
 
-// Add all the questions from the result to the questions array.
-while ($row = $query_result->fetch_assoc()) {
-    $questionsArray[] = $row;
-}
-
-// Create an array of correct answers.
-$correctAnswerArray = array();
+// Build the questions array from query result.
+$questions = array();
 foreach($questionsArray as $question) {
-    $answersQuery = "SELECT * FROM SB_ANSWERS WHERE questionID = questionID";
+    $questions[$question['questionID']] = $question['questionContent'];
+ }
+
+// Create an array of answers.
+foreach($questionsArray as $question) {
+    $answersQuery = "SELECT * FROM SB_ANSWERS WHERE questionID = $question['questionID']";
     $answersQueryResult = $dbc->query($answersQuery);
     $answersArray = array();
     while ($row = $answers->fetch_assoc()) {
@@ -40,11 +45,5 @@ foreach($questionsArray as $question) {
     foreach ($answersArray as $row) {
         $choices[$row['questionID']] = array($row['choice1'], $row['choice2'], $row ['choice3'], $row['choice4'], $row['choice5']);
 }
-
-// Build the questions array from query result.
-$questions = array();
-foreach($questionsArray as $question) {
-    $questions[$question['questionID']] = $question['questionContent'];
- }
 
 ?>
