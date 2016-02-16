@@ -4,7 +4,7 @@
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Template.css">
-    <script src="myscript.js"></script>
+    <script src="TimerScript.js"></script>
     <title>Exercise Page</title>
   </head>
 
