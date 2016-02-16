@@ -65,7 +65,26 @@
 
             if ($codeErr == "" and $nameErr == "" and $descriptionErr == "") {
               $message = "Thank you for contributing to Study Buddy. The module is created successfully.";
+
+              $group_dbnames = array(
+                "2015_comp10120_m3",
+              );
+
+              //!!!!!What's the parameters to connect to group database?!!!
+              $mysqli = new mysqli($group_dbnames);
+
+              if($mysqli -> connect_error) {
+                die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
+              }
+
+              $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescrition)
+              VALUES ('" . $name . "', '" . $code . "', '" . $description . "')";
+
+              $mysqli -> query($sql);
+
+              $mysqli -> close();
             }
+
           }
 
           function test_input($data) {
@@ -74,9 +93,6 @@
             $data = htmlspecialchars($data);
             return $data;
           }
-
-          
-
 
 
           ?>
