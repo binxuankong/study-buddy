@@ -21,6 +21,7 @@ function clickButton(time)
   }
 } // clickButton
 
+
 // Open a window after given time.
 function popup(time) 
 {
@@ -30,6 +31,7 @@ var windowname = "Questions";
 timer = setTimeout(openwindow,time,mylink,windowname);
 } 
 
+
 // Open a window containing exercise page.
 function openwindow(mylink, windowname)
 {
@@ -37,11 +39,13 @@ function openwindow(mylink, windowname)
   myWindow.focus();
 }
 
+
 // Check if user has answered all questions.
 // If not, pop up exercise window in 1 ms.
 function confirmExit(time) {
 var form = document.getElementById("frml");
 var full = true;
+
 for (var i = 0; i < form.length; i++) {
   if (form[i] == "") {full = false;};
 };
@@ -49,7 +53,8 @@ for (var i = 0; i < form.length; i++) {
 if (full) {
   popup(time);
   return true;
-} else {
+} // if
+else {
   if(confirm('You attempt to leave the page. Have you finish all questions?'))
   {
     popup(1);
@@ -57,5 +62,5 @@ if (full) {
   }
   else
     return false;
-};
+} //else
 }// confirmExit

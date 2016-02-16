@@ -35,14 +35,15 @@
           </div>
           <div class="col-md-10">
 
-            <?php    
-        if(isset($_POST['SubmitButton'])){ //check if form was submitted
-          $input = $_POST['inputText']; //get input text
-          echo "Success! You entered: ".$input;
-        }  ?>
+          <?php    
+          if(isset($_POST['SubmitButton'])){ //check if form was submitted
+            $input = $_POST['inputText']; //get input text
+            echo "Success! You entered: ".$input;
+          } // if  
+          ?>
 	      
-        <form action="">
-	<p>         
+          <form action="">
+	        <p>         
           Module Code:
           <input type="text" name="code" value="e.g. COMP16121">
           <br><br>
@@ -56,8 +57,8 @@
           </textarea>
           <br><br><br>
           <input type="submit" value="Submit Module">
-        </p>
-        </form>
+          </p>
+          </form>
 
 	      
           </div>
