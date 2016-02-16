@@ -11,7 +11,7 @@
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
-           <a href="../index.html"><img src="../Images/new_logo.png" alt="Studdy Buddy">
+           <a href="../index.html"><img src="../Images/new_logo.png" alt="Study Buddy">
            <li id="webpagename">Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
@@ -77,7 +77,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <h2><img src="../Images/new_logo.png" alt="Studdy Buddy"></img>Study Buddy</h2>
+            <h2><img src="../Images/new_logo.png" alt="Study Buddy"></img>Study Buddy</h2>
           </div>
           <div class="col-md-3">
             <h3>About Us</h3>
