@@ -2,8 +2,8 @@
 <html>
 
   <head>
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href=ExercisePage.css>
+    <link rel="stylesheet" href="../CSS/bootstrap.css">
+    <link rel="stylesheet" href="../CSS/Template.css">
     <script src="myscript.js"></script>
     <title>Exercise Page</title>
   </head>
@@ -37,10 +37,11 @@ if (isset($_POST['submit'])){
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
-          <li id="webpagename"><img src="logo.png"></img>Study Buddy</li>
+           <a href="../index.html"><img src="../Images/new_logo.png" alt="Studdy Buddy">
+           <li id="webpagename">Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
-          <li><a href="#"><img src="user.png"></a></li>
+          <li><a href="#"><img src="../Images/new_user.png" alt="User Profile"></a></li>
           <li id="signup"><a href="#">Sign Up/Log In</a></li>
         </ul>
       </div>
@@ -72,7 +73,7 @@ if (isset($_POST['submit'])){
         $randomChoices = $choices[$id];
         $randomChoices = shuffle_assoc($randomChoices);
         foreach ($randomChoices as $key => $values){
-            echo '<li><input type="radio" name="response['.$id.'] id="'.$id.'" value="' .$values.'"/>';
+            echo '<li><input type="checkbox" name="response['.$id.'] id="'.$id.'" value="' .$values.'"/>';
   ?>
   
   <label for="question-<?php echo($id); ?>"><?php echo($values);?></label></li>
@@ -84,7 +85,7 @@ if (isset($_POST['submit'])){
         }
   ?>
 
-    <input type="submit" name="submit" class="btn btn-primary" value="Submit Quiz" />
+    <input type="submit" name="submit" class="btn btn-primary" value="Submit Exercise" />
 </form>
           </div>
           <div class="col-md-1">
@@ -97,7 +98,7 @@ if (isset($_POST['submit'])){
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <h2><img src="logo.png"></img>Study Buddy</h2>
+            <h2><img src="../Images/new_logo.png" alt="Study Buddy"></img>Study Buddy</h2>
           </div>
           <div class="col-md-3">
             <h3>About Us</h3>
@@ -110,9 +111,9 @@ if (isset($_POST['submit'])){
             <p><a href="#">Get going with Study Buddy</a></p>
           </div>
           <div class="col-md-3">
-            <h3>Solutions</h3>
+            <h3>Feedback</h3>
             <p>Contact us if you encounter any bugs or problems and let us solve your problems.</p>
-            <p><a href="#">Report a bug</a></p>
+            <p><a href="Feedback.html">Report a bug</a></p>
           </div>
         </div>
       </div>
