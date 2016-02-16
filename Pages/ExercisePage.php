@@ -112,8 +112,8 @@ if (isset($_POST['submit'])){
           </div>
           <div class="col-md-3">
             <h3>Feedback</h3>
-            <p>Contact us if you encounter any bugs or problems and let us solve your problems.</p>
-            <p><a href="Feedback.html">Report a bug</a></p>
+            <p>Contact us if you encounter any problems or if you have any suggestions to improve our website and let us solve your problems.</p>
+            <p><a href="Feedback.html">Send a feedback</a></p>
           </div>
         </div>
       </div>
