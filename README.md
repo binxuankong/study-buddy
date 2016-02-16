@@ -1,2 +1,2 @@
-This is the Study Buddy project.
-Documentation for this project can be found in Google Drive.
+Study Buddy.
+The documentation for this project can be found on the group shared wiki.
