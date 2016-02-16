@@ -28,26 +28,27 @@
       </div>
     </div>
     <div id="timer-div" class="centered">
-#      <?php
-#        require_once('../config.inc.php');
-#        $mysqli = new mysqli($database_host, $database_user, $database_pass, $database_name);
-#        if($mysqli -> connect_error) 
-#        {
-#          die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
-#        }
-#        $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO WHERE 1=1");
-#        echo '<br><select id="moduleDropdown" name="module">';
-#        echo "<option></option>";
-#        while($row = $result->fetch_assoc())
-#        {
-#          $thismodule = $row["moduleCourseID"];
-#          
-#          echo "<option value='$thismodule'>$thismodule</option>";
-#        }
-#        echo '</select><br>';
-#        $mysqli -> close();
-#      ?>
+      <?php
+        require_once('../config.inc.php');
+        $mysqli = new mysqli($database_host, $database_user, $database_pass, $database_name);
+        if($mysqli -> connect_error) 
+        {
+          die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
+        }
+        $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO WHERE 1=1");
+        echo '<br>Choose a module to revise<br><select id="moduleDropdown" name="module">';
+        echo "<option></option>";
+        while($row = $result->fetch_assoc())
+        {
+          $thismodule = $row["moduleCourseID"];
+          
+          echo "<option value='$thismodule'>$thismodule</option>";
+        }
+        echo '</select><br>';
+        $mysqli -> close();
+      ?>
       <div>
+        Set an initial time
         <div class="rounded" >
           <table width="100%">
             <tr>

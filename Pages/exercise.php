@@ -35,10 +35,9 @@ foreach($questionsArray as $question) {
 
 // Create an array of answers.
 foreach($questionsArray as $question) {
-    $answersQuery = "SELECT * FROM SB_ANSWERS WHERE questionID = $question['questionID']";
-    $answersQueryResult = $dbc->query($answersQuery);
+    $answersQueryResult = $dbc -> query("SELECT * FROM SB_ANSWERS WHERE questionID = $question['questionID']");
     $answersArray = array();
-    while ($row = $answers->fetch_assoc()) {
+    while ($row = $answersQueryResult->fetch_assoc()) {
         $answersArray[] = $row;
     }
     $choices = array();
