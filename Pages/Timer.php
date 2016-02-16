@@ -67,20 +67,6 @@
       <br>
 	    <button id="Start-Stop" onclick="clickButton(3000);">Start</button
 	  </div>
-	  
-    <div class="body">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-1">
-          </div>
-          <div class="col-md-10">
-          </div>
-          <div class="col-md-1">
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="learn-more">
       <div class="container">
         <div class="row">

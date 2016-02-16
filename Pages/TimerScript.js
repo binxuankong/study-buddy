@@ -19,6 +19,12 @@ function decreaseTime()
   displayTime();
 }
 
+function tick()
+{
+  time = time - 1;
+  displayTime();
+}
+
 function displayTime()
 {
   var seconds = "00";
@@ -65,7 +71,7 @@ function openwindow(mylink, windowname)
   myWindow.focus();
 }
 
-
+//----------------------------------------------------------------------------//
 // Check if user has answered all questions.
 // If not, pop up exercise window in 1 ms.
 function confirmExit(time) {
