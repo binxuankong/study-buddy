@@ -1,8 +1,8 @@
 // <button id="Start-Stop" onclick="clickButton(3000);">Start</button> <!--Time is in millisecond-->
 var timer;
 var start = false;
-var time = 600;
-var chosenTime = 600;
+var time ;
+var chosenTime;
 function increaseTime()
 {
   time = time + 30;
@@ -50,6 +50,11 @@ function clickButton()
 {
   if (!start)
   {
+    if(typeof time == "undefined")
+    {
+      time = 600;
+    }
+    displayTime();
     document.getElementById("Start-Stop").innerHTML = "Stop";
     start = true;
     chosenTime = time
