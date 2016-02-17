@@ -50,23 +50,28 @@ function clickButton()
 {
   if (!start)
   {
-    displayTime();
-    document.getElementById("Start-Stop").innerHTML = "Stop";
-    start = true;
-    chosenTime = time
     document.getElementById("moduleDropdown").disabled = true;
-    timer = setInterval(tick, 1000);
-    document.getElementById("initialTimeLabel").innerHTML = "Time until exercise:";
-  }
-  else
-  {
-    document.getElementById("moduleDropdown").disabled = false;
-    
     var moduleSelected = document.getElementById("moduleDropdown");
     moduleSelected = moduleSelected.options[moduleSelected.selectedIndex].value;
     
     if(moduleSelected != "Choose a module")
     {
+      displayTime();
+      document.getElementById("Start-Stop").innerHTML = "Stop";
+      start = true;
+      chosenTime = time;
+      timer = setInterval(tick, 1000);
+      document.getElementById("initialTimeLabel").innerHTML = "Time until exercise:";
+    }
+    else
+    {
+      document.getElementById("errorLabel").innerHTML = "";
+      document.getElementById("moduleDropdown").disabled = false;
+    }
+  }
+  else
+  {
+      document.getElementById("moduleDropdown").disabled = false;
       document.getElementById("errorLabel").innerHTML = "Select a module before starting.";
       document.getElementById("Start-Stop").innerHTML = "Start";
       time = chosenTime;
@@ -74,11 +79,7 @@ function clickButton()
       start = false;
       document.getElementById("initialTimeLabel").innerHTML = "Set an initial time:";
       clearInterval(timer);
-    }
-    else
-    {
-      document.getElementById("errorLabel").innerHTML = "";
-    }
+    
   }
 } // clickButton
 
