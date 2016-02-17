@@ -78,6 +78,7 @@ function openWindow()
   var windowname = "Questions";
   start = false;
   time = chosenTime;
+  displayTime();
   document.getElementById("moduleDropdown").disabled = false;
   document.getElementById("initialTimeLabel").innerHTML = "Set an initial time:";
   document.getElementById("Start-Stop").innerHTML = "Start";
