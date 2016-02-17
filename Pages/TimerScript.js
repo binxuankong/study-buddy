@@ -56,6 +56,7 @@ function clickButton()
     
     if(moduleSelected != "Choose a module")
     {
+      document.getElementById("errorLabel").innerHTML = "";
       displayTime();
       document.getElementById("Start-Stop").innerHTML = "Stop";
       start = true;
@@ -65,14 +66,13 @@ function clickButton()
     }
     else
     {
-      document.getElementById("errorLabel").innerHTML = "";
+      document.getElementById("errorLabel").innerHTML = "Select a module before starting.";
       document.getElementById("moduleDropdown").disabled = false;
     }
   }
   else
   {
       document.getElementById("moduleDropdown").disabled = false;
-      document.getElementById("errorLabel").innerHTML = "Select a module before starting.";
       document.getElementById("Start-Stop").innerHTML = "Start";
       time = chosenTime;
       displayTime();
