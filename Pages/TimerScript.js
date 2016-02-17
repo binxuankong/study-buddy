@@ -65,7 +65,7 @@ function clickButton()
     var moduleSelected = document.getElementById("moduleDropdown");
     moduleSelected = moduleSelected.options[moduleSelected.selectedIndex].text;
     
-    if(moduleSelected != "")
+    if(moduleSelected != "Choose a module")
     {
       document.getElementById("errorLabel").innerHTML = "Select a module before starting.";
       document.getElementById("Start-Stop").innerHTML = "Start";
