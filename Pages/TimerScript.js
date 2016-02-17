@@ -50,7 +50,7 @@ function clickButton()
 {
   if (!start)
   {
-    if(typeof time == "undefined")
+    if(!time)
     {
       time = 600;
     }
