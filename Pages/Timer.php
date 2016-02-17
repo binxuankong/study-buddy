@@ -48,7 +48,7 @@
         $mysqli -> close();
       ?>
       <div>
-        Set an initial time
+        <h5 id="initialTimeLabel">Set an initial time</h5>
         <div class="rounded" >
           <table width="100%">
             <tr>

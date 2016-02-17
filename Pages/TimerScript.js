@@ -2,7 +2,7 @@
 var timer;
 var start = false;
 var time = 600;
-
+var chosenTime;
 function increaseTime()
 {
   time = time + 30;
@@ -52,12 +52,19 @@ function clickButton()
   {
     document.getElementById("Start-Stop").innerHTML = "Stop";
     start = true;
+    chosenTime = time
+    document.getElementById("moduleDropdown").disabled = true;
     timer = setInterval(tick, 1000);
+    document.getElementById("initialTimeLabel").innerHTML = "Time until exercise:";
   }
   else
   {
     document.getElementById("Start-Stop").innerHTML = "Start";
+    time = chosenTime;
+    displayTime();
     start = false;
+    document.getElementById("moduleDropdown").disabled = false;
+    document.getElementById("initialTimeLabel").innerHTML = "Set an initial time:";
     clearInterval(timer);
   }
 } // clickButton
@@ -65,7 +72,9 @@ function clickButton()
 // Open a window containing exercise page.
 function openWindow()
 {
-  var mylink = "ExercisePage.php";
+  var module = document.getElementById("moduleDropdown");
+  module = module.options[module.selectedIndex].text;
+  var mylink = "ExercisePage.php?module=" + module;
   var windowname = "Questions";
   var myWindow = window.open(mylink, windowname, "type=fullwindow,fullscreen=yes,height=screen.availHeight,width=screen.availWidth,left=0,top=0,resizeable=no");
   myWindow.focus();
