@@ -63,7 +63,7 @@ function clickButton()
     document.getElementById("moduleDropdown").disabled = false;
     
     var moduleSelected = document.getElementById("moduleDropdown");
-    moduleSelected = moduleSelected.options[moduleSelected.selectedIndex].text;
+    moduleSelected = moduleSelected.options[moduleSelected.selectedIndex].value;
     
     if(moduleSelected != "Choose a module")
     {
