@@ -37,7 +37,7 @@
         }
         $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO");
         echo '<br><h5 id="chooseAModuleLabel">Choose a module to revise</h5><br><select id="moduleDropdown" name="module">';
-        echo "<option value="Choose a module">Choose a module</option>";
+        echo "<option value='Choose a module'>Choose a module</option>";
         while($row = $result->fetch_assoc())
         {
           $thismodule = $row["moduleCourseID"];
