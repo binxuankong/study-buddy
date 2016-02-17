@@ -65,7 +65,7 @@
       <div>
       </div>
       <br>
-	    <button id="Start-Stop" onclick="clickButton(3000);">Start</button
+	    <button id="Start-Stop" onclick="clickButton(600);">Start</button
 	  </div>
     <div class="learn-more">
       <div class="container">
