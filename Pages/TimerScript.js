@@ -50,10 +50,6 @@ function clickButton()
 {
   if (!start)
   {
-    if(time == -1)
-    {
-      time = 600;
-    }
     displayTime();
     document.getElementById("Start-Stop").innerHTML = "Stop";
     start = true;
