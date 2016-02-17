@@ -39,10 +39,10 @@
           <!-- Some code from www.w3school.com -->
           <?php  
           //Import database credentials
-          require_once('../config.inc.php');
+          //require_once('../config.inc.php');
           //create database conection
-          $mysqli = new mysqli($database_host, $database_user,
-                               $database_pass, $database_name);
+          //$mysqli = new mysqli($database_host, $database_user,
+          //                     $database_pass, $database_name);
                                
           $codeErr = $nameErr = $descriptionErr = "";
           $name = $code = $description = $message = "";
@@ -76,7 +76,10 @@
                 "2015_comp10120_m3",
               );
 
-              
+              require_once('../config.inc.php');
+
+              $mysqli = new mysqli($database_host, $database_user,
+                                   $database_pass, $database_name);              
 
               if($mysqli -> connect_error) {
                 die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
