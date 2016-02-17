@@ -44,7 +44,7 @@
           
           echo "<option value='$thismodule'>$thismodule</option>";
         }
-        echo '</select><br>';
+        echo '</select><br><h3 id="errorLabel"></h3>';
         $mysqli -> close();
       ?>
       <div>

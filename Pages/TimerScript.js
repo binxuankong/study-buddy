@@ -60,13 +60,22 @@ function clickButton()
   }
   else
   {
-    document.getElementById("Start-Stop").innerHTML = "Start";
-    time = chosenTime;
-    displayTime();
-    start = false;
     document.getElementById("moduleDropdown").disabled = false;
-    document.getElementById("initialTimeLabel").innerHTML = "Set an initial time:";
-    clearInterval(timer);
+    
+    var moduleSelected = document.getElementById("moduleDropdown");
+    moduleSelected = module.options[moduleSelected.selectedIndex].text;
+    
+    if(moduleselected != "")
+    {
+      document.getElementById("errorLabel").innerHTML = "Select a module before starting.";
+      document.getElementById("Start-Stop").innerHTML = "Start";
+      time = chosenTime;
+      displayTime();
+      start = false;
+      document.getElementById("initialTimeLabel").innerHTML = "Set an initial time:";
+      clearInterval(timer);
+    }
+    else
   }
 } // clickButton
 
