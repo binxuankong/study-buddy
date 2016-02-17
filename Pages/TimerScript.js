@@ -76,6 +76,9 @@ function clickButton()
       clearInterval(timer);
     }
     else
+    {
+      document.getElementById("errorLabel").innerHTML = "";
+    }
   }
 } // clickButton
 
