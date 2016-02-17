@@ -30,7 +30,7 @@
     </div>
 <!-- PHP code here-->
 <?php
-
+//IGNORE THIS FOR NOW---------------------------------------------------------//
 #error_reporting(E_ALL);
 #ini_set('display_errors', 1);
 // $rightAnswer = 0;
@@ -58,9 +58,16 @@ $moduleIDRow = $result -> fetch_assoc();
 $moduleID = $modueIdRow['moduleID'];
 //get all questions from module
 $result = $mysqli -> query("SELECT questionID FROM SB_QUESTION_INFO WHERE moduleID='$moduleID'");
+$allQuestions = array();
+while($allQuestions[] = $result->fetch_assoc()){}
 //choose 5 random questions
-$chosenLines = ;
+$chosenLines = {1, 2, 3, 4, 5}; //CHANGE THIS TO CHOOSE RANDOM NUMBERS IN PLACE OF 1 2 3 4 5
 //get the questions related to each line
+$chosenQuestionsRows = {$allQuestions[$chosenLines[0]],
+                        $allQuestions[$chosenLines[1]],
+                        $allQuestions[$chosenLines[2]],
+                        $allQuestions[$chosenLines[3]],
+                        $allQuestions[$chosenLines[4]]};
 //create form
 echo "<form>";
 //foreach question
@@ -81,32 +88,34 @@ echo "</form>";
           <div class="col-md-10">
 
 <!--Display form-->
-<form action="ExercisePage.php" method="post">
+<!--IGNORE THIS CODE FOR NOW
+#<form action="ExercisePage.php" method="post">
 
-  <?php
-    foreach($questions as $id => $question) {
-      echo "<div class=\"form-group\">";
-      //Display the question.
-      echo "<p>$question</p>"."<ol>";
+#  <?php
+#    foreach($questions as $id => $question) {
+#      echo "<div class=\"form-group\">";
+#      //Display the question.
+#      echo "<p>$question</p>"."<ol>";
 
-        //Display multiple choices
-        $randomChoices = $choices[$id];
-        $randomChoices = shuffle_assoc($randomChoices);
-        foreach ($randomChoices as $key => $values){
-            echo '<li><input type="checkbox" name="response['.$id.'] id="'.$id.'" value="' .$values.'"/>';
-  ?>
-  
-  <label for="question-<?php echo($id); ?>"><?php echo($values);?></label></li>
+#        //Display multiple choices
+#        $randomChoices = $choices[$id];
+#        $randomChoices = shuffle_assoc($randomChoices);
+#        foreach ($randomChoices as $key => $values){
+#            echo '<li><input type="checkbox" name="response['.$id.'] id="'.$id.'" value="' .$values.'"/>';
+#  ?>
+#  
+#  <label for="question-<?php echo($id); ?>"><?php echo($values);?></label></li>
 
-  <?php
-        }
-            echo("</ul>");
-            echo("</div>");
-        }
-  ?>
-    <input type="submit" name="submit" class="btn btn-primary" value="Submit Exercise" />
-</form>
-          </div>
+#  <?php
+#        }
+#            echo("</ul>");
+#            echo("</div>");
+#        }
+#  ?>
+#    <input type="submit" name="submit" class="btn btn-primary" value="Submit Exercise" />
+#</form>
+#          </div>
+-->
           <div class="col-md-1">
           </div>
         </div>
