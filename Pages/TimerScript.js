@@ -3,7 +3,7 @@ var timer;
 var start = false;
 var time = 600;
 var chosenTime;
-displayTime();
+
 function increaseTime()
 {
   time = time + 30;
