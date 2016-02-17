@@ -11,7 +11,7 @@ function increaseTime()
 
 function decreaseTime()
 {
-  if(time != 0)
+  if(!(time - 30 < 0))
   {
     time = time - 30;
   }
@@ -20,12 +20,18 @@ function decreaseTime()
 
 function tick()
 {
-  time = time - 1;
-  displayTime();
   if(time == 0)
   {
+    clearInterval(timer);
     openWindow();
+    time = 600;
   }
+  else
+  {
+    time = time - 1;
+  }
+  displayTime();
+  
 }
 
 function displayTime()
@@ -57,7 +63,7 @@ function clickButton()
 } // clickButton
 
 // Open a window containing exercise page.
-function openwindow()
+function openWindow()
 {
   var mylink = "ExercisePage.php";
   var windowname = "Questions";
