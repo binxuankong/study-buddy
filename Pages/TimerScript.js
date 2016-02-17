@@ -77,6 +77,7 @@ function openWindow()
   var mylink = "ExercisePage.php?module=" + module;
   var windowname = "Questions";
   start = false;
+  time = chosenTime;
   document.getElementById("moduleDropdown").disabled = false;
   document.getElementById("initialTimeLabel").innerHTML = "Set an initial time:";
   document.getElementById("Start-Stop").innerHTML = "Start";
