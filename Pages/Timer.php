@@ -53,7 +53,7 @@
           <table width="100%">
             <tr>
               <td width="10%"></td>
-              <td id="time" width="80%">10:00</td>
+              <td id="time" width="80%">Something has gone badly wrong</td>
               <td width="10%"><table>
                 <tr><td onclick="increaseTime();">+</td></tr>
                 <tr><td onclick="decreaseTime();">-</td></tr>  
