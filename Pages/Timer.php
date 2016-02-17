@@ -9,6 +9,9 @@
   </head>
 
   <body>
+    <?php
+      echo "HELLO WORLD";
+    ?>
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
