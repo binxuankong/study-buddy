@@ -8,7 +8,7 @@
     <title>Template</title>
   </head>
 
-  <body>
+  <body onload="displayTime()">
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
