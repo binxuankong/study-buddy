@@ -30,10 +30,10 @@ function tick()
 
 function displayTime()
 {
-  var seconds = "00";
-  if(time % 60 == 30)
+  var seconds = time % 60;
+  if(time % 60 < 10)
   {
-    seconds = "30";
+    seconds = "0" + (time % 60);
   }
   var timeString = "".concat(Math.floor(time / 60), ":", seconds);
   document.getElementById("time").innerHTML = timeString;
