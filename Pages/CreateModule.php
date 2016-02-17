@@ -38,6 +38,12 @@
 
           <!-- Some code from www.w3school.com -->
           <?php  
+          //Import database credentials
+          require_once('../config.inc.php');
+          //create database conection
+          $mysqli = new mysqli($database_host, $database_user,
+                               $database_pass, $database_name);
+                               
           $codeErr = $nameErr = $descriptionErr = "";
           $name = $code = $description = $message = "";
 
@@ -70,8 +76,7 @@
                 "2015_comp10120_m3",
               );
 
-              //!!!!!What's the parameters to connect to group database?!!!
-              $mysqli = new mysqli($group_dbnames);
+              
 
               if($mysqli -> connect_error) {
                 die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
