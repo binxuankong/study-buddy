@@ -40,9 +40,8 @@ function displayTime()
 }
 // Change between start and stop button when user click it.
 // Stop timer if user click stop.
-function clickButton(timeSet)
+function clickButton()
 {
-  time = timeSet;
   if (!start)
   {
     document.getElementById("Start-Stop").innerHTML = "Stop";
