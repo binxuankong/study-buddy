@@ -3,6 +3,7 @@ var timer;
 var start = false;
 var time = -1;
 var chosenTime;
+displayTime();
 function increaseTime()
 {
   time = time + 30;
@@ -24,7 +25,6 @@ function tick()
   {
     clearInterval(timer);
     openWindow();
-    time = 600;
   }
   else
   {
