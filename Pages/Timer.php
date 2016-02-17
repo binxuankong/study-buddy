@@ -35,7 +35,7 @@
         {
           die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
         }
-        $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO WHERE 1=1");
+        $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO");
         echo '<br>Choose a module to revise<br><select id="moduleDropdown" name="module">';
         echo "<option></option>";
         while($row = $result->fetch_assoc())

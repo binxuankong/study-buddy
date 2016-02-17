@@ -11,29 +11,6 @@
   <!-- Javascript code for popup-->
   <body onbeforeunload="confirmExit(600000)">
   <!-- Change time as input by user from parrent page--> <!-- Change time by score user get-->
-
-<!-- PHP code here-->
-<?php
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-$rightAnswer = 0;
-$wrongAnswer = 0;
-
-require_once('exercise.php');
-require_once('randomizer.php');
-
-if (isset($_POST['submit'])){
-  foreach($_POST['response'] as $key => $value){
-      if($correctAnswerArray[$key] == $value){
-          $rightAnswer++;
-      } else {
-          $wrongAnswer++;
-      }
-  }
-}
-?>
-
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
@@ -46,12 +23,55 @@ if (isset($_POST['submit'])){
         </ul>
       </div>
     </div>
-
     <div class="heading">
       <div class="container">
         <h1>Exercise</h1>
       </div>
     </div>
+<!-- PHP code here-->
+<?php
+
+#error_reporting(E_ALL);
+#ini_set('display_errors', 1);
+// $rightAnswer = 0;
+// $wrongAnswer = 0;
+//IMPORTS---------------------------------------------------------------------//
+//import database credentials
+require_once('../config.inc.php');
+//import randomizer
+require_once('randomizer.php');
+//DATABASE CONNECTION---------------------------------------------------------//
+//create database connection
+$mysqli = new mysqli($database_host, $database_user,
+                     $database_pass, $database_name);
+
+//check for connection errors kill page if found
+if($mysqli -> connect_error) 
+{
+  die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
+}
+//EXERCISE--------------------------------------------------------------------//
+//get desired module
+$module = $_get['module'];
+$result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+$moduleIDRow = $result -> fetch_assoc();
+$moduleID = $modueIdRow['moduleID'];
+//get all questions from module
+$result = $mysqli -> query("SELECT questionID FROM SB_QUESTION_INFO WHERE moduleID='$moduleID'");
+//choose 5 random questions
+$chosenLines = ;
+//get the questions related to each line
+//create form
+echo "<form>";
+//foreach question
+  //display the question
+  //get the answers to the question
+  //display the answers to the question
+  //store the answers to the question (hidden form element)
+echo "</form>";
+//END SCRIPT!
+?>
+
 
     <div class="body">
       <div class="container">
@@ -67,7 +87,7 @@ if (isset($_POST['submit'])){
     foreach($questions as $id => $question) {
       echo "<div class=\"form-group\">";
       //Display the question.
-      echo "<p> $question</p>"."<ol>";
+      echo "<p>$question</p>"."<ol>";
 
         //Display multiple choices
         $randomChoices = $choices[$id];
@@ -84,7 +104,6 @@ if (isset($_POST['submit'])){
             echo("</div>");
         }
   ?>
-
     <input type="submit" name="submit" class="btn btn-primary" value="Submit Exercise" />
 </form>
           </div>

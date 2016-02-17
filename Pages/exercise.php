@@ -1,7 +1,8 @@
 <?php
 
 // Connect to database and fetch questions.
-require_once('db_conn.php');
+require_once('../config.ing.php');
+
 
 // Create a query to fetch five questions from the selected module.
 $query = "SELECT * FROM SB_QUESTIONS WHERE moduleID = 'givenmodule'";
