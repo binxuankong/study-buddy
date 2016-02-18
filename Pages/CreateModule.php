@@ -85,7 +85,7 @@
                 die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
               }
 
-              $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescrition)
+              $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription)
               VALUES ('" . $name . "', '" . $code . "', '" . $description . "')";
 
               $mysqli -> query($sql);
