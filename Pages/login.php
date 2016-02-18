@@ -29,11 +29,27 @@
     <div class="body">
       <div class="container">
         <?php
-        //check if the username has been set
-          if(isset($_POST['username']))
+          if(isset($_POST['register']))
           {
-            if(isset($_POST['password']))
+            echo "<form method='post'>
+                    <input name='firstName' type='text'><br>
+                    <input name='surname' type='text'><br>
+                    <input name='email' type='email'><br>
+                    <input name='username' type='text'><br>
+                    <input name='password' type='password'><br>
+                    <input name='passwordConfirm' type='password'><br>
+                    <input name='registered' type='submit' value='Register'>
+                  </form>";
+          }
+          else if(isset($_POST['registered']))
+          {
+            
+          }
+          else
+          {
+            if(isset($_POST['username']) && isset($_POST['password']))
             {
+              $login = false;
               //create database connection
               require_once('../config.inc.php');
               $mysqli = new mysqli($database_host, $database_user, $database_pass, $database_name);
@@ -42,6 +58,7 @@
               {
                 die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
               }
+              
               //get username and password
               $username = $_POST['username'];
               $password = $_POST['password'];
@@ -51,23 +68,78 @@
               if($result->num_rows == 0)
               {
                 //invalid username
-                echo "<h3>Invalid username or password</h3>";
               }
               else if($result->num_rows == 1)
               {
-                //username accepted
+                $user = $result->fetch_assoc();
+                //username accepted but just to make sure...
+                if($username != $user['userScreenName'];)
+                {
+                  //THIS SHOULD NEVER HAPPEN
+                  echo "<a href='./Feedback.html'>Catastrophic failure: user mismatch. Please click here to report this using the feedback form</a>"
+                }
+                else
+                {
+                  $passwordHash = password_hash($password);
+                  if($passwordHash == $user['userPasswordHash'])
+                  {
+                    $login = true;
+                    session_start();
+                    $_SESSION['userName'] = $user['userScreenName'];
+                    $_SESSION['userID'] = $user['userID'];
+                  }
+                }
               }
               else
               {
                 //multiple users with the same username
-                //THIS SHOULD NEVER HAPPEN
-                echo "<a href='./Feedback.html'>Catastrophic failure please click here to report this using the feedback form</a>";
+                //THIS SHOULD NEVER EVER HAPPEN
+                echo "<a href='./Feedback.html'>Catastrophic failure: multiple users. Please click here to report this using the feedback form</a>";
               }
+              if($login)
+              {
+                //redirect user
+                echo "LOGIN SUCCESSFUL";
+              }
+              else
+              {
+                echo "Invalid username or password";
+                echo "
+                    <form method='post'>
+                      <input type='text' name='username' value='$username'><br>
+                      <input type='password' name='password'><br>
+                      <input type='submit' name='login' value='login'>
+                    </form>
+                    <form method='post'>
+                      <input type='submit' name='register' value='Click Here to sign up'>
+                    </form>";
+              }
+            }
+            else
+            {
+              echo "
+                    <form method='post'>
+                      <input type='text' name='username'><br>
+                      <input type='password' name='password'><br>
+                      <input type='submit' name='login' value='login'>
+                    </form>
+                    <form method='post'>
+                      <input type='submit' name='register' value='Click Here to sign up'>
+                    </form>";
             }
           }
         ?>
       </div>
     </div>
+
+<form method='post'>
+<input type='text' name='username' value=''><br>
+<input type='password' name='password'><br>
+<input type='submit' value='login'>
+</form>
+
+
+
 
     <div class="learn-more">
       <div class="container">
