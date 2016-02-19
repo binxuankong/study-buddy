@@ -4,18 +4,14 @@
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Template.css">
-    <script src="TimerScript.js"></script>
     <title>Exercise Page</title>
   </head>
-
-  <!-- Javascript code for popup-->
-  <body onbeforeunload="confirmExit(600000)">
-  <!-- Change time as input by user from parrent page--> <!-- Change time by score user get-->
+  <body>
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
-           <a href="../index.html"><img src="../Images/new_logo.png" alt="Study Buddy">
-           <li id="webpagename">Study Buddy</li></a>
+          <a href="../index.html"><img src="../Images/new_logo.png" alt="Study Buddy">
+          <li id="webpagename">Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
           <li><a href="#"><img src="../Images/new_user.png" alt="User Profile"></a></li>
@@ -28,142 +24,222 @@
         <h1>Exercise</h1>
       </div>
     </div>
-<!-- PHP code here-->
-<?php
-//IMPORTS---------------------------------------------------------------------//
-//import database credentials
-require_once('../config.inc.php');
-//import randomizer.
-require_once('randomizer.php'); 
-//DATABASE CONNECTION---------------------------------------------------------//
-//create database connection
-$mysqli = new mysqli($database_host, $database_user,
-                     $database_pass, $database_name);
+    
+  <?php
+    //import database credentials
+    require_once('../config.inc.php');
+    //start a session
+    session_start();
+    //DATABASE CONNECTION-----------------------------------------------------//
+    //create database connection
+    $mysqli = new mysqli($database_host, $database_user,
+                         $database_pass, $database_name);
 
-//check for connection errors kill page if found
-if($mysqli -> connect_error) 
-{
-  die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
-}
-//EXERCISE--------------------------------------------------------------------//
-//get desired module
-$module = $_GET['module'];
-$result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
-$moduleIDRow = $result -> fetch_assoc();
-$moduleID = $moduleIDRow['moduleID'];
-//get all questions from module
-$result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID'");
-$allQuestions = array();
-while($row = $result->fetch_assoc())
-{
-  $allQuestions[] = $row;
-}
-//choose 5 random questions
-$chosenLines = array(1, 2, 3, 4, 5); //CHANGE THIS TO CHOOSE RANDOM NUMBERS IN PLACE OF 1 2 3 4 5
-//get the questions related to each line
-$chosenQuestionsRows = array($allQuestions[$chosenLines[0]],
-                             $allQuestions[$chosenLines[1]],
-                             $allQuestions[$chosenLines[2]],
-                             $allQuestions[$chosenLines[3]],
-                             $allQuestions[$chosenLines[4]]);
-//create form
-echo "<form>";
-//foreach question
-$questionNumber = 0;
-$answerLocations = array();
-foreach ($chosenQuestionsRows as $currentRow)
-{
-  //get the question
-  $question = $currentRow['questionContent'];
-  $questionID = $currentRow['questionID'];
-  
-  //display the question
-  echo $question;
-  echo "<br>";
-  //get the answers to the question
-  $result = $mysqli -> query("SELECT * FROM SB_ANSWERS WHERE questionID='$questionID'");
-  $answers = array();
-  while($answerRow = $result->fetch_assoc())
-  {
-    $answers[] = $answerRow;
-  }
-  echo "<ul>";
-  $answerNumber = 0;
-  $answerlocations[] = array();
-  foreach($answers as $answer)
-  {
-    $answerLocations[$questionNumber][] = $answer['answerCorrect'];
-    $answerNumber = $answerNumber + 1;
-    echo "<li>".$answer['answerContent']."<input type='checkbox' name='$questionNumber,$answerNumber'>";
-    echo "<br>";
-  }
-  echo "</ul>";
-  $questionNumber = $questionNumber + 1;
-  //display the answers to the question
-}
-echo "</form>";
-//function shuffles the order of values in an array
-function shuffle_array($list) 
-{
-  if (!is_array($list)) 
-  {
-    return $list;
-  }
-  $keys = array_keys($list);
-  shuffle($keys);
-  $shuffled = array();
-  foreach ($keys as $key) 
-  {
-    $shuffled[$key] = $list[$key];
-  }
-  return $shuffled;
-}
-
-?>
-
-
+    //check for connection errors kill page if found
+    if($mysqli -> connect_error) 
+    {
+      die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
+    }
+    //create needed session variables
+    if(!(isset($_SESSION['incorrectQuestions'])))
+    {
+      $_SESSION['incorrectQuestions'] = array();
+    }
+    if(!(isset($_SESSION['passedQuestions'])))
+    {
+      $_SESSION['passedQuestions'] = array();
+    }
+    if(!(isset($_SESSION['questionsAccessed'])))
+    {
+      $_SESSION['questionsAccessed'] = false;
+    }
+    
+    //EXERCISE----------------------------------------------------------------//
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answered'])) //request method POST
+    {
+      $_SESSION['questionsAccessed'] = false;
+      $questions = $_SESSION['passedQuestions'];
+      $correctQuestions = 0;
+      for($questionCount = 0; $questionCount < count($questions); $questionCount++)
+      {
+        $correctlyAnswered = true;
+        $question = $questions[$questionCount];
+        for($count = 0; $count < count($question); $count++)
+        {
+          if($count == 0) //value is a question
+          {
+            $result = $mysqli -> query("SELECT questionContent FROM SB_QUESTIONS WHERE questionID='$question[0]'");
+            if($result->num_rows == 1) //this is correct
+            {
+              $questionInfo = $result->fetch_assoc();
+              echo $questionInfo['questionContent']."<br><ul>";
+            }
+            else //this cannot happen
+            {
+              echo "ERROR CODE 4386346879346643986376439756346";
+            }
+          }
+          else //value is an answer
+          {
+            $result = $mysqli -> query("SELECT * FROM SB_ANSWERS WHERE answerID='$question[$count]'");
+            $answerInfo = $result->fetch_assoc();
+            echo "<li>".$answerInfo['answerContent'];
+            $checkbox = "$questionCount,$count";
+            if(isset($_POST[$checkbox]))
+            {
+              echo "<input type='checkbox' name='$checkbox' disabled checked><br></li>";
+            }
+            else
+            {
+              echo "<input type='checkbox' name='$checkbox' disabled><br></li>";
+            }
+            if(($answerInfo['answerCorrect'] != 0) Xor (isset($_POST[$checkbox]))) //user answered incorrectly
+            {
+              $correctlyAnswered = false;
+            }
+          }
+        }
+        echo "</ul>";
+        if($correctlyAnswered)
+        {
+          $correctQuestions++;
+          echo "CORRECT! <br>";
+        }
+        else
+        {
+          echo "Incorrect <br>";
+          $_SESSION['incorrectQuestions'][] = $question[0];
+        }
+      }
+      $timeDifference = (2 * $correctQuestions) + count($questions);
+      echo "<button id='closeButton' onclick=''>Close</button>";
+    }
+    else if($_SESSION['questionsAccessed'])
+    {
+      echo "<form method='post'>";
+      $questions = $_SESSION['passedQuestions'];
+      for($questionCount = 0; $questionCount < count($questions); $questionCount++)
+      {
+        $question = $questions[$questionCount];
+        for($count = 0; $count < count($question); $count++)
+        {
+          if($count == 0) //value is a question
+          {
+            $result = $mysqli -> query("SELECT questionContent FROM SB_QUESTIONS WHERE questionID='$question[0]'");
+            if($result->num_rows == 1) //this is correct
+            {
+              $questionInfo = $result->fetch_assoc();
+              echo $questionInfo['questionContent']."<br><ul>";
+            }
+            else //this cannot happen
+            {
+              echo "ERROR CODE 4386346879346643986376439756346";
+            }
+          }
+          else //value is an answer
+          {
+            $result = $mysqli -> query("SELECT answerContent FROM SB_ANSWERS WHERE answerID='$question[$count]'");
+            $answerInfo = $result->fetch_assoc();
+            echo "<li>".$answerInfo['answerContent'];
+            $checkbox = "$questionCount,$count";
+            echo "<input type='checkbox' name='$checkbox'><br></li>";
+          }
+        }
+        echo "</ul>";
+      }
+      echo "<input type='submit'value='Submit' name='answered'>"; 
+      echo "</form>";
+    }
+    else
+    {
+      $_SESSION['questionsAccessed'];
+      //get desired module
+      $module = $_GET['module'];
+      $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+      $moduleIDRow = $result -> fetch_assoc();
+      $moduleID = $moduleIDRow['moduleID'];
+      //get all questions from module
+      $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID'");
+      $allQuestions = array();
+      while($row = $result->fetch_assoc())
+      {
+        $allQuestions[] = $row;
+      }
+      //choose 5 random questions
+      $chosenLines = array();
+      $numberOfQuestions = 5;
+      if($result -> num_rows < $numberOfQuestions)
+      {
+        $numberOfQuestions = $result -> num_rows;
+      }
+      while(count($chosenLines) < $numberOfQuestions)
+      {
+        $randomNumber = rand(1, $result -> num_rows);
+        $randomNumber--;
+        if(!(in_array($randomNumber, $chosenLines)))
+        {
+          $chosenLines[] = $randomNumber;
+        }
+      }
+      //get the questions related to each line
+      $chosenQuestionsRows = array();
+      for($count = 0; $count < $numberOfQuestions; $count++)
+      {
+        $chosenQuestionsRows[] = $allQuestions[$chosenLines[$count]];
+      }
+      //create form
+      echo "<form method='post'>";
+      //foreach question
+      $questionNumber = 0;
+      $questionArray = array();
+      foreach ($chosenQuestionsRows as $currentRow)
+      {
+        //get the question
+        $question = $currentRow['questionContent'];
+        $questionID = $currentRow['questionID'];
+        $questionArray[] = array();
+        $questionArray[$questionNumber][] = $questionID;
+        
+        //display the question
+        echo $question;
+        echo "<br>";
+        //get the answers to the question
+        $result = $mysqli -> query("SELECT * FROM SB_ANSWERS WHERE questionID='$questionID'");
+        $answers = array();
+        while($answerRow = $result->fetch_assoc())
+        {
+          $answers[] = $answerRow;
+        }
+        echo "<ul>";
+        $answerNumber = 0;
+        foreach($answers as $answer)
+        {
+          $answerNumber = $answerNumber + 1;
+          echo "<li>".$answer['answerContent']."<input type='checkbox' name='$questionNumber,$answerNumber'>";
+          echo "<br>";
+          $questionArray[$questionNumber][] = $answer['answerID'];
+        }
+        echo "</ul>";
+        $questionNumber = $questionNumber + 1;
+        //display the answers to the question
+      }
+      $_SESSION['passedQuestions'] = $questionArray;
+      echo "<input type='submit'value='Submit' name='answered'>"; 
+      echo "</form>";
+    }
+  ?>
     <div class="body">
       <div class="container">
         <div class="row">
           <div class="col-md-1">
           </div>
           <div class="col-md-10">
-
-<!--Display form-->
-<!--IGNORE THIS CODE FOR NOW
-#<form action="ExercisePage.php" method="post">
-
-#  <?php
-#    foreach($questions as $id => $question) {
-#      echo "<div class=\"form-group\">";
-#      //Display the question.
-#      echo "<p>$question</p>"."<ol>";
-
-#        //Display multiple choices
-#        $randomChoices = $choices[$id];
-#        $randomChoices = shuffle_assoc($randomChoices);
-#        foreach ($randomChoices as $key => $values){
-#            echo '<li><input type="checkbox" name="response['.$id.'] id="'.$id.'" value="' .$values.'"/>';
-#  ?>
-#  
-#  <label for="question-<?php echo($id); ?>"><?php echo($values);?></label></li>
-
-#  <?php
-#        }
-#            echo("</ul>");
-#            echo("</div>");
-#        }
-#  ?>
-#    <input type="submit" name="submit" class="btn btn-primary" value="Submit Exercise" />
-#</form>
-#          </div>
--->
+          </div>
           <div class="col-md-1">
           </div>
         </div>
       </div>
     </div>
-
     <div class="learn-more">
       <div class="container">
         <div class="row">
@@ -188,6 +264,5 @@ function shuffle_array($list)
         </div>
       </div>
     </div>
-	
   </body>
 </html>
