@@ -61,7 +61,15 @@ $result = $mysqli -> query("SELECT questionID FROM SB_QUESTION_INFO WHERE module
 $allQuestions = array();
 while($allQuestions[] = $result->fetch_assoc()){}
 //choose 5 random questions
-$chosenLines = {1, 2, 3, 4, 5}; //CHANGE THIS TO CHOOSE RANDOM NUMBERS IN PLACE OF 1 2 3 4 5
+$num_questions_returned = $result->num_rows;
+$numberOfQuestions = 5;
+$chosenLines = array();
+while (count($chosenLines) < $numberOfQuestions) {
+    $random = rand(1, $num_questions_returned);
+    if (!in_array($random, $chosenLines)) {
+        $chosenLines[] = $random;
+    }
+}
 //get the questions related to each line
 $chosenQuestionsRows = {$allQuestions[$chosenLines[0]],
                         $allQuestions[$chosenLines[1]],
@@ -70,11 +78,35 @@ $chosenQuestionsRows = {$allQuestions[$chosenLines[0]],
                         $allQuestions[$chosenLines[4]]};
 //create form
 echo "<form>";
+<?php
 //foreach question
+foreach($chosenQuestionRows as $question) {
   //display the question
+    echo "<div class=\"form-group\">";
+    echo "<p>$question</p>"."<ol>";
   //get the answers to the question
+    $answersResult = $mysqli -> query("SELECT * FROM SB_ANSWERS WHERE questionID = $question['questionID']");
+    $choices = array();
+    while ($row = $answersResult->fetch_assoc()) {
+        $choices[] = $row;
+    }
   //display the answers to the question
+    $randomChoices = shuffle_assoc($randomChoices);
+    foreach ($randomChoices as $key => $values){
+        echo '<li><input type="checkbox" name="response['.$id.'] id="'.$id.'" value="' .$values.'"/>';
   //store the answers to the question (hidden form element)
+}
+?>
+
+  <label for="question-<?php echo($id); ?>"><?php echo($values);?></label></li>
+
+<?php
+    }
+        echo("</ul>");
+        echo("</div>");
+    }
+?>
+  <input type="submit" name="submit" class="btn btn-primary" value="Submit Exercise" />
 echo "</form>";
 //END SCRIPT!
 ?>
