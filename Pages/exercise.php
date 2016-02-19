@@ -1,7 +1,8 @@
 <?php
 
 // Connect to database and fetch questions.
-require_once('db_conn.php');
+require_once('../config.ing.php');
+
 
 // Create a query to fetch five questions from the selected module.
 $query = "SELECT * FROM SB_QUESTIONS WHERE moduleID = 'givenmodule'";
@@ -35,10 +36,9 @@ foreach($questionsArray as $question) {
 
 // Create an array of answers.
 foreach($questionsArray as $question) {
-    $answersQuery = "SELECT * FROM SB_ANSWERS WHERE questionID = $question['questionID']";
-    $answersQueryResult = $dbc->query($answersQuery);
+    $answersQueryResult = $dbc -> query("SELECT * FROM SB_ANSWERS WHERE questionID = $question['questionID']");
     $answersArray = array();
-    while ($row = $answers->fetch_assoc()) {
+    while ($row = $answersQueryResult->fetch_assoc()) {
         $answersArray[] = $row;
     }
     $choices = array();
