@@ -24,7 +24,6 @@
         <h1>Exercise</h1>
       </div>
     </div>
-    
   <?php
     //import database credentials
     require_once('../config.inc.php');
