@@ -30,16 +30,11 @@
     </div>
 <!-- PHP code here-->
 <?php
-//IGNORE THIS FOR NOW---------------------------------------------------------//
-#error_reporting(E_ALL);
-#ini_set('display_errors', 1);
-// $rightAnswer = 0;
-// $wrongAnswer = 0;
 //IMPORTS---------------------------------------------------------------------//
 //import database credentials
 require_once('../config.inc.php');
-//import randomizer
-require_once('randomizer.php');
+//import randomizer.
+require_once('randomizer.php'); 
 //DATABASE CONNECTION---------------------------------------------------------//
 //create database connection
 $mysqli = new mysqli($database_host, $database_user,
@@ -52,31 +47,78 @@ if($mysqli -> connect_error)
 }
 //EXERCISE--------------------------------------------------------------------//
 //get desired module
-$module = $_get['module'];
+$module = $_GET['module'];
 $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
 $moduleIDRow = $result -> fetch_assoc();
-$moduleID = $modueIdRow['moduleID'];
+$moduleID = $moduleIDRow['moduleID'];
 //get all questions from module
-$result = $mysqli -> query("SELECT questionID FROM SB_QUESTION_INFO WHERE moduleID='$moduleID'");
+$result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID'");
 $allQuestions = array();
-while($allQuestions[] = $result->fetch_assoc()){}
+while($row = $result->fetch_assoc())
+{
+  $allQuestions[] = $row;
+}
 //choose 5 random questions
-$chosenLines = {1, 2, 3, 4, 5}; //CHANGE THIS TO CHOOSE RANDOM NUMBERS IN PLACE OF 1 2 3 4 5
+$chosenLines = array(1, 2, 3, 4, 5); //CHANGE THIS TO CHOOSE RANDOM NUMBERS IN PLACE OF 1 2 3 4 5
 //get the questions related to each line
-$chosenQuestionsRows = {$allQuestions[$chosenLines[0]],
-                        $allQuestions[$chosenLines[1]],
-                        $allQuestions[$chosenLines[2]],
-                        $allQuestions[$chosenLines[3]],
-                        $allQuestions[$chosenLines[4]]};
+$chosenQuestionsRows = array($allQuestions[$chosenLines[0]],
+                             $allQuestions[$chosenLines[1]],
+                             $allQuestions[$chosenLines[2]],
+                             $allQuestions[$chosenLines[3]],
+                             $allQuestions[$chosenLines[4]]);
 //create form
 echo "<form>";
 //foreach question
+$questionNumber = 0;
+$answerLocations = array();
+foreach ($chosenQuestionsRows as $currentRow)
+{
+  //get the question
+  $question = $currentRow['questionContent'];
+  $questionID = $currentRow['questionID'];
+  
   //display the question
+  echo $question;
+  echo "<br>";
   //get the answers to the question
+  $result = $mysqli -> query("SELECT * FROM SB_ANSWERS WHERE questionID='$questionID'");
+  $answers = array();
+  while($answerRow = $result->fetch_assoc())
+  {
+    $answers[] = $answerRow;
+  }
+  echo "<ul>";
+  $answerNumber = 0;
+  $answerlocations[] = array();
+  foreach($answers as $answer)
+  {
+    $answerLocations[$questionNumber][] = $answer['answerCorrect'];
+    $answerNumber = $answerNumber + 1;
+    echo "<li>".$answer['answerContent']."<input type='checkbox' name='$questionNumber,$answerNumber'>";
+    echo "<br>";
+  }
+  echo "</ul>";
+  $questionNumber = $questionNumber + 1;
   //display the answers to the question
-  //store the answers to the question (hidden form element)
+}
 echo "</form>";
-//END SCRIPT!
+//function shuffles the order of values in an array
+function shuffle_array($list) 
+{
+  if (!is_array($list)) 
+  {
+    return $list;
+  }
+  $keys = array_keys($list);
+  shuffle($keys);
+  $shuffled = array();
+  foreach ($keys as $key) 
+  {
+    $shuffled[$key] = $list[$key];
+  }
+  return $shuffled;
+}
+
 ?>
 
 
