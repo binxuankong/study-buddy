@@ -44,16 +44,15 @@
         <form action="">
 	<p>         
           Module Code:
-          <input type="text" name="code" value="e.g. COMP16121">
+          <input type="text" name="code" placeholder="e.g. COMP16121">
           <br><br>
           Module Name:
           <input type="text" name="name" size="50"
           value="e.g. Object Orientated Programming with Java">
           <br><br>
           Module Description:<br>
-          <textarea name="description" value="e.g. First Year Java Course 
-          for Computer Science" rows="4" cols="63">
-          </textarea>
+          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" 
+          rows="4" cols="63"></textarea>
           <br><br><br>
           <input type="submit" value="Submit Module">
         </p>
