@@ -88,7 +88,7 @@
               $result = $mysqli -> query($sql);
                        
               if ($result -> num_rows > 0) {
-                $message = "The course has already been created. Please check if all information are correct."
+                $message = "The course has already been created. Please check if all information is correct.";
               } else {
 
                 $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) "

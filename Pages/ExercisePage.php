@@ -209,6 +209,24 @@
         {
           $answers[] = $answerRow;
         }
+        //shuffle the answers
+        if(count($answers) > 1)
+        {
+          $order = array();
+          foreach($answers as $key => $answer)
+          {
+            $order[$key] = ($answer['answerID'] * rand(1, 1000)) % rand(1, 500);
+          }
+          asort($order);
+          $newAnswers = array();
+          foreach($order as $key => $orderPosition)
+          {
+            $newAnswers[] = $answers[$key];
+          }
+          $answers = $newAnswers;
+        }
+        
+        
         echo "<ul>";
         $answerNumber = 0;
         foreach($answers as $answer)
