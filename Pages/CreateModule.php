@@ -60,7 +60,7 @@
             if (empty($_POST["code"])) {
               $codeErr = "Course code is required";
             } else {
-              $code = test_input($_POST["code"]);
+              $code = strtoupper(test_input($_POST["code"]));
             }
 
             if (empty($_POST["description"])) {
@@ -70,8 +70,6 @@
             }
 
             if ($codeErr == "" and $nameErr == "" and $descriptionErr == "") {
-              $message = "Thank you for contributing to Study Buddy. The module is created successfully.";
-
               $group_dbnames = array(
                 "2015_comp10120_m3",
               );
@@ -83,15 +81,27 @@
 
               if($mysqli -> connect_error) {
                 die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
-              }
+              } 
 
-              $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) "
-              ."VALUES ('" . $name . "', '" . $code . "', '" . $description . "')";
+              $sql = "SELECT * FROM SB_MODULE_INFO WHERE moduleCourseID='" . $code . "'";
 
-              $mysqli -> query($sql);
+              $result = $mysqli -> query($sql);
+                       
+              if ($result -> num_rows > 0) {
+                $message = "The course has already been created. Please check if all information are correct."
+              } else {
+
+                $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) "
+                ."VALUES ('" . $name . "', '" . $code . "', '" . $description . "')";
+
+                $mysqli -> query($sql);
+                $message = "Thank you for contributing to Study Buddy. The module is created successfully.";
+
+              } // else
 
               $mysqli -> close();
-            }
+             
+            } // if
 
           }
 
