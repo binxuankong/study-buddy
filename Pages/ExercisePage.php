@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -35,7 +36,7 @@
                          $database_pass, $database_name);
 
     //check for connection errors kill page if found
-    if($mysqli -> connect_error) 
+    if($mysqli -> connect_error)
     {
       die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
     }
@@ -52,7 +53,7 @@
     {
       $_SESSION['questionsAccessed'] = false;
     }
-    
+
     //EXERCISE----------------------------------------------------------------//
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answered'])) //request method POST
     {
@@ -146,7 +147,7 @@
         }
         echo "</ul>";
       }
-      echo "<input type='submit'value='Submit' name='answered'>"; 
+      echo "<input type='submit'value='Submit' name='answered'>";
       echo "</form>";
     }
     else
@@ -198,7 +199,7 @@
         $questionID = $currentRow['questionID'];
         $questionArray[] = array();
         $questionArray[$questionNumber][] = $questionID;
-        
+
         //display the question
         echo $question;
         echo "<br>";
@@ -225,8 +226,8 @@
           }
           $answers = $newAnswers;
         }
-        
-        
+
+
         echo "<ul>";
         $answerNumber = 0;
         foreach($answers as $answer)
@@ -241,7 +242,7 @@
         //display the answers to the question
       }
       $_SESSION['passedQuestions'] = $questionArray;
-      echo "<input type='submit'value='Submit' name='answered'>"; 
+      echo "<input type='submit'value='Submit' name='answered'>";
       echo "</form>";
     }
   ?>
