@@ -29,7 +29,7 @@
           $answerErr = " Please input at least 2 answers";
         }
 
-        if(empty($_POST["correctAnswer"]) // At least one check box is checked
+        if(empty($_POST["correctAnswer"])) // At least one check box is checked
         {
           $answerErr = "Please check at least one answer to be correct";
         }
