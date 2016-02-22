@@ -12,24 +12,24 @@
       $question = $moduleCourseID = $answer = "";
       $questionErr = $answerErr = $moduleErr = "";
       $correctAnswer = 0;
-      if ($_SERVER["REQUEST_METHOD"] == "POST")
+      if ($_SERVER['REQUEST_METHOD'] == 'POST')
       {
         //Checks there exists a question
-        if (empty($_POST["question"]))
+        if (empty($_POST['question']))
         {
           $questionErr = "Please input a question";
         }
         else
         {
-          $question = test_input($_POST["question"]); //Sets question variable
+          $question = test_input($_POST['question']); //Sets question variable
         }
 
-        if(empty($_POST["ans1"]) or empty($_POST["ans2"])) //Checks at least 2 answers
+        if(empty($_POST['ans1']) or empty($_POST['ans2'])) //Checks at least 2 answers
         {
           $answerErr = " Please input at least 2 answers";
         }
 
-        if(empty($_POST["correctAnswer"])) // At least one check box is checked
+        if(empty($_POST['correctAnswer'])) // At least one check box is checked
         {
           $answerErr = "Please check at least one answer to be correct";
         }
