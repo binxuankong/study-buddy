@@ -14,6 +14,7 @@
       $correctAnswer = 0;
       if ($_SERVER['REQUEST_METHOD'] == 'POST')
       {
+        echo "<h1>POSTED</h1>";
         //Checks there exists a question
         if (empty($_POST['question']))
         {
