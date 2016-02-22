@@ -19,11 +19,12 @@
         {
           $questionErr = "Please input a question";
         }
-        else{
+        else
+        {
           $question = test_input($_POST["question"]); //Sets question variable
         }
 
-        if(empty($_POST["ans1"] or empty($_POST["ans2"])) //Checks at least 2 answers
+        if(empty($_POST["ans1"]) or empty($_POST["ans2"])) //Checks at least 2 answers
         {
           $answerErr = " Please input at least 2 answers";
         }
@@ -32,7 +33,6 @@
         {
           $answerErr = "Please check at least one answer to be correct";
         }
-        if
 
         if($answerErr="" and $questionErr="") //no errors
         {
@@ -93,7 +93,8 @@
         die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
       }
 
-      function test_input($data) {
+      function test_input($data) 
+      {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
