@@ -74,7 +74,7 @@
                 {
                   $answerCorrect = 0;
                 }
-                $currentAnswer = $_POST["ans".$count]
+                $currentAnswer = $_POST["ans".$count];
                 $insertAnswer = " INSERT INTO SB_ANSWERS(questionID, answerContent, answerCorrect)"
                                 ."VALUES ('" . $questionID . "', '" . $currentAnswer . "', '" . $answerCorrect . "')";
                 mysqli -> query($insertAnswer);
