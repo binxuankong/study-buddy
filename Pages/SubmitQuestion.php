@@ -53,7 +53,7 @@
 
           //Add question to question table with that module ID
           $insertQuestion =" INSERT INTO SB_QUESTIONS (moduleID, questionContent)"
-                           ."VALUES ('" .$moduleID. "', '" . $question . "')"
+                           ."VALUES ('" .$moduleID. "', '" . $question . "')";
           $mysqli -> query($insertQuestion);
 
           //Get new question ID
