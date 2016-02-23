@@ -38,11 +38,6 @@
 
           <!-- Some code from www.w3school.com -->
           <?php  
-          //Import database credentials
-          //require_once('../config.inc.php');
-          //create database conection
-          //$mysqli = new mysqli($database_host, $database_user,
-          //                     $database_pass, $database_name);
                                
           $codeErr = $nameErr = $descriptionErr = "";
           $name = $code = $description = $message = "";
@@ -125,25 +120,21 @@
           <form method="post">
 	        <p>         
           Module Code:
-
           <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>">
           <span class="error"><?php echo $codeErr;?></span>
-
           <br><br>
+
           Module Name:
           <input type="text" name="name" size="50"
           placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>">
           <span class="error"><?php echo $nameErr;?></span>
           <br><br>
+
           Module Description:<br>
-
-          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" 
-          rows="4" cols="63"></textarea>
-
           <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63"><?php echo $description;?></textarea>
           <span class="error"><?php echo $descriptionErr;?></span>
-
           <br><br><br>
+
           <input type="submit" value="Submit Module">
           </p>
           </form>
