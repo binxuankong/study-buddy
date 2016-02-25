@@ -57,22 +57,34 @@
   margin-top: 12px;
 }
 
+.pull-left a:hover {
+  text-decoration: none;
+}
+
 #webpagename {
   color: #5a5a5a;
   font-size: 28px;
   font-weight: bold;
-  margin-left: 8px;
+  margin-left: 140px;
+  text-decoration: none;
 }
 
 #webpagename:hover {
   color: #0097fa;
 }
 
-.pull-left img {
+#logo {
+  background-image: url('../Images/new_logo.png');
+  background-size: 58px 58px;
   width: 58px;
   height: 58px;
-  margin-top: -8px;
+  margin-top: 10px;
   margin-left: 80px;
+  z-index: 3;
+}
+
+#logo:hover{
+  background-image: url('../Images/home_logo.png');
 }
 
 .pull-right {
