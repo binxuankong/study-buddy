@@ -70,9 +70,6 @@
             }
 
             if ($codeErr == "" and $nameErr == "" and $descriptionErr == "") {
-              $group_dbnames = array(
-                "2015_comp10120_m3",
-              );
 
               require_once('../config.inc.php');
 
@@ -114,6 +111,7 @@
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
+            $data = filter_var($data, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
             return $data;
           }
 
@@ -130,24 +128,17 @@
           <form method="post">
 	        <p>         
           Module Code:
-
-          <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>">
+          <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>" required>
           <span class="error"><?php echo $codeErr;?></span>
-
           <br><br>
           Module Name:
           <input type="text" name="name" size="50"
-          placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>">
+          placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>" required>
           <span class="error"><?php echo $nameErr;?></span>
           <br><br>
           Module Description:<br>
-
-          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" 
-          rows="4" cols="63"></textarea>
-
-          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63"><?php echo $description;?></textarea>
+          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63" required><?php echo $description;?></textarea>
           <span class="error"><?php echo $descriptionErr;?></span>
-
           <br><br><br>
           <input type="submit" value="Submit Module">
           </p>
