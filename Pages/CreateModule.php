@@ -83,7 +83,10 @@
                 die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
               } 
 
-              $sql = "SELECT * FROM SB_MODULE_INFO WHERE moduleCourseID='" . $code . "'";
+              // Parameterise SQL statement.
+              $sql = $mysqli -> prepare("SELECT * FROM SB_MODULE_INFO WHERE moduleCourseID=?");
+              $sql -> bind_param("s", $code);
+              $sql -> execute();
 
               $result = $mysqli -> query($sql);
                        
@@ -91,8 +94,10 @@
                 $message = "The course has already been created. Please check if all information is correct.";
               } else {
 
-                $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) "
-                ."VALUES ('" . $name . "', '" . $code . "', '" . $description . "')";
+                // Parameterise SQL statement.
+                $sql = $mysqli -> prepare("INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) VALUES (?,?,?)");
+                $sql -> bind_param("sss", $name, $code, $description);
+                $sql -> execute();
 
                 $mysqli -> query($sql);
                 $message = "Thank you for contributing to Study Buddy. The module is created successfully.";
