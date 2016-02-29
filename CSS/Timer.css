@@ -1,5 +1,18 @@
 #timer-div{
-  width: 50%;
+  width: 80%;
+}
+
+#chooseAModuleLabel {
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
+#initialTimeLabel {
+  margin-top: 36px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
 }
 
 #moduleDropdown {
@@ -8,9 +21,26 @@
   display: block;
 }
 
+option {
+  font-family: sans-serif;
+  color: black;
+  font-size: px;
+}
+
 .rounded {
-  border-radius: 7px;
+  width: 80%;
+  margin: auto;
+  height: 64px;
   border: 1px solid black;
+  border-radius: 20px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
+#timerBox {
+  width: 100%;
+  height: 64px;
 }
 
 .rounded td {
@@ -27,10 +57,10 @@
 }
 
 #Start-Stop {
-  width: 100%;
+  width: 80%;
   height: 10vh;
   margin: auto;
-  background-color:	#4da5ff;
+  background-color: #4da5ff;
   display: block;
   font-family: "Comic Sans MS", cursive, sans-serif;
   text-align: center;
@@ -43,6 +73,10 @@
     1px -1px 0 #000,
     -1px 1px 0 #000,
     1px 1px 0 #000; 
+}
+
+.error {
+  color: red;
 }
 
 .nav div {
@@ -124,7 +158,6 @@
 .heading .container {
   position: relative;
   top: 88px;
-  margin-left: 290px;
 }
 
 .heading h1 {
@@ -132,6 +165,7 @@
   font-size: 58px;  
   font-family: sans-serif;
   font-weight: bold;
+  text-align: center;
 }
 
 .body .container {
@@ -139,14 +173,6 @@
   top: 56px;
   margin-left: 160px;
   margin-bottom: 168px;
-}
-
-.body p {
-  word-wrap: break-word;
-  width: 880px;
-  font-family: sans-serif;
-  color: black;
-  font-size: 18px;
 }
 
 .learn-more {
