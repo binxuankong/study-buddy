@@ -61,6 +61,11 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answered'])) //request method POST
     {
       $_SESSION['questionsAccessed'] = false;
+      $module = $_GET['module'];
+      $result = $mysqli -> query("SELECT moduleName FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+      $moduleNameRow = $result -> fetch_assoc();
+      $moduleName = $moduleNameRow['moduleName'];
+      echo "<h2>".$module.": ".$moduleName."</h2><br><br>";
       $questions = $_SESSION['passedQuestions'];
       $correctQuestions = 0;
       for($questionCount = 0; $questionCount < count($questions); $questionCount++)
@@ -75,7 +80,9 @@
             if($result->num_rows == 1) //this is correct
             {
               $questionInfo = $result->fetch_assoc();
-              echo $questionInfo['questionContent']."<br><ul>";
+              echo "<p>";
+              echo $questionCount + 1;
+              echo ". ".$questionInfo['questionContent']."<br><ul>";
             }
             else //this cannot happen
             {
@@ -86,35 +93,38 @@
           {
             $result = $mysqli -> query("SELECT * FROM SB_ANSWERS WHERE answerID='$question[$count]'");
             $answerInfo = $result->fetch_assoc();
-            echo "<li>".$answerInfo['answerContent'];
+            echo "<li>";
             $checkbox = "$questionCount,$count";
             if(isset($_POST[$checkbox]))
             {
-              echo "<input type='checkbox' name='$checkbox' disabled checked><br></li>";
+              echo "<input type='checkbox' name='$checkbox' disabled checked>";
             }
             else
             {
-              echo "<input type='checkbox' name='$checkbox' disabled><br></li>";
+              echo "<input type='checkbox' name='$checkbox' disabled>";
             }
             if(($answerInfo['answerCorrect'] != 0) Xor (isset($_POST[$checkbox]))) //user answered incorrectly
             {
               $correctlyAnswered = false;
             }
+            echo $answerInfo['answerContent']."</li>";
           }
         }
         echo "</ul>";
         if($correctlyAnswered)
         {
           $correctQuestions++;
-          echo "CORRECT! <br>";
+          echo "<p id='correct'>Correct!</p><br>";
         }
         else
         {
-          echo "Incorrect <br>";
+          echo "<p id='incorrect'>INCORRECT!</p><br>";
           $_SESSION['incorrectQuestions'][] = $question[0];
         }
       }
+      echo "</p>";
       $timeDifference = (2 * $correctQuestions) + count($questions);
+      echo "<br>";
       echo "<button id='closeButton' onclick=''>Close</button>";
     }
     else if($_SESSION['questionsAccessed'])

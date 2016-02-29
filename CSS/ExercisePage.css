@@ -94,7 +94,28 @@
   margin-right: 26px;
 }
 
+#correct {
+  font-weight: bold;
+  color: green;
+}
+
+#incorrect {
+  font-weight: bold;
+  color: red;
+}
+
 .body input[type="submit"]{
+  text-align: center;
+  background-color: #4da5ff;
+  border: 2px solid black;
+  width: 160px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: black;
+  font-size: 22px;
+}
+
+.body button{
   text-align: center;
   background-color: #4da5ff;
   border: 2px solid black;
