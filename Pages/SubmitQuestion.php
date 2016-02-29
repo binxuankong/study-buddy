@@ -151,7 +151,7 @@
              <br>
              Enter the question:
              <br>
-             <textarea name="question" rows="3" cols="80">
+             <textarea name="question" rows="3" cols="80" required>
              </textarea>
              <br>
              Enter up to 5 Answers for this question:

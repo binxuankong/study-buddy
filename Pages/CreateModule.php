@@ -65,9 +65,6 @@
             }
 
             if ($codeErr == "" and $nameErr == "" and $descriptionErr == "") {
-              $group_dbnames = array(
-                "2015_comp10120_m3",
-              );
 
               require_once('../config.inc.php');
 
@@ -78,7 +75,10 @@
                 die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
               } 
 
-              $sql = "SELECT * FROM SB_MODULE_INFO WHERE moduleCourseID='" . $code . "'";
+              // Parameterise SQL statement.
+              $sql = $mysqli -> prepare("SELECT * FROM SB_MODULE_INFO WHERE moduleCourseID=?");
+              $sql -> bind_param("s", $code);
+              $sql -> execute();
 
               $result = $mysqli -> query($sql);
                        
@@ -86,8 +86,10 @@
                 $message = "The course has already been created. Please check if all information is correct.";
               } else {
 
-                $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) "
-                ."VALUES ('" . $name . "', '" . $code . "', '" . $description . "')";
+                // Parameterise SQL statement.
+                $sql = $mysqli -> prepare("INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) VALUES (?,?,?)");
+                $sql -> bind_param("sss", $name, $code, $description);
+                $sql -> execute();
 
                 $mysqli -> query($sql);
                 $message = "Thank you for contributing to Study Buddy. The module is created successfully.";
@@ -104,6 +106,7 @@
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
+            $data = filter_var($data, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
             return $data;
           }
 
@@ -120,18 +123,18 @@
           <form method="post">
 	        <p>         
           Module Code:
-          <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>">
+          <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>" required>
           <span class="error"><?php echo $codeErr;?></span>
           <br><br>
 
           Module Name:
           <input type="text" name="name" size="50"
-          placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>">
+          placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>" required>
           <span class="error"><?php echo $nameErr;?></span>
           <br><br>
-
+          
           Module Description:<br>
-          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63"><?php echo $description;?></textarea>
+          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63" required><?php echo $description;?></textarea>
           <span class="error"><?php echo $descriptionErr;?></span>
           <br><br><br>
 
