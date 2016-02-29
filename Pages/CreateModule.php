@@ -52,9 +52,6 @@
               $nameErr = "Course name is required";
             } else {
               $name = test_input($_POST["name"]);
-              if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-                $nameErr = "Only letters and white space allowed"; 
-              }
             }
 
             if (empty($_POST["code"])) {
@@ -136,9 +133,8 @@
           placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>" required>
           <span class="error"><?php echo $nameErr;?></span>
           <br><br>
-          Module Description:<br>
+          Module Description: <span class="error"><?php echo $descriptionErr;?></span><br>
           <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63" required><?php echo $description;?></textarea>
-          <span class="error"><?php echo $descriptionErr;?></span>
           <br><br><br>
           <input type="submit" value="Submit Module">
           </p>
