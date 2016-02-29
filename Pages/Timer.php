@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Timer.css">
     <script src="./TimerScript.js"></script>
-    <title>Template</title>
+    <title>Set Timer</title>
   </head>
 
   <body onload="displayTime()">
@@ -21,12 +21,21 @@
         </ul>
       </div>
     </div>
-    
+  
     <div class="heading">
       <div class="container">
         <h1>Timer</h1>
       </div>
     </div>
+
+    <div class="body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-10">
+
+
     <div id="timer-div" class="centered">
       <?php
         require_once('../config.inc.php');
@@ -48,9 +57,9 @@
         $mysqli -> close();
       ?>
       <div>
-        <h5 id="initialTimeLabel">Set an initial time</h5>
+        <h5 id="initialTimeLabel">Set an initial time</h5><br>
         <div class="rounded" >
-          <table width="100%">
+          <table id="timerBox">
             <tr>
               <td width="10%"></td>
               <td id="time" width="80%">Something has gone badly wrong</td>
@@ -61,12 +70,17 @@
             </tr>
           </table>
         </div>
+      </div><br>
+	    <button id="Start-Stop" onclick="clickButton();">Start</button>
+    </div>
+
+          </div>
+          <div class="col-md-1">
+          </div>
+        </div>
       </div>
-      <div>
-      </div>
-      <br>
-	    <button id="Start-Stop" onclick="clickButton();">Start</button
-	  </div>
+    </div>
+
     <div class="learn-more">
       <div class="container">
         <div class="row">
