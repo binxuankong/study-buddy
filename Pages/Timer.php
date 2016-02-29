@@ -12,7 +12,7 @@
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
-           <a href="../index.html"><img src="../Images/new_logo.png" alt="Studdy Buddy">
+           <a href="../index.html"><div id="logo"></div>
            <li id="webpagename">Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
@@ -86,7 +86,7 @@
           <div class="col-md-3">
             <h3>Feedback</h3>
             <p>Contact us if you encounter any bugs or problems and let us solve your problems.</p>
-            <p><a href="Feedback.html">Report a bug</a></p>
+            <p><a href="Feedback.html">Send a feedback</a></p>
           </div>
         </div>
       </div>

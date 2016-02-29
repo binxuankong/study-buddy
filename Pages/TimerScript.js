@@ -96,6 +96,6 @@ function openWindow()
   document.getElementById("moduleDropdown").disabled = false;
   document.getElementById("initialTimeLabel").innerHTML = "Set an initial time:";
   document.getElementById("Start-Stop").innerHTML = "Start";
-  var myWindow = window.open(mylink, windowname, "type=fullwindow,fullscreen=yes,height=screen.availHeight,width=screen.availWidth,left=0,top=0,resizeable=no");
+  var myWindow = window.open(mylink, windowname, "type=fullwindow,fullscreen=yes,height=screen.availHeight,width=screen.availWidth,left=0,top=0,resizeable=no,scrollbars=yes");
   myWindow.focus();
 }

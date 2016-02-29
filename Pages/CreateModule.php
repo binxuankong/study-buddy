@@ -11,7 +11,7 @@
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
-           <a href="../index.html"><img src="../Images/new_logo.png" alt="Study Buddy">
+           <a href="../index.html"><div id="logo"></div>
            <li id="webpagename">Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
@@ -38,11 +38,6 @@
 
           <!-- Some code from www.w3school.com -->
           <?php  
-          //Import database credentials
-          //require_once('../config.inc.php');
-          //create database conection
-          //$mysqli = new mysqli($database_host, $database_user,
-          //                     $database_pass, $database_name);
                                
           $codeErr = $nameErr = $descriptionErr = "";
           $name = $code = $description = $message = "";
@@ -60,7 +55,7 @@
             if (empty($_POST["code"])) {
               $codeErr = "Course code is required";
             } else {
-              $code = test_input($_POST["code"]);
+              $code = strtoupper(test_input($_POST["code"]));
             }
 
             if (empty($_POST["description"])) {
@@ -70,8 +65,6 @@
             }
 
             if ($codeErr == "" and $nameErr == "" and $descriptionErr == "") {
-              $message = "Thank you for contributing to Study Buddy. The module is created successfully.";
-
               $group_dbnames = array(
                 "2015_comp10120_m3",
               );
@@ -83,15 +76,27 @@
 
               if($mysqli -> connect_error) {
                 die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
-              }
+              } 
 
-              $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) "
-              ."VALUES ('" . $name . "', '" . $code . "', '" . $description . "')";
+              $sql = "SELECT * FROM SB_MODULE_INFO WHERE moduleCourseID='" . $code . "'";
 
-              $mysqli -> query($sql);
+              $result = $mysqli -> query($sql);
+                       
+              if ($result -> num_rows > 0) {
+                $message = "The course has already been created. Please check if all information is correct.";
+              } else {
+
+                $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) "
+                ."VALUES ('" . $name . "', '" . $code . "', '" . $description . "')";
+
+                $mysqli -> query($sql);
+                $message = "Thank you for contributing to Study Buddy. The module is created successfully.";
+
+              } // else
 
               $mysqli -> close();
-            }
+             
+            } // if
 
           }
 
@@ -118,15 +123,18 @@
           <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>">
           <span class="error"><?php echo $codeErr;?></span>
           <br><br>
+
           Module Name:
           <input type="text" name="name" size="50"
           placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>">
           <span class="error"><?php echo $nameErr;?></span>
           <br><br>
+
           Module Description:<br>
           <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63"><?php echo $description;?></textarea>
           <span class="error"><?php echo $descriptionErr;?></span>
           <br><br><br>
+
           <input type="submit" value="Submit Module">
           </p>
           </form>
