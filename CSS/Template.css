@@ -77,7 +77,6 @@
 .heading .container {
   position: relative;
   top: 88px;
-  margin-left: 290px;
 }
 
 .heading h1 {
@@ -85,6 +84,7 @@
   font-size: 58px;  
   font-family: sans-serif;
   font-weight: bold;
+  text-align: center;
 }
 
 .body .container {
@@ -94,7 +94,7 @@
   margin-bottom: 168px;
 }
 
-.body p {
+.body {
   word-wrap: break-word;
   width: 880px;
   font-family: sans-serif;
@@ -131,7 +131,7 @@
 }
 
 .learn-more a {
-  color: #0097fa;
+  color: #4da5ff;
 }
 
 .error {
