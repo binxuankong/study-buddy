@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../CSS/Template.css">
     <script> 
       $(function(){
-        $("#header").load("header.html"); 
+        $("#header").load("header.php"); 
         $("#footer").load("footer.html"); 
       });
     </script>
