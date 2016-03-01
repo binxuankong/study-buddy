@@ -94,7 +94,7 @@
   margin-bottom: 168px;
 }
 
-.body p {
+.body {
   word-wrap: break-word;
   width: 880px;
   font-family: sans-serif;
@@ -131,7 +131,7 @@
 }
 
 .learn-more a {
-  color: #0097fa;
+  color: #4da5ff;
 }
 
 .error {
