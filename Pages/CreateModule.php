@@ -34,65 +34,86 @@
 
           <!-- Some code from www.w3school.com -->
           <?php  
-                               
-          $codeErr = $nameErr = $descriptionErr = "";
-          $name = $code = $description = $message = "";
+          if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
+          {           
+            $submittingUserID = $_SESSION['userID'];        
+            $codeErr = $nameErr = $descriptionErr = "";
+            $name = $code = $description = $message = "";
 
-          if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (empty($_POST["name"])) {
-              $nameErr = "Course name is required";
-            } else {
-              $name = test_input($_POST["name"]);
-            }
-
-            if (empty($_POST["code"])) {
-              $codeErr = "Course code is required";
-            } else {
-              $code = strtoupper(test_input($_POST["code"]));
-            }
-
-            if (empty($_POST["description"])) {
-              $descriptionErr = "Course description is required";
-            } else {
-              $description = test_input($_POST["description"]);
-            }
-
-            if ($codeErr == "" and $nameErr == "" and $descriptionErr == "") {
-
-              require_once('../config.inc.php');
-
-              $mysqli = new mysqli($database_host, $database_user,
-                                   $database_pass, $database_name);              
-
-              if($mysqli -> connect_error) {
-                die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
-              } 
-
-              // Parameterise SQL statement.
-              $sql = $mysqli -> prepare("SELECT * FROM SB_MODULE_INFO WHERE moduleCourseID=?");
-              $sql -> bind_param("s", $code);
-              $sql -> execute();
-
-              $result = $mysqli -> query($sql);
-                       
-              if ($result -> num_rows > 0) {
-                $message = "The course has already been created. Please check if all information is correct.";
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              if (empty($_POST["name"])) {
+                $nameErr = "Course name is required";
               } else {
+                $name = test_input($_POST["name"]);
+              }
+
+              if (empty($_POST["code"])) {
+                $codeErr = "Course code is required";
+              } else {
+                $code = strtoupper(test_input($_POST["code"]));
+              }
+
+              if (empty($_POST["description"])) {
+                $descriptionErr = "Course description is required";
+              } else {
+                $description = test_input($_POST["description"]);
+              }
+
+              if ($codeErr == "" and $nameErr == "" and $descriptionErr == "") {
+
+                require_once('../config.inc.php');
+
+                $mysqli = new mysqli($database_host, $database_user,
+                                     $database_pass, $database_name);              
+
+                if($mysqli -> connect_error) {
+                  die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
+                } 
 
                 // Parameterise SQL statement.
-                $sql = $mysqli -> prepare("INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) VALUES (?,?,?)");
-                $sql -> bind_param("sss", $name, $code, $description);
+                $result = array();
+                $resultRow = array();
+                $sql = $mysqli -> prepare("SELECT * FROM SB_MODULE_INFO WHERE moduleCourseID=?");
+                $sql -> bind_param("s", $code);
                 $sql -> execute();
+                $sql -> store_result();
+                $sql -> bind_result($fetchedModuleID, $fetchedUserID, $fetchedModuleName, $fetchedModuleCourseID, $fetchedModuleDescription);
+                while($sql -> fetch())
+                {
+                  $resultRow['moduleID'] = $fetchedModuleID;
+                  $resultRow['userID'] = $fetchedUserID;
+                  $resultRow['moduleName'] = $fetchedModuleName;
+                  $resultRow['moduleCourseID'] = $fetechedModuleCourseID;
+                  $resultRow['moduleDescription'] = $fetechedModuleDescription;
+                  $result[] = $resultRow;
+                }
+                $sql -> close();     
+                if (count($result) > 0)
+                {
+                  $message = "The course entered already exists. Please check if all information is correct.";
+                }
+                else
+                {
 
-                $mysqli -> query($sql);
-                $message = "Thank you for contributing to Study Buddy. The module is created successfully.";
+                  // Parameterise SQL statement.
+                  $sql = $mysqli -> prepare("INSERT INTO SB_MODULE_INFO (userID, moduleName, moduleCourseID, moduleDescription) VALUES (?,?,?,?)");
+                  $sql -> bind_param("ssss", $submittingUserID, $name, $code, $description);
+                  $sql -> execute();
+                  $sql -> close();
+                  $message = "Thank you for contributing to Study Buddy. The module has been created successfully.";
 
-              } // else
+                } // else
 
-              $mysqli -> close();
-             
-            } // if
+                $mysqli -> close();
+               
+              } // if
 
+            }
+          }
+          else
+          {
+            echo "You must be signed in to create create a module.<br>"
+                 ."<a href='login.php'>Please click here to sign in or register</a>";
           }
 
           function test_input($data) {
@@ -129,12 +150,11 @@
           Module Description: <span class="error"><?php echo $descriptionErr;?></span><br>
           <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63" required><?php echo $description;?></textarea>
           <br><br><br>
-
+          
           <input type="submit" value="Submit Module">
           </p>
           </form>
-
-	      
+          
           </div>
           <div class="col-md-1">
           </div>
