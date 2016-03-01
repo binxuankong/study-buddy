@@ -3,7 +3,8 @@
 
   <head>
     <link rel="stylesheet" href="CSS/bootstrap.css">
-    <link rel="stylesheet" href="CSS/HomePage.css"> 
+    <link rel="stylesheet" href="CSS/HomePage.css">
+    <script src="Pages/jquery.js"></script>
     <title>Study Buddy</title>
   </head>
 
@@ -11,7 +12,7 @@
     <div class="nav">
       <div class="container">
         <ul class="pull-left">
-           <a href="index.html"><img src="Images/new_logo.png" alt="Study Buddy">
+           <a href="index.html"><div id="logo"></div>
            <li id="webpagename">Study Buddy</li></a>
         </ul>
         <ul class="pull-right">
@@ -34,9 +35,9 @@
           <tr>
             <td id="module"><a href="./Pages/CreateModule.php">Submit a module</a></td>
             <td id="question"><a href="./Pages/SubmitQuestion.php">Submit a question</a></td>
-            <td id="getstarted"><a href="#">Get started</a></td>
+            <td id="getstarted"><a href="./Pages/Timer.php">Start timer</a></td>
 
-            <td id="bugreport"><a href="./Pages/Feedback.php">Feedback</a></td>
+            <td id="bugreport"><a href="#">View questions</a></td>
 
           </tr>
         </tbody>
@@ -63,8 +64,7 @@
             <h3>Feedback</h3>
 
             <p>Contact us if you encounter any bugs or problems and let us solve your problems.</p>
-            <p><a href="./Pages/Feedback.php">Report a bug</a></p>
-
+            <p><a href="./Pages/Feedback.html">Send a feedback</a></p>
           </div>
         </div>
       </div>
