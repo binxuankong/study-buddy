@@ -119,7 +119,7 @@
         else
         {
           echo "<p id='incorrect'>INCORRECT!</p><br>";
-          $_SESSION['incorrectQuestions'][] = $question[0]; //This array stores the previosuly incorrect questions.
+          $_SESSION['incorrectQuestions'][] = $question[0]; //This array stores the previosuly incorrect questionS iD
         }
       }
       echo "</p>";
@@ -179,40 +179,11 @@
       //get all questions from module
       $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID'");
       $allQuestions = array();
+
       while($row = $result->fetch_assoc())
       {
         $allQuestions[] = $row;
       }
-      //Get User Rating
-
-      //Get length of InccorectAnswered Array
-      $incorrectQuestionsLength = count($incorrectQuestions)
-      //Calculate number of question to come from IncorrectAnswered Array
-      if(incorrectQuestionsLength == 0)
-      {
-        $incorrectQuestionsRequired = 0;
-
-      } else if (incorrectQuestions > 24)
-      {
-          $incorrectQuestionsRequired = 5;
-      }
-      else {
-        $incorrectQuestionsRequired = $incorrectQuestionsLength / 5 + 1;
-      }
-      //Chose questions from IncorrectAnswered Array - put in chosen lines
-      while(count($chosenLines) < $incorrectQuestionsRequired)
-      {
-
-        $randomNumber = rand(1, incorrectQuestionsLength);
-        $randomNumber--;
-        if(!(in_array($randomNumber, $chosenLines)))
-        {
-          $chosenLines[] = $randomNumber;
-        }
-      }
-
-
-
 
       $chosenLines = array();
       $numberOfQuestions = 5;
@@ -222,7 +193,51 @@
       }
 
 
-      //Uses this to populate question into chosen lines.
+      //Get User Rating
+
+      //Get length of InccorectAnswered Array
+      $incorrectQuestionsLength = count($incorrectQuestions);
+      //Calculate number of question to come from IncorrectAnswered Array
+      if($incorrectQuestionsLength == 0)
+      {
+        $incorrectQuestionsRequired = 0;
+
+      } else if ($incorrectQuestions > 24)
+      {
+          $incorrectQuestionsRequired = 5;
+      }
+      else {
+        $incorrectQuestionsRequired = $incorrectQuestionsLength / 5 + 1;
+      }
+      //Chose questions from IncorrectAnswered Array - put in chosen lines
+
+      while(count($chosenLines) < $incorrectQuestionsRequired)
+      {
+
+        $randomNumber = rand(1, $incorrectQuestionsLength);
+        $randomNumber--;
+
+        //Get index of this question in allQuestions
+        $allQuestionIndex = 0;
+        $found = false;
+
+
+        //Assuming allQuestions is in order by Question ID starting at 0,
+        //element in nth position has a question ID of n
+        $allQuestionIndex = $chosenLines[$randomNumber];
+
+
+
+
+
+        if(!(in_array($allQuestionIndex, $chosenLines)))
+        {
+          $chosenLines[] = $allQuestionIndex;
+        }
+      }
+
+
+      //Uses this to populate the other questions into chosen lines.
       while(count($chosenLines) < $numberOfQuestions)
       {
 
