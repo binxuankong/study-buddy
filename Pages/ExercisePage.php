@@ -183,6 +183,10 @@
       {
         $allQuestions[] = $row;
       }
+
+
+
+
       //choose 5 random questions
       $chosenLines = array();
       $numberOfQuestions = 5;
@@ -268,6 +272,26 @@
       echo "<br><br>";
       echo "<input type='submit'value='Submit' name='answered'>";
       echo "</form>";
+    }
+
+    function randomNormal($mean, $sd)
+    {
+      $w = $output1 = $output2;
+      do {
+          $input1 = 2.0 * mt_rand()/mt_getrandmax() - 1.0;
+          $input2 = 2.0 * mt_rand()/mt_getrandmax() - 1.0;
+
+          $w = $input1 * $input1 + $input2 * $input2;
+
+         } while ($w >= 1);
+
+
+      $w = sqrt( (-2.0 * log($w)) / $w);
+      $output1 = $input1 * $w;
+      $output2 = $input2 * $w;
+
+      return round(($output1 * $sd + $mean), 0,1);
+
     }
   ?>
 
