@@ -4,6 +4,13 @@
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Template.css">
+    <script src="jquery.js"></script>
+    <script> 
+      $(function(){
+        $("#header").load("header.html"); 
+        $("#footer").load("footer.html"); 
+      });
+    </script>
     <title>Submit Question</title>
   </head>
 
@@ -102,18 +109,7 @@
         return $data;
       }
     ?>
-    <div class="nav">
-      <div class="container">
-        <ul class="pull-left">
-           <a href="../index.html"><div id="logo"></div>
-           <li id="webpagename">Study Buddy</li></a>
-        </ul>
-        <ul class="pull-right">
-          <li><a href="#"><img src="../Images/new_user.png" alt="User Profile"></a></li>
-          <li id="signup"><a href="#">Sign Up/Log In</a></li>
-        </ul>
-      </div>
-    </div>
+    <div id="header"></div>
 
     <div class="heading">
       <div class="container">
@@ -135,7 +131,7 @@
                 die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
               }
               $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO");
-              echo '<br><h5 id="chooseAModuleLabel">Choose a module to add a question to</h5><br><select id="moduleDropdown" name="module">';
+              echo '<br><p>Choose a module to add a question to</p><select id="moduleDropdown" name="module">';
               echo "<option value='Choose a module'>Choose a module</option>";
               while($row = $result->fetch_assoc())
               {
@@ -153,7 +149,7 @@
              <br>
              <textarea name="question" rows="3" cols="80">
              </textarea>
-             <br>
+             <br><br>
              Enter up to 5 Answers for this question:
              <br>
              (check any answers that are correct)
@@ -185,30 +181,7 @@
       </div>
     </div>
 
-    <div class="learn-more">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3">
-            <h2><img src="../Images/new_logo.png" alt="Study Buddy"></img>Study Buddy</h2>
-          </div>
-          <div class="col-md-3">
-            <h3>About Us</h3>
-            <p>The team behind this website is the M3 Group of the School of Computer Science from the University of Manchester.</p>
-            <p><a href="#">Learn more about each members of the team</a></p>
-          </div>
-          <div class="col-md-3">
-            <h3>Get Started</h3>
-            <p>Stop wasting precious time and come join us now to start your revision.</p>
-            <p><a href="#">Get going with Study Buddy</a></p>
-          </div>
-          <div class="col-md-3">
-            <h3>Feedback</h3>
-            <p>Contact us if you encounter any problems or if you have any suggestions to improve our website and let us solve your problems.</p>
-            <p><a href="Feedback.html">Send a feedback</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="footer"></div>
 
   </body>
 </html>
