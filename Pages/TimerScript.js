@@ -6,17 +6,23 @@ var chosenTime;
 
 function increaseTime()
 {
-  time = time + 30;
-  displayTime();
+  if (!start)
+  {
+    time = time + 30;
+    displayTime();
+  }
 }
 
 function decreaseTime()
 {
-  if(!(time - 30 < 0))
+  if (!start)
   {
-    time = time - 30;
+    if(!(time - 30 < 0))
+    {
+      time = time - 30;
+    }
+    displayTime();
   }
-  displayTime();
 }
 
 function tick()

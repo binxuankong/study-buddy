@@ -28,19 +28,18 @@
  
         <p>
           We welcome any feedback or comments you may have about our application.
-      
-          <form action="MAILTO:benlister010@gmail.com" method="post" enctype="text/plain">
-          <p>      
+          <form action = "MAILTO:benlister010@gmail.com" method="post" enctype="text/plain">
+          <br>      
           Subject:<br>
-          <input type:"text" name="subject" size="51" required> <br>
+          <input type:"text" name="subject" size="51"><br><br>
+
           Your Comments:<br>
           <textarea name="Comments" rows="10" cols="50" required>
           </textarea> <br><br>
+        </p>
 		      
           <input type="submit" value="Send Feedback">	
-          </p>	
           </form>
-        </p>
 
           </div>
           <div class="col-md-1">

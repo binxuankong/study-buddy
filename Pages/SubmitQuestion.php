@@ -143,8 +143,7 @@
              <br>
              Enter the question:
              <br>
-             <textarea name="question" rows="3" cols="80" required>
-             </textarea>
+             <textarea name="question" rows="3" cols="80"></textarea>
              <br><br>
              Enter up to 5 Answers for this question:
              <br>

@@ -135,20 +135,18 @@
           Module Code:
           <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>" required>
           <span class="error"><?php echo $codeErr;?></span>
-          <br><br>
+          </p><br>
 
           Module Name:
           <input type="text" name="name" size="50"
           placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>" required>
           <span class="error"><?php echo $nameErr;?></span>
-          <br><br>
+          </p><br>
 
           Module Description: <span class="error"><?php echo $descriptionErr;?></span><br>
           <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63" required><?php echo $description;?></textarea>
           <br><br><br>
-          
           <input type="submit" value="Submit Module">
-          </p>
           </form>
           
           </div>
