@@ -165,7 +165,7 @@
     }
     else
     {
-      $_SESSION['questionsAccessed'];
+      $_SESSION['questionsAccessed'] = true;
       //get desired module
       $module = $_GET['module'];
       //get module name
