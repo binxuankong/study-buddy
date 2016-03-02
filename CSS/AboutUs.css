@@ -1,0 +1,186 @@
+table {
+  width: 100%;
+  margin-top: 32px;
+  background-color: #f7f7f7;
+}
+
+td {
+  height: 282px;
+  color: #5a5a5a;
+  font-size: 22px;  
+  font-family: sans-serif;
+  text-align: center;
+  border: 5px white solid;
+}
+
+#theTeam img{
+  height: 180px;
+  width: 180px;
+  margin-bottom: 28px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nav div {
+  background-color: #f7f7f7;
+  top: -2px;
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+}
+
+.pull-left {
+  margin-top: 12px;
+}
+
+.pull-left a:hover {
+  text-decoration: none;
+}
+
+#webpagename {
+  color: #5a5a5a;
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: 140px;
+  text-decoration: none;
+}
+
+#webpagename:hover {
+  color: #0097fa;
+}
+
+#logo {
+  background-image: url('../Images/new_logo.png');
+  background-size: 58px 58px;
+  width: 58px;
+  height: 58px;
+  margin-top: 10px;
+  margin-left: 80px;
+  z-index: 3;
+}
+
+#logo:hover{
+  background-image: url('../Images/home_logo.png');
+}
+
+.pull-right {
+  margin-top: 22px;
+}
+
+.pull-right img {
+  position: relative;
+  margin-top: -3px;
+  width: 26px;
+  height: 26px;
+}
+
+.nav a {
+  color: #5a5a5a;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 20px 6px;
+  text-transform: uppercase;
+}
+
+#signup {
+  margin-right: 60px;
+}
+
+.nav li {
+  display: inline;
+  text-transform: none;
+}
+
+.heading {
+  width: 100%;
+  height: 200px;
+  background-color: #4da5ff;
+}
+
+.heading .container {
+  position: relative;
+  top: 88px;
+}
+
+.heading h1 {
+  color: black;
+  font-size: 58px;  
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+.body .container {
+  position: relative;
+  top: 56px;
+  margin-left: 160px;
+  margin-bottom: 168px;
+}
+
+.body h2 {
+  color: black;
+  font-size: 36px;  
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 86px;
+  text-align: center;
+}
+
+.body {
+  word-wrap: break-word;
+  width: 880px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
+#moduleDropdown {
+  width: 50%;
+  display: block;
+}
+
+.body input[type="submit"]{
+  text-align: center;
+  background-color: #4da5ff;
+  border: 1px solid black;
+  width: 160px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
+.learn-more {
+  background-color: #f7f7f7;
+}
+
+.learn-more h2 {
+  margin-top: 2px;
+  font-family: sans-serif;
+  color: #5a5a5a;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.learn-more img {
+  margin-top: -8px;
+  margin-left: -44px;
+  position: relative;
+  width: 58px;
+  height: 58px;
+}
+
+.learn-more h3 {
+  margin-top: 20px;
+  font-family: sans-serif;
+  color: #5a5a5a;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.learn-more a {
+  color: #4da5ff;
+}
+
+.error {
+  color: red;
+}
