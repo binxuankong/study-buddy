@@ -41,10 +41,12 @@
                       ."Surname:<br><input name='surname' type='text'><br>"
                       ."Email address:<br><input name='email' type='email'><br>"
                       ."Username:<br><input name='username' type='text'><br>"
-                      ."Password:<br><input name='password' type='password'><br>"
+                      ."Password:<br><input name='password' type='password'>"
+                      ."<br>"
                       ."Confirm password:<br><input name='passwordConfirm' "
                       ."type='password'><br>"
-                      ."<input name='registered' type='submit' value='Register'>"
+                      ."<input name='registered' type='submit' "
+                      ."value='Register'>"
                     ."</form>";
             }
             //else if the user filled in the registration form
@@ -77,14 +79,19 @@
                   $passwordHash = hash("sha512", $saltedPasswordPreHash);
                   
                   //insert all user info
-                  $sql = $mysqli -> prepare("INSERT INTO SB_USER_INFO (userFirstName, userSurname, userEmail,  userScreenName) VALUES (?,?,?,?)");
-                  $sql -> bind_param("ssss", $firstName, $surname, $email, $username);
+                  $sql = $mysqli -> prepare("INSERT INTO SB_USER_INFO "
+                                            ."(userFirstName, userSurname, "
+                                            ."userEmail,  userScreenName) "
+                                            ."VALUES (?,?,?,?)");
+                  $sql -> bind_param("ssss", $firstName, $surname, $email, 
+                                     $username);
                   $sql -> execute();
                   $sql -> close();
                   //retrieve the userID
                   $resultUID = array();
                   $resultUIDRow = array();
-                  $sql = $mysqli -> prepare("SELECT userID FROM SB_USER_INFO WHERE userScreenName=?");
+                  $sql = $mysqli -> prepare("SELECT userID FROM SB_USER_INFO "
+                                            ."WHERE userScreenName=?");
                   $sql -> bind_param("s", $username);
                   $sql -> execute();
                   $sql -> store_result();
@@ -101,8 +108,11 @@
                     //get the relevant user's ID
                     $userID = $resultUID[0]['userID'];
                     //insert the hashed password and the salt
-                    $sql = $mysqli -> prepare("INSERT INTO SB_LOGIN_CREDENTIALS (userID, userPasswordHash, userSalt) VALUES (?,?,?)");
-                    $sql -> bind_param("sss", $userID, $passwordHash, $hexedSalt);
+                    $sql = $mysqli -> prepare("INSERT INTO SB_LOGIN_CREDENTIALS"
+                                              ." (userID, userPasswordHash, "
+                                              ."userSalt) VALUES (?,?,?)");
+                    $sql -> bind_param("sss", $userID, $passwordHash, 
+                                       $hexedSalt);
                     $sql -> execute();
                     $sql -> close();
                   }
@@ -218,11 +228,13 @@
                 //get user credentials from DB
                 $resultCRED = array();
                 $resultCREDRow = array();
-                $sql = $mysqli -> prepare("SELECT * FROM SB_USER_INFO WHERE userScreenName=?");
+                $sql = $mysqli -> prepare("SELECT * FROM SB_USER_INFO WHERE "
+                                          ."userScreenName=?");
                 $sql -> bind_param("s", $username);
                 $sql -> execute();
                 $sql -> store_result();
-                $sql -> bind_result($userID, $userScreenName, $userFirstName, $userSurname, $userEmail);
+                $sql -> bind_result($userID, $userScreenName, $userFirstName, 
+                                    $userSurname, $userEmail);
                 while($sql -> fetch())
                 {
                   $resultCREDRow['userID'] = $userID;
@@ -236,7 +248,8 @@
                 if(count($resultCRED) == 0)
                 {
                   //incorrect username
-                  //do not need to do anything as this will be tested for again
+                  //do not need to do anything as this has the same error as
+                  //incorrect password
                 }
                 else if(count($resultCRED) == 1)
                 {
@@ -244,13 +257,10 @@
                   $userID = $userIDArray['userID'];
                   $username = $userIDArray['userScreenName'];
                   //get the user credentials
-                  $query = "SELECT * FROM SB_LOGIN_CREDENTIALS WHERE "
-                           ."userID='$userID'";
-                  $resultCRED2 = $mysqli -> query($query);
-                  
                   $resultCRED2 = array();
                   $resultCRED2Row = array();
-                  $sql = $mysqli -> prepare("SELECT * FROM SB_LOGIN_CREDENTIALS WHERE userID=?");
+                  $sql = $mysqli -> prepare("SELECT * FROM SB_LOGIN_CREDENTIALS"
+                                            ." WHERE userID=?");
                   $sql -> bind_param("s", $userID);
                   $sql -> execute();
                   $sql -> store_result();
@@ -295,8 +305,8 @@
                 else
                 {
                   //THIS SHOULD NEVER EVER HAPPEN
-                  echo "<a href='./Feedback.php'>Catastrophic failure: multiple "
-                       ."users. Please click here to report this using the "
+                  echo "<a href='./Feedback.php'>Catastrophic failure: multiple"
+                       ." users. Please click here to report this using the "
                        ."feedback form</a>";
                 }
                 //if successfully logged in
@@ -324,7 +334,8 @@
                       ."</form>";
                 }
               }
-              //else no attempt to use page has been made so display standard form
+              //else no attempt to use page has been made 
+              //so display standard form
               else
               {
                 //display standard login form
@@ -351,7 +362,8 @@
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
-            $data = filter_var($data, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+            $data = filter_var($data, FILTER_SANITIZE_STRING, 
+                               FILTER_FLAG_STRIP_HIGH);
             return $data;
           }
         ?>
