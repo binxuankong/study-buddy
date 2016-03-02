@@ -143,7 +143,7 @@
              <br>
              Enter the question:
              <br>
-             <textarea name="question" rows="3" cols="80"></textarea>
+             <textarea name="question" rows="3" cols="80" placeholder='e.g. What is the value of the $test in the following php statement, $test  = false or true;'></textarea>
              <br><br>
              Enter up to 5 Answers for this question:
              <br>

@@ -57,12 +57,12 @@
                  || empty($_POST['passwordConfirm'])))
               {
                 //store the form values for use.
-                $firstName = $_POST['firstName'];
-                $surname = $_POST['surname'];
-                $email = $_POST['email'];
-                $username = $_POST['username'];
-                $password = $_POST['password'];
-                $passwordConfirm = $_POST['passwordConfirm'];
+                $firstName = test_input($_POST['firstName']);
+                $surname = test_input($_POST['surname']);
+                $email = test_input($_POST['email']);
+                $username = test_input($_POST['username']);
+                $password = test_input($_POST['password']);
+                $passwordConfirm = test_input($_POST['passwordConfirm']);
                 //check if username or email exists in DB
                 //if password matches confirmation password
                 if(strcmp($password, $passwordConfirm) == 0)
@@ -71,47 +71,40 @@
                   $generatedSalt = openssl_random_pseudo_bytes(32);
                   //convert the salt to text
                   $hexedSalt = bin2hex($generatedSalt);
-                  //appent the password to the salt
+                  //append the password to the salt
                   $saltedPasswordPreHash = $hexedSalt.$password;
                   //hash the salted password using sha512
                   $passwordHash = hash("sha512", $saltedPasswordPreHash);
                   
                   //insert all user info
-                  $query = "INSERT INTO SB_USER_INFO (userFirstName, "
-                           ."userSurname, userEmail,  userScreenName) VALUES "
-                           ."('$firstName', '$surname', '$email', '$username')";
-                  if ($mysqli->query($query) === TRUE) 
-                  {
-                    echo "New user created successfully";
-                  }
-                  else 
-                  {
-                    die('Connect Error ('.$mysqli -> connect_errno.') '
-                        .$mysqli -> connect_error);
-                  }
+                  $sql = $mysqli -> prepare("INSERT INTO SB_USER_INFO (userFirstName, userSurname, userEmail,  userScreenName) VALUES (?,?,?,?)");
+                  $sql -> bind_param("ssss", $firstName, $surname, $email, $username);
+                  $sql -> execute();
+                  $sql -> close();
                   //retrieve the userID
-                  $query = "SELECT userID FROM SB_USER_INFO WHERE "
-                           ."userScreenName='$username'";
-                  $result = $mysqli -> query();
+                  $resultUID = array();
+                  $resultUIDRow = array();
+                  $sql = $mysqli -> prepare("SELECT userID FROM SB_USER_INFO WHERE userScreenName=?");
+                  $sql -> bind_param("s", $username);
+                  $sql -> execute();
+                  $sql -> store_result();
+                  $sql -> bind_result($userID);
+                  while($sql -> fetch())
+                  {
+                    $resultUIDRow['userID'] = $userID;
+                    $resultUID[] = $resultUIDRow;
+                  }
+                  $sql -> close();
                   //check that a user exists
-                  if($result -> num_rows == 1)
+                  if(count($resultUID) == 1)
                   {
                     //get the relevant user's ID
-                    $userIDArray = $result -> fetch_assoc();
-                    $userID = $userIDArray['userID'];
+                    $userID = $resultUID[0]['userID'];
                     //insert the hashed password and the salt
-                    $query = "INSERT INTO SB_LOGIN_CREDENTIALS (userID, "
-                             ."userPasswordHash, userSalt) VALUES ('$userID', "
-                             ."'$passwordHash', '$hexedSalt')";
-                    if ($mysqli->query($query) === TRUE) 
-                    {
-                      echo "New credentials created successfully";
-                    }
-                    else 
-                    {
-                      die('Connect Error ('.$mysqli -> connect_errno.') '
-                          .$mysqli -> connect_error);
-                    }
+                    $sql = $mysqli -> prepare("INSERT INTO SB_LOGIN_CREDENTIALS (userID, userPasswordHash, userSalt) VALUES (?,?,?)");
+                    $sql -> bind_param("sss", $userID, $passwordHash, $hexedSalt);
+                    $sql -> execute();
+                    $sql -> close();
                   }
                   //password does not match confirmed password
                   else
@@ -123,25 +116,23 @@
                     $surname = "";
                     $email = "";
                     $username = "";
-                    $password = "";
-                    $passwordConfirm = "";
                     
                     //get entered values
                     if(isset($_POST['firstName']))
                     {
-                      $firstName = $_POST['firstName'];
+                      $firstName = test_input($_POST['firstName']);
                     }
                     if(isset($_POST['surname']))
                     {
-                      $surname = $_POST['surname'];
+                      $surname = test_input($_POST['surname']);
                     }
                     if(isset($_POST['email']))
                     {
-                      $email = $_POST['email'];
+                      $email = test_input($_POST['email']);
                     }
                     if(isset($_POST['username']))
                     {
-                      $username = $_POST['username'];
+                      $username = test_input($_POST['username']);
                     }
                     //echo error message and display the form
                     echo "Password does not match the password confirmation "
@@ -180,19 +171,19 @@
                 //get entered values
                 if(isset($_POST['firstName']))
                 {
-                  $firstName = $_POST['firstName'];
+                  $firstName = test_input($_POST['firstName']);
                 }
                 if(isset($_POST['surname']))
                 {
-                  $surname = $_POST['surname'];
+                  $surname = test_input($_POST['surname']);
                 }
                 if(isset($_POST['email']))
                 {
-                  $email = $_POST['email'];
+                  $email = test_input($_POST['email']);
                 }
                 if(isset($_POST['username']))
                 {
-                  $username = $_POST['username'];
+                  $username = test_input($_POST['username']);
                 }
                 //echo the form
                 echo "<form method='post'>"
@@ -222,67 +213,82 @@
                 $login = false;
                 
                 //get username and entered password
-                $username = $_POST['username'];
-                $enteredPassword = $_POST['password'];
-                
+                $username = test_input($_POST['username']);
+                $enteredPassword = test_input($_POST['password']);
                 //get user credentials from DB
-                $query = "SELECT * FROM SB_USER_INFO WHERE "
-                          ."userScreenName='$username'";
-                $result = $mysqli -> query($query);
-                if($result->num_rows == 0)
+                $resultCRED = array();
+                $resultCREDRow = array();
+                $sql = $mysqli -> prepare("SELECT * FROM SB_USER_INFO WHERE userScreenName=?");
+                $sql -> bind_param("s", $username);
+                $sql -> execute();
+                $sql -> store_result();
+                $sql -> bind_result($userID, $userScreenName, $userFirstName, $userSurname, $userEmail);
+                while($sql -> fetch())
+                {
+                  $resultCREDRow['userID'] = $userID;
+                  $resultCREDRow['userFirstName'] = $userFirstName;
+                  $resultCREDRow['userSurname'] = $userSurname;
+                  $resultCREDRow['userScreenName'] = $userScreenName;
+                  $resultCREDRow['userEmail'] = $userEmail;
+                  $resultCRED[] = $resultCREDRow;
+                }
+                $sql -> close();
+                if(count($resultCRED) == 0)
                 {
                   //incorrect username
                   //do not need to do anything as this will be tested for again
                 }
-                else if($result->num_rows == 1)
+                else if(count($resultCRED) == 1)
                 {
-                  $userIDArray = $result->fetch_assoc();
+                  $userIDArray = $resultCRED[0];
                   $userID = $userIDArray['userID'];
-                  //username accepted but just to make sure...
-                  if(strcmp($username, $userIDArray['userScreenName']))
+                  $username = $userIDArray['userScreenName'];
+                  //get the user credentials
+                  $query = "SELECT * FROM SB_LOGIN_CREDENTIALS WHERE "
+                           ."userID='$userID'";
+                  $resultCRED2 = $mysqli -> query($query);
+                  
+                  $resultCRED2 = array();
+                  $resultCRED2Row = array();
+                  $sql = $mysqli -> prepare("SELECT * FROM SB_LOGIN_CREDENTIALS WHERE userID=?");
+                  $sql -> bind_param("s", $userID);
+                  $sql -> execute();
+                  $sql -> store_result();
+                  $sql -> bind_result($userID, $userSalt, $userPasswordHash);
+                  while($sql -> fetch())
                   {
-                    //THIS SHOULD NEVER HAPPEN
-                    echo "<a href='./Feedback.php'>Catastrophic failure: user "
-                         ."mismatch. Please click here to report this using the"
-                         ." feedback form</a><br>";
+                    $resultCRED2Row['userID'] = $userID;
+                    $resultCRED2Row['userSalt'] = $userSalt;
+                    $resultCRED2Row['userPasswordHash'] = $userPasswordHash;
+                    $resultCRED2[] = $resultCRED2Row;
                   }
-                  else
+                  $sql -> close();
+                  //user has info but no credentials
+                  if(count($resultCRED2) > 1)
                   {
-                    //get the user credentials
-                    $query = "SELECT * FROM SB_LOGIN_CREDENTIALS WHERE "
-                             ."userID='$userID'";
-                    $result = $mysqli -> query($query);
-                    //user has info but no credentials
-                    if($result->num_rows == 0)
-                    {
-                      //this should not happen but is theoretically possible
-                      //should remove user from db
-                    }
-                    else if($result->num_rows == 1)
-                    {
-                      //store the credentials for use
-                      $userCredentials = $result->fetch_assoc();
-                      $storedSalt = $userCredentials['userSalt'];
-                      $storedPasswordHash = $userCredentials['userPasswordHash'];
-                    }
-                    else
-                    {
-                      //multiple user passwords stored ????
-                    }
-                    //add the password to the retrieved salt
-                    $passwordSalted = $storedSalt.$enteredPassword;
-                    //hash the salted password
-                    $enteredPasswordHash = hash("sha512", $passwordSalted);
-                    //compare the entered passwords hash to the stored hash
-                    if($enteredPasswordHash == $storedPasswordHash)
-                    {
-                      //set login to true to allow the user to login
-                      $login = true;
-                      //store the user screen name and the userID to be used
-                      //on other pages
-                      $_SESSION['userName'] = $username;
-                      $_SESSION['userID'] = $userID;
-                    }
+                    //multiple passwords for one user
+                    //CANNOT HAPPEN
+                  }
+                  else if(count($resultCRED2) == 1)
+                  {
+                    //store the credentials for use
+                    $userCredentials = $resultCRED2[0];
+                    $storedSalt = $userCredentials['userSalt'];
+                    $storedPasswordHash = $userCredentials['userPasswordHash'];
+                  }
+                  //add the password to the retrieved salt
+                  $passwordSalted = $storedSalt.$enteredPassword;
+                  //hash the salted password
+                  $enteredPasswordHash = hash("sha512", $passwordSalted);
+                  //compare the entered passwords hash to the stored hash
+                  if($enteredPasswordHash == $storedPasswordHash)
+                  {
+                    //set login to true to allow the user to login
+                    $login = true;
+                    //store the user screen name and the userID to be used
+                    //on other pages
+                    $_SESSION['userName'] = $username;
+                    $_SESSION['userID'] = $userID;
                   }
                 }
                 //multiple users with the same username
@@ -339,6 +345,14 @@
           {
             header("Location: /Pages/AccountManagement.php");
             die();
+          }
+          function test_input($data) 
+          {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = filter_var($data, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+            return $data;
           }
         ?>
       </div>

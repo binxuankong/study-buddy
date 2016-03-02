@@ -10,7 +10,7 @@
         if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
         {
           $username = $_SESSION['userName'];
-          echo "<li><a href='/Pages/AccountManagement.php'><img src'../Images/new_user.png' alt='User Profile'></a></li>";
+          echo "<li><a href='/Pages/AccountManagement.php'><img src='../Images/new_user.png' alt='User Profile'></a></li>";
           echo "<li id='signup'><a href='/Pages/AccountManagement.php'>$username</a></li>";
         }
         else
