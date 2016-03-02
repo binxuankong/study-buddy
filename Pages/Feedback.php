@@ -5,17 +5,13 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Template.css">
     <script src="jquery.js"></script>
-    <script> 
-      $(function(){
-        $("#header").load("header.php"); 
-        $("#footer").load("footer.html"); 
-      });
-    </script>
     <title>Feedback</title>
   </head>
 
   <body>
-    <div id="header"></div>
+    <div id="header">
+      <?php include('../Template/header.php'); ?>
+    </div>
 
     <div class="heading">
       <div class="container">
@@ -53,7 +49,9 @@
       </div>
     </div>
 
-    <div id="footer"></div>
+    <div id="footer">
+      <?php include('../Template/footer.php'); ?>
+    </div>
 	
   </body>
 </html>

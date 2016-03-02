@@ -17,7 +17,7 @@
           <div class="col-md-3">
             <h3>Feedback</h3>
             <p>Contact us if you encounter any bugs or problems and let us solve your problems.</p>
-            <p><a href="Feedback.html">Send a feedback</a></p>
+            <p><a href="Feedback.php">Send a feedback</a></p>
           </div>
         </div>
       </div>
