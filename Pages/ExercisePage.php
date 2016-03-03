@@ -52,10 +52,20 @@
     {
       $_SESSION['passedQuestions'] = array();
     }
-    if(!(isset($_SESSION['questionsAccessed'])))
+    if(!(empty($_SESSION['questionsAccessed'])))
     {
       $_SESSION['questionsAccessed'] = false;
     }
+
+    if( is_array($incorrectQuestions))
+    {
+      echo "incorrectQuestions is an array";
+    } else {
+      echo "<br> incorrectQuestions isn't an array";
+    }
+
+    echo $_SESSION['incorrectQuestions'];
+
 
     //EXERCISE----------------------------------------------------------------//
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answered'])) //request method POST
@@ -165,7 +175,13 @@
     }
     else
     {
-      $_SESSION['questionsAccessed'];
+      if( is_array($incorrectQuestions))
+      {
+        echo "incorrectQuestions is an array";
+      } else {
+        echo "<br> incorrectQuestions isn't an array";
+      }
+      $_SESSION['questionsAccessed'] =true;
       //get desired module
       $module = $_GET['module'];
       //get module name
@@ -185,7 +201,7 @@
         $allQuestions[] = $row;
       }
 
-      $chosenLines = array();
+      $chosenIDs = array();
       $numberOfQuestions = 5;
       if($result -> num_rows < $numberOfQuestions)
       {
@@ -194,7 +210,8 @@
 
 
       //Get User Rating
-
+      $incorrectQuestions = array();
+      $incorrectQuestions = $_SESSION['incorrectQuestions'];
       //Get length of InccorectAnswered Array
       $incorrectQuestionsLength = count($incorrectQuestions);
       //Calculate number of question to come from IncorrectAnswered Array
@@ -213,20 +230,6 @@
 
       while(count($chosenLines) < $incorrectQuestionsRequired)
       {
-
-        $randomNumber = rand(1, $incorrectQuestionsLength);
-        $randomNumber--;
-
-        //Get index of this question in allQuestions
-        $allQuestionIndex = 0;
-        $found = false;
-
-
-        //Assuming allQuestions is in order by Question ID starting at 0,
-        //element in nth position has a question ID of n
-        $allQuestionIndex = $chosenLines[$randomNumber];
-
-
 
 
 
@@ -317,6 +320,27 @@
       echo "<br><br>";
       echo "<input type='submit'value='Submit' name='answered'>";
       echo "</form>";
+
+
+      if( is_array($incorrectQuestions))
+      {
+        echo "incorrectQuestions is an array";
+      } else {
+        echo "<br> incorrectQuestions isn't an array";
+      }
+
+      if( is_array($_SESSION['passedQuestions']))
+      {
+        echo "<br> passedQuestions is an array";
+      } else {
+        echo "passedQuestions isn't an array";
+      }
+
+
+      echo "<br> Lenght  " . count($_SESSION['incorrectQuestions']);
+      for ($i=0; $i<count($_SESSION['incorrectQuestions']) ; $i++) {
+        echo "Incorrect Question " . $i . $_SESSION['incorrectQuestions'][$i];
+      }
     }
 
     function randomNormal($mean, $sd)
