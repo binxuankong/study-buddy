@@ -7,12 +7,12 @@
           <div class="col-md-3">
             <h3>About Us</h3>
             <p>The team behind this website is the M3 Group of the School of Computer Science from the University of Manchester.</p>
-            <p><a href="#">Learn more about each members of the team</a></p>
+            <p><a href="AboutUs.html">Learn more about each members of the team</a></p>
           </div>
           <div class="col-md-3">
             <h3>Get Started</h3>
             <p>Stop wasting precious time and come join us now to start your revision.</p>
-            <p><a href="#">Get going with Study Buddy</a></p>
+            <p><a href="GetStarted.html">Get going with Study Buddy</a></p>
           </div>
           <div class="col-md-3">
             <h3>Feedback</h3>
