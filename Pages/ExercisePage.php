@@ -267,9 +267,7 @@
         echo "</ul><br>";
         $questionNumber = $questionNumber + 1;
         //display the answers to the question
-        echo "</td><td width='98px'>";
-        echo "<button id='reportButton' onclick='reportButton()'>Report this question</button>";
-        echo "</td></tr>";
+        echo "</td>";
       }
       $_SESSION['passedQuestions'] = $questionArray;
       echo "</table><br><br>";
