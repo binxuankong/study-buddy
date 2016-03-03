@@ -21,6 +21,6 @@ function openWindow()
   module = module.options[module.selectedIndex].text;
   var mylink = "QuestionList.php?module=" + module;
   var windowname = "Question List";
-  var myWindow = window.open(mylink, windowname, "type=fullwindow,,fullscreen=yes,height=screen.availHeight,width=screen.availWidth,left=0,top=0,resizeable=no,scrollbars=yes");
+  var myWindow = window.open(mylink, windowname, "type=fullwindow, fullscreen=yes, menubar=yes, status=yes,titlebar=yes, toolbar=yes, height=screen.availHeight, width=screen.availWidth, left=0, top=0, resizeable=yes, scrollbars=yes");
   myWindow.focus();
 }
