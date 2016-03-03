@@ -1,3 +1,27 @@
+table {
+  width: 100%;
+  background-color: #f7f7f7;
+}
+
+td {
+  height: 100%;
+  color: black;
+  font-size: 18px;  
+  font-family: sans-serif;
+  vertical-align: top;
+}
+
+#reportButton {
+  text-align: center;
+  background-color: #4da5ff;
+  border: 1px solid black;
+  width: 92px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
 .nav div {
   background-color: #f7f7f7;
   top: -2px;

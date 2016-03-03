@@ -4,6 +4,7 @@
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/ExercisePage.css">
+    <script src="./ReportButton.js"></script>
     <title>Exercise Page</title>
   </head>
   <body>
@@ -66,6 +67,7 @@
       $moduleNameRow = $result -> fetch_assoc();
       $moduleName = $moduleNameRow['moduleName'];
       echo "<h2>".$module.": ".$moduleName."</h2><br><br>";
+      echo "<table>";
       $questions = $_SESSION['passedQuestions'];
       $correctQuestions = 0;
       for($questionCount = 0; $questionCount < count($questions); $questionCount++)
@@ -80,7 +82,7 @@
             if($result->num_rows == 1) //this is correct
             {
               $questionInfo = $result->fetch_assoc();
-              echo "<p>";
+              echo "<tr><td>";
               echo $questionCount + 1;
               echo ". ".$questionInfo['questionContent']."<br><ul>";
             }
@@ -121,11 +123,13 @@
           echo "<p id='incorrect'>INCORRECT!</p><br>";
           $_SESSION['incorrectQuestions'][] = $question[0];
         }
+        echo "</td><td width='96px'>";
+        echo "<button id='reportButton' onclick='reportButton()'>Report this question</button>";
+        echo "</td></tr>";
       }
-      echo "</p>";
       $timeDifference = (2 * $correctQuestions) + count($questions);
-      echo "<br>";
-      echo "<button id='closeButton' onclick=''>Close</button>";
+      echo "</table><br>";
+      echo "<button id='closeButton' onclick='self.close()'>Close</button>";
     }
     else if($_SESSION['questionsAccessed'])
     {
@@ -209,6 +213,7 @@
       echo "<form method='post'>";
       //display module name
       echo "<h2>".$module.": ".$moduleName."</h2><br><br>";
+      echo "<table>";
       //foreach question
       $questionNumber = 0;
       $questionArray = array();
@@ -221,7 +226,7 @@
         $questionArray[$questionNumber][] = $questionID;
 
         //display the question
-        echo "<p>";
+        echo "<tr><td>";
         echo $questionNumber + 1;
         echo ". ".$question;
         echo "<br>";
@@ -259,13 +264,15 @@
           echo "<br>";
           $questionArray[$questionNumber][] = $answer['answerID'];
         }
-        echo "</ul>";
+        echo "</ul><br>";
         $questionNumber = $questionNumber + 1;
         //display the answers to the question
-        echo "</br></p>";
+        echo "</td><td width='98px'>";
+        echo "<button id='reportButton' onclick='reportButton()'>Report this question</button>";
+        echo "</td></tr>";
       }
       $_SESSION['passedQuestions'] = $questionArray;
-      echo "<br><br>";
+      echo "</table><br><br>";
       echo "<input type='submit'value='Submit' name='answered'>";
       echo "</form>";
     }
