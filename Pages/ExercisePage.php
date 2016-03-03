@@ -119,6 +119,19 @@
         if($correctlyAnswered)
         {
           $correctQuestions++;
+          //If previosuly incorrect but now right remove from incorrectQuestions
+          if(in_array($question[0], $_SESSION['incorrectQuestions']))
+          {
+            $newArray = array();
+            for ($i=0; $i < count($_SESSION['incorrectQuestions']); $i++)
+            {
+              if($_SESSION['incorrectQuestions'][$i] != $question[0])
+              {
+                $newArray[] = $_SESSION['incorrectQuestions'][$i];
+              }
+            }
+            $_SESSION['incorrectQuestions'] = $newArray;
+          }
           echo "<p id='correct'>Correct!</p><br>";
         }
         else
