@@ -44,7 +44,7 @@
       die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
     }
     //create needed session variables
-    echo "{";
+
     if(!(isset($_SESSION['incorrectQuestions'])))
     {
       echo "This executes";
@@ -62,7 +62,7 @@
     {
       $_SESSION['questionsAccessed'] = false;
     }
-    echo "}";
+
 
 
     //EXERCISE----------------------------------------------------------------//
@@ -220,10 +220,9 @@
         $incorrectQuestionsRequired = floor($incorrectQuestionsLength / 5) + 1;
       }
       //Chose questions from IncorrectAnswered Array - put in chosen lines
-      echo $incorrectQuestionsLength;
 
-      echo count($chosenIDs);
-      echo $incorrectQuestionsRequired;
+
+
       while(count($chosenIDs) < $incorrectQuestionsRequired)
       {
         $randomNumber = rand(0, $incorrectQuestionsLength -1);
@@ -237,35 +236,50 @@
         }
       }
 
-      for ($i=0; $i < count($chosenIDs); $i++) {
-        echo "<br> The Incorrect question's ID's are" . $chosenIDs[$i];
+
+
+
+      $chosenQuestionsRows = array();
+
+      $numRows = 34;
+      for($count = 0; $count < $incorrectQuestionsRequired; $count++)
+      {
+        $currentID = $chosenIDs[$count];
+        echo "<br>" . $currentID;
+        $result = $mysqli -> query("SELECT * FROM SB_QUESTION WHERE questionID=1 ");
+
+        if($result -> num_rows == 0)
+        {
+          echo "<br> Shit went wrong";
+        }
+        while($row = $result->fetch_assoc())
+        {
+          echo "Thank fuck for that";
+          $chosenQuestionsRows[] = $row;
+        }
+
+
+        echo count($chosenQuestionsRows);
+
+
+
       }
 
 
-      //Uses this to populate the other questions into chosen lines.
-      while(count($chosenLines) < $numberOfQuestions)
+
+
+      /*
+      //Uses this to populate the other questions
+      while(count($chosenIDs) < $numberOfQuestions)
       {
 
         $randomNumber = rand(1, $result -> num_rows);
         $randomNumber--;
-        if(!(in_array($randomNumber, $chosenLines)))
+        if(!(in_array($randomNumber, $chosenIDs)))
         {
           $chosenLines[] = $randomNumber;
         }
-      }
-      //get the questions related to each line
-      $chosenQuestionsRows = array();
-      for($count = 0; $count < $incorrectQuestionsRequired; $count++)
-      {
-        $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS
-                                    . WHERE moduleID='$moduleID'
-                                    . AND questionID='$chosenIDs[$count]'");
-
-        while($row = $result->fetch_assoc())
-        {
-          $chosenQuestionsRows[]  = $row;
-        }
-      }
+      } */
 
 
 
