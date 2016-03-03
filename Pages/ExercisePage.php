@@ -44,9 +44,15 @@
       die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
     }
     //create needed session variables
+    echo "{";
     if(!(isset($_SESSION['incorrectQuestions'])))
     {
+      echo "This executes";
       $_SESSION['incorrectQuestions'] = array();
+      $_SESSION['incorrectQuestions'][]=1;
+      $_SESSION['incorrectQuestions'][]=2;
+      $_SESSION['incorrectQuestions'][]=3;
+
     }
     if(!(isset($_SESSION['passedQuestions'])))
     {
@@ -56,15 +62,7 @@
     {
       $_SESSION['questionsAccessed'] = false;
     }
-
-    if( is_array($incorrectQuestions))
-    {
-      echo "incorrectQuestions is an array";
-    } else {
-      echo "<br> incorrectQuestions isn't an array";
-    }
-
-    echo $_SESSION['incorrectQuestions'];
+    echo "}";
 
 
     //EXERCISE----------------------------------------------------------------//
@@ -175,12 +173,7 @@
     }
     else
     {
-      if( is_array($incorrectQuestions))
-      {
-        echo "incorrectQuestions is an array";
-      } else {
-        echo "<br> incorrectQuestions isn't an array";
-      }
+
       $_SESSION['questionsAccessed'] =true;
       //get desired module
       $module = $_GET['module'];
@@ -219,24 +212,33 @@
       {
         $incorrectQuestionsRequired = 0;
 
-      } else if ($incorrectQuestions > 24)
+      } else if ($incorrectQuestionsLength > 24)
       {
           $incorrectQuestionsRequired = 5;
       }
       else {
-        $incorrectQuestionsRequired = $incorrectQuestionsLength / 5 + 1;
+        $incorrectQuestionsRequired = floor($incorrectQuestionsLength / 5) + 1;
       }
       //Chose questions from IncorrectAnswered Array - put in chosen lines
+      echo $incorrectQuestionsLength;
 
-      while(count($chosenLines) < $incorrectQuestionsRequired)
+      echo count($chosenIDs);
+      echo $incorrectQuestionsRequired;
+      while(count($chosenIDs) < $incorrectQuestionsRequired)
       {
+        $randomNumber = rand(0, $incorrectQuestionsLength -1);
 
 
 
-        if(!(in_array($allQuestionIndex, $chosenLines)))
+        if(!(in_array($incorrectQuestions[$randomNumber], $chosenIDs)))
         {
-          $chosenLines[] = $allQuestionIndex;
+          $chosenIDs[]=$incorrectQuestions[$randomNumber];
+
         }
+      }
+
+      for ($i=0; $i < count($chosenIDs); $i++) {
+        echo "<br> The Incorrect question's ID's are" . $chosenIDs[$i];
       }
 
 
@@ -253,10 +255,21 @@
       }
       //get the questions related to each line
       $chosenQuestionsRows = array();
-      for($count = 0; $count < $numberOfQuestions; $count++)
+      for($count = 0; $count < $incorrectQuestionsRequired; $count++)
       {
-        $chosenQuestionsRows[] = $allQuestions[$chosenLines[$count]];
+        $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS
+                                    . WHERE moduleID='$moduleID'
+                                    . AND questionID='$chosenIDs[$count]'");
+
+        while($row = $result->fetch_assoc())
+        {
+          $chosenQuestionsRows[]  = $row;
+        }
       }
+
+
+
+
       //create form
       echo "<form method='post'>";
       //display module name
@@ -316,31 +329,16 @@
         //display the answers to the question
         echo "</br></p>";
       }
-      $_SESSION['passedQuestions'] = $questionArray;
       echo "<br><br>";
       echo "<input type='submit'value='Submit' name='answered'>";
       echo "</form>";
+      $_SESSION['passedQuestions'] = $questionArray;
 
-
-      if( is_array($incorrectQuestions))
+      if(is_array($incorrectQuestions))
       {
-        echo "incorrectQuestions is an array";
-      } else {
-        echo "<br> incorrectQuestions isn't an array";
+        echo "Is array";
       }
 
-      if( is_array($_SESSION['passedQuestions']))
-      {
-        echo "<br> passedQuestions is an array";
-      } else {
-        echo "passedQuestions isn't an array";
-      }
-
-
-      echo "<br> Lenght  " . count($_SESSION['incorrectQuestions']);
-      for ($i=0; $i<count($_SESSION['incorrectQuestions']) ; $i++) {
-        echo "Incorrect Question " . $i . $_SESSION['incorrectQuestions'][$i];
-      }
     }
 
     function randomNormal($mean, $sd)
