@@ -47,11 +47,8 @@
 
     if(!(isset($_SESSION['incorrectQuestions'])))
     {
-      echo "This executes";
+
       $_SESSION['incorrectQuestions'] = array();
-      $_SESSION['incorrectQuestions'][]=1;
-      $_SESSION['incorrectQuestions'][]=2;
-      $_SESSION['incorrectQuestions'][]=3;
 
     }
     if(!(isset($_SESSION['passedQuestions'])))
@@ -227,8 +224,6 @@
       {
         $randomNumber = rand(0, $incorrectQuestionsLength -1);
 
-
-
         if(!(in_array($incorrectQuestions[$randomNumber], $chosenIDs)))
         {
           $chosenIDs[]=$incorrectQuestions[$randomNumber];
@@ -236,50 +231,42 @@
         }
       }
 
-
-
-
       $chosenQuestionsRows = array();
 
-      $numRows = 34;
       for($count = 0; $count < $incorrectQuestionsRequired; $count++)
       {
         $currentID = $chosenIDs[$count];
-        echo "<br>" . $currentID;
-        $result = $mysqli -> query("SELECT * FROM SB_QUESTION WHERE questionID=1 ");
+        $thisQuestion = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE questionID=$currentID ");
 
-        if($result -> num_rows == 0)
+        while($row = $thisQuestion->fetch_assoc())
         {
-          echo "<br> Shit went wrong";
-        }
-        while($row = $result->fetch_assoc())
-        {
-          echo "Thank fuck for that";
           $chosenQuestionsRows[] = $row;
         }
-
-
-        echo count($chosenQuestionsRows);
-
-
-
       }
 
 
 
 
-      /*
+
       //Uses this to populate the other questions
-      while(count($chosenIDs) < $numberOfQuestions)
+      $chosenLines = array();
+      while( count($chosenLines)< ($numberOfQuestions -count($chosenIDs)) )
       {
 
         $randomNumber = rand(1, $result -> num_rows);
         $randomNumber--;
-        if(!(in_array($randomNumber, $chosenIDs)))
+        if(!(in_array($randomNumber, $chosenLines)))
         {
           $chosenLines[] = $randomNumber;
         }
-      } */
+      }
+
+      for ($count=0; $count < count($chosenLines) ; $count++)
+      {
+        $chosenQuestionsRows[] = $allQuestions[$chosenLines[$count]];
+      }
+
+
 
 
 
@@ -347,11 +334,6 @@
       echo "<input type='submit'value='Submit' name='answered'>";
       echo "</form>";
       $_SESSION['passedQuestions'] = $questionArray;
-
-      if(is_array($incorrectQuestions))
-      {
-        echo "Is array";
-      }
 
     }
 
