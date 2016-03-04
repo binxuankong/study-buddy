@@ -26,16 +26,12 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-10">
-
-
-          <!-- Some code from www.w3school.com -->
-          <?php  
+          <?php          
+          $codeErr = $nameErr = $descriptionErr = "";
+          $name = $code = $description = $message = "";
           if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
           {           
-            $submittingUserID = $_SESSION['userID'];        
-            $codeErr = $nameErr = $descriptionErr = "";
-            $name = $code = $description = $message = "";
-
+            $submittingUserID = $_SESSION['userID'];
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
               if (empty($_POST["name"])) {
                 $nameErr = "Course name is required";

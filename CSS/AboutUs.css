@@ -1,25 +1,24 @@
 table {
   width: 100%;
+  margin-top: 32px;
   background-color: #f7f7f7;
 }
 
 td {
-  height: 100%;
-  color: black;
-  font-size: 18px;  
+  height: 282px;
+  color: #5a5a5a;
+  font-size: 22px;  
   font-family: sans-serif;
-  vertical-align: top;
+  text-align: center;
+  border: 5px white solid;
 }
 
-#reportButton {
-  text-align: center;
-  background-color: #4da5ff;
-  border: 1px solid black;
-  width: 92px;
-  font-family: sans-serif;
-  color: black;
-  font-size: 14px;
-  margin-top: 8px;
+#theTeam img{
+  height: 180px;
+  width: 180px;
+  margin-bottom: 28px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nav div {
@@ -34,12 +33,20 @@ td {
   margin-top: 12px;
 }
 
+.pull-left a:hover {
+  text-decoration: none;
+}
+
 #webpagename {
   color: #5a5a5a;
   font-size: 28px;
   font-weight: bold;
   margin-left: 140px;
   text-decoration: none;
+}
+
+#webpagename:hover {
+  color: #0097fa;
 }
 
 #logo {
@@ -50,6 +57,21 @@ td {
   margin-top: 10px;
   margin-left: 80px;
   z-index: 3;
+}
+
+#logo:hover{
+  background-image: url('../Images/home_logo.png');
+}
+
+.pull-right {
+  margin-top: 22px;
+}
+
+.pull-right img {
+  position: relative;
+  margin-top: -3px;
+  width: 26px;
+  height: 26px;
 }
 
 .nav a {
@@ -66,6 +88,7 @@ td {
 
 .nav li {
   display: inline;
+  text-transform: none;
 }
 
 .heading {
@@ -89,70 +112,39 @@ td {
 
 .body .container {
   position: relative;
-  top: 28px;
+  top: 56px;
   margin-left: 160px;
-  margin-bottom: 62px;
+  margin-bottom: 168px;
 }
 
 .body h2 {
-  font-family: sans-serif;
   color: black;
-  font-size: 32px;
+  font-size: 36px;  
+  font-family: sans-serif;
   font-weight: bold;
+  margin-top: 86px;
+  text-align: center;
 }
 
-.body p {
+.body {
+  word-wrap: break-word;
+  width: 880px;
   font-family: sans-serif;
   color: black;
   font-size: 18px;
 }
 
-.body li {
-  font-family: sans-serif;
-  color: black;
-  font-size: 18px;
-}
-
-#correct {
-  font-weight: bold;
-  color: green;
-}
-
-#incorrect {
-  font-weight: bold;
-  color: red;
+#moduleDropdown {
+  width: 50%;
+  display: block;
 }
 
 .body input[type="submit"]{
   text-align: center;
   background-color: #4da5ff;
-  border: 2px solid black;
-  width: 160px;
-  font-family: sans-serif;
-  font-weight: bold;
-  color: black;
-  font-size: 22px;
-}
-
-#addQuestion {
-  text-align: center;
-  background-color: #4da5ff;
   border: 1px solid black;
-  width: 240px;
-  font-family: sans-serif;
-  color: black;
-  font-size: 18px;
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
-
-#closeButton {
-  text-align: center;
-  background-color: #4da5ff;
-  border: 2px solid black;
   width: 160px;
   font-family: sans-serif;
-  font-weight: bold;
   color: black;
   font-size: 18px;
 }
@@ -162,7 +154,7 @@ td {
 }
 
 .learn-more h2 {
-  margin-top: 6px;
+  margin-top: 2px;
   font-family: sans-serif;
   color: #5a5a5a;
   font-size: 28px;
@@ -170,7 +162,7 @@ td {
 }
 
 .learn-more img {
-  margin-top: -12px;
+  margin-top: -8px;
   margin-left: -44px;
   position: relative;
   width: 58px;
@@ -186,5 +178,9 @@ td {
 }
 
 .learn-more a {
-  color: #0097fa;
+  color: #4da5ff;
+}
+
+.error {
+  color: red;
 }

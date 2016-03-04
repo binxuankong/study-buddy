@@ -4,6 +4,7 @@
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/QuestionList.css">
+    <script src="./ReportButton.js"></script>
     <title>List of Questions</title>
   </head>
   <body>
@@ -36,6 +37,9 @@
     $result = $mysqli -> query("SELECT moduleName FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
     $moduleNameRow = $result -> fetch_assoc();
     $moduleName = $moduleNameRow['moduleName'];
+    $result = $mysqli -> query("SELECT moduleDescription FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+    $moduleDescriptionRow = $result -> fetch_assoc();
+    $moduleDescription = $moduleDescriptionRow['moduleDescription'];
     $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
     $moduleIDRow = $result -> fetch_assoc();
     $moduleID = $moduleIDRow['moduleID'];
@@ -57,7 +61,9 @@
           <div class='col-md-1'>
           </div>
           <div class='col-md-10'>";
-    echo "<h2>".$moduleName."</h2><br><br>";
+    echo "<h2>".$moduleName."</h2>";
+    echo "<p>".$moduleDescription."</p><br>";
+    echo "<table>";
     $questionNumber = 0;
     $questionArray = array();
     foreach ($allQuestions as $currentRow)
@@ -67,7 +73,7 @@
       $questionArray[] = array();
       $questionArray[$questionNumber][] = $questionID;
 
-      echo "<p>";
+      echo "<tr><td>";
       echo $questionNumber + 1;
       echo ". ".$question;
 
@@ -87,11 +93,14 @@
         echo "<br>";
         $questionArray[$questionNumber][] = $answer['answerID'];
       }
-      echo "</ul>";
+      echo "</ul><br>";
       $questionNumber = $questionNumber + 1;
 
-      echo "</br></p>";
+      echo "</td><td width='100px'>";
+      echo "<button id='reportButton' onclick='reportButton()'>Report this question</button>";
+      echo "</td></tr>";
     }
+    echo "</table>";
   ?>
 
   <a href="SubmitQuestion.php"><button id="addQuestion">Add more questions</button></a><br>

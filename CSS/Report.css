@@ -1,0 +1,67 @@
+.heading {
+  width: 100%;
+  height: 96px;
+  background-color: #4da5ff;
+}
+
+.heading .container {
+  position: relative;
+}
+
+.heading h1 {
+  color: black;
+  font-size: 48px;  
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+.body .container {
+  margin-left: 20px;
+}
+
+h2 {
+  color: black;
+  font-size: 36px;  
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+h3 {
+  color: black;
+  font-size: 24px;  
+  font-family: sans-serif;
+}
+
+li {
+  color: #5a5a5a;
+  font-size: 18px;  
+  font-family: sans-serif;
+}
+
+input[type="checkbox"] {
+  float: right;
+  margin-right: 24px;
+}
+
+button {
+  display:block;
+  text-align: center;
+  horizontal-align: center;
+  background-color: #4da5ff;
+  border: 1px solid black;
+  width: 140px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
+#report {
+  margin-left: 180px;
+  float: left;
+}
+
+#close {
+  margin-right: 180px;
+  float: right;
+}

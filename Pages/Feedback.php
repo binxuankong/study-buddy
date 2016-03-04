@@ -34,8 +34,7 @@
           <input type:"text" name="subject" size="51"><br><br>
 
           Your Comments:<br>
-          <textarea name="Comments" rows="10" cols="50" required>
-          </textarea> <br><br>
+          <textarea name="Comments" rows="10" cols="50"></textarea> <br><br>
         </p>
 		      
           <input type="submit" value="Send Feedback">	
