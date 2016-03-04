@@ -1,8 +1,14 @@
-#howToHelp {
-  color: #5a5a5a;
+.body h2 {
+  color: black;
   font-size: 36px;  
   font-family: sans-serif;
   font-weight: bold;
+}
+
+.body p {
+  color: #5a5a5a;
+  font-size: 18px;
+  font-family: sans-serif;
 }
 
 #index li {

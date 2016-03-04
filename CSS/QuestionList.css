@@ -34,12 +34,20 @@ td {
   margin-top: 12px;
 }
 
+.pull-left a:hover {
+  text-decoration: none;
+}
+
 #webpagename {
   color: #5a5a5a;
   font-size: 28px;
   font-weight: bold;
   margin-left: 140px;
   text-decoration: none;
+}
+
+#webpagename:hover {
+  color: #0097fa;
 }
 
 #logo {
@@ -50,6 +58,17 @@ td {
   margin-top: 10px;
   margin-left: 80px;
   z-index: 3;
+}
+
+.pull-right {
+  margin-top: 22px;
+}
+
+.pull-right img {
+  position: relative;
+  margin-top: -3px;
+  width: 26px;
+  height: 26px;
 }
 
 .nav a {
@@ -66,6 +85,7 @@ td {
 
 .nav li {
   display: inline;
+  text-transform: none;
 }
 
 .heading {

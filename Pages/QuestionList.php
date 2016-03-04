@@ -5,17 +5,18 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/QuestionList.css">
     <script src="./ReportButton.js"></script>
+    <script src="jquery.js"></script>
+    <script> 
+      $(function(){
+        $("#header").load("header.html"); 
+        $("#footer").load("footer.html"); 
+      });
+    </script>
     <title>List of Questions</title>
   </head>
+
   <body>
-    <div class="nav">
-      <div class="container">
-        <ul class="pull-left">
-          <div id="logo"></div>
-          <li id="webpagename">Study Buddy</li>
-        </ul>
-      </div>
-    </div>
+    <div id="header"></div>
 
   <?php
     //import database credentials
@@ -111,6 +112,8 @@
         </div>
       </div>
     </div>
+
+    <div id="footer"></div>
 
   </body>
 </html>
