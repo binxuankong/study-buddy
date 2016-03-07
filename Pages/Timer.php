@@ -34,7 +34,7 @@
                 {
                   die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
                 }
-                $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO");
+                $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO ORDER BY moduleCourseID ASC");
                 echo '<br><h5 id="chooseAModuleLabel">Choose a module to revise</h5><br><select id="moduleDropdown" name="module">';
                 echo "<option value='Choose a module'>Choose a module</option>";
                 while($row = $result->fetch_assoc())
@@ -45,6 +45,7 @@
                 }
                 echo '</select><br><h3 id="errorLabel" class="error"></h3>';
                 $mysqli -> close();
+
               ?>
               <div>
                 <h5 id="initialTimeLabel">Set an initial time</h5><br>
