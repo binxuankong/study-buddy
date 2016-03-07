@@ -234,7 +234,7 @@
                 $sql -> execute();
                 $sql -> store_result();
                 $sql -> bind_result($userID, $userScreenName, $userFirstName, 
-                                    $userSurname, $userEmail);
+                                    $userSurname, $userEmail, $userQQ);
                 while($sql -> fetch())
                 {
                   $resultCREDRow['userID'] = $userID;
