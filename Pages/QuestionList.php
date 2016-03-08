@@ -6,17 +6,13 @@
     <link rel="stylesheet" href="../CSS/QuestionList.css">
     <script src="./ReportButton.js"></script>
     <script src="jquery.js"></script>
-    <script> 
-      $(function(){
-        $("#header").load("header.html"); 
-        $("#footer").load("footer.html"); 
-      });
-    </script>
     <title>List of Questions</title>
   </head>
 
   <body>
-    <div id="header"></div>
+    <div id="header">
+      <?php include('../Template/header.php'); ?>
+    </div>
 
   <?php
     //import database credentials
@@ -113,7 +109,8 @@
       </div>
     </div>
 
-    <div id="footer"></div>
-
+    <div id="footer">
+      <?php include('../Template/footer.php'); ?>
+    </div>
   </body>
 </html>
