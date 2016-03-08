@@ -28,13 +28,13 @@
  
         <p>
           We welcome any feedback or comments you may have about our application.
-          <form action = "MAILTO:benlister010@gmail.com" method="post" enctype="text/plain">
+          <form method="post">
           <br>      
           Subject:<br>
           <input type:"text" name="subject" size="51"><br><br>
 
           Your Comments:<br>
-          <textarea name="Comments" rows="10" cols="50"></textarea> <br><br>
+          <textarea name="comments" rows="10" cols="50"></textarea> <br><br>
         </p>
 		      
           <input type="submit" value="Send Feedback">	
@@ -46,6 +46,24 @@
         </div>
       </div>
     </div>
+    <?php
+      if($_SERVER['REQUEST_METHOD'] == 'POST')
+      {
+        require_once('../config.inc.php');
+        $mysqli = new mysqli($database_host, $database_user,
+                             $database_pass, $database_name);              
+        if($mysqli -> connect_error) 
+        {
+          die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
+        } 
+        $subject = $_POST['subject'];
+        $comment = $_POST['comments'];
+        $sql = $mysqli -> prepare("INSERT INTO SB_FEEDBACK (feedbackSubject, feedbackMessage) VALUES (?,?)");
+        $sql -> bind_param("ss", $subject, $comment);
+        $sql -> execute();
+        $sql -> close();
+      }
+    ?>
 
     <div id="footer">
       <?php include('../Template/footer.php'); ?>

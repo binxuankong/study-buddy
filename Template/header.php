@@ -5,7 +5,7 @@
        <li id="webpagename">Study Buddy</li></a>
     </ul>
     <ul class="pull-right">
-      <?php
+      <?php          
         session_start();
         if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
         {

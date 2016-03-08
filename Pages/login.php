@@ -115,6 +115,20 @@
                                        $hexedSalt);
                     $sql -> execute();
                     $sql -> close();
+                    //user registered send email to confirm
+                    // the message
+                    $msg = "Thank you for registering with Study Buddy \n "
+                           ."To login you will need your username, shown below,"
+                           ." and the password that you entered when signing up"
+                           .".\n \n Username: $username";
+
+                    // use wordwrap() if lines are longer than 70 characters
+                    $msg = wordwrap($msg,70);
+                    $sender = "\"Study Buddy\"";
+                    // send email
+                    mail("$email","Study Buddy Sign Up Confirmation",$msg, "","-F $sender"); 
+                    header("Location: /Pages/login.php");
+                    die();
                   }
                   //password does not match confirmed password
                   else
