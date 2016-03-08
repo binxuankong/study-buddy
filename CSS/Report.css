@@ -39,6 +39,19 @@ li {
   font-family: sans-serif;
 }
 
+p {
+  color: #5a5a5a;
+  font-size: 18px;  
+  font-family: sans-serif;
+}
+
+mark {
+  color: #ed2939;
+  background-color: white;
+  font-size: 18px;  
+  font-family: sans-serif;
+}
+
 input[type="checkbox"] {
   float: right;
   margin-right: 24px;
@@ -51,6 +64,7 @@ button {
   background-color: #4da5ff;
   border: 1px solid black;
   width: 140px;
+  font-size: 18px;  
   font-family: sans-serif;
   color: black;
   font-size: 18px;

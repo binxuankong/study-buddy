@@ -94,13 +94,14 @@
       $questionNumber = $questionNumber + 1;
 
       echo "</td><td width='100px'>";
-      echo "<button id='reportButton' onclick='reportButton()'>Report this question</button>";
+      echo "<button id='reportButton' onclick='reportQuestion()'>Report this question</button>";
       echo "</td></tr>";
     }
     echo "</table>";
   ?>
 
   <a href="SubmitQuestion.php"><button id="addQuestion">Add more questions</button></a><br>
+  <button id="reportModule" onclick='reportModule()'>Report this module</button><br>
   <button id="closeButton" onclick="self.close()">Close</button>
           </div>
           <div class="col-md-1">

@@ -1,6 +1,5 @@
 table {
   width: 100%;
-  background-color: #f7f7f7;
 }
 
 td {
@@ -13,7 +12,7 @@ td {
 
 #reportButton {
   text-align: center;
-  background-color: #4da5ff;
+  background-color: #ed2939;
   border: 1px solid black;
   width: 92px;
   font-family: sans-serif;
@@ -163,7 +162,18 @@ td {
   color: black;
   font-size: 18px;
   margin-top: 16px;
-  margin-bottom: 16px;
+}
+
+#reportModule {
+  text-align: center;
+  background-color: #ed2939;
+  border: 2px solid black;
+  width: 240px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: black;
+  font-size: 18px;
+  margin-top: 16px;
 }
 
 #closeButton {
@@ -174,6 +184,8 @@ td {
   font-family: sans-serif;
   font-weight: bold;
   color: black;
+  margin-top: 16px;
+  margin-bottom: 16px;
   font-size: 18px;
 }
 

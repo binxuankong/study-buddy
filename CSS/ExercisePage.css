@@ -1,6 +1,5 @@
 table {
   width: 100%;
-  background-color: #f7f7f7;
 }
 
 td {
@@ -13,7 +12,7 @@ td {
 
 #reportButton {
   text-align: center;
-  background-color: #4da5ff;
+  background-color: #ed2939;
   border: 1px solid black;
   width: 92px;
   font-family: sans-serif;
@@ -120,13 +119,13 @@ td {
 
 #correct {
   font-weight: bold;
-  color: green;
+  color: #2cec43;
   margin-left: 24px;
 }
 
 #incorrect {
   font-weight: bold;
-  color: red;
+  color: #eb2a2a;
   margin-left: 24px;
 }
 

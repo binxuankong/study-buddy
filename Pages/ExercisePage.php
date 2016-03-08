@@ -116,7 +116,7 @@
         if($correctlyAnswered)
         {
           $correctQuestions++;
-          echo "<p id='correct'>Correct!</p><br>";
+          echo "<p id='correct'>CORRECT!</p><br>";
         }
         else
         {
@@ -124,7 +124,7 @@
           $_SESSION['incorrectQuestions'][] = $question[0];
         }
         echo "</td><td width='96px'>";
-        echo "<button id='reportButton' onclick='reportButton()'>Report this question</button>";
+        echo "<button id='reportButton' onclick='reportQuestion()'>Report this question</button>";
         echo "</td></tr>";
       }
       $timeDifference = (2 * $correctQuestions) + count($questions);
