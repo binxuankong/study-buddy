@@ -1,6 +1,6 @@
 function reportQuestion()
 {
-  var mylink = "ReportQuestion.html";
+  var mylink = "ReportQuestion.php";
   var windowname = "Report Question";
   var leftPosition = (window.screen.width / 2) - 400;
   var topPosition = (window.screen.height / 2) - 300;
@@ -10,7 +10,7 @@ function reportQuestion()
 
 function reportModule()
 {
-  var mylink = "ReportModule.html";
+  var mylink = "ReportModule.php";
   var windowname = "Report Module";
   var leftPosition = (window.screen.width / 2) - 400;
   var topPosition = (window.screen.height / 2) - 300;
