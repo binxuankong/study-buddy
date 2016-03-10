@@ -10,7 +10,7 @@ td {
   vertical-align: top;
 }
 
-#reportButton {
+button {
   text-align: center;
   background-color: #ed2939;
   border: 1px solid black;

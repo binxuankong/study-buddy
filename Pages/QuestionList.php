@@ -94,7 +94,7 @@
       $questionNumber = $questionNumber + 1;
 
       echo "</td><td width='100px'>";
-      echo "<button id='reportButton' onclick='reportQuestion()'>Report this question</button>";
+      echo "<button id='".$questionID."' onclick='reportQuestion(this.id)'>Report this question</button>";
       echo "</td></tr>";
     }
     echo "</table>";
