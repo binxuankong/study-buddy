@@ -10,7 +10,8 @@ function reportQuestion()
 
 function reportModule()
 {
-  var mylink = "ReportModule.php";
+  var module = document.getElementById("moduleID").textContent;
+  var mylink = "ReportModule.php?module=" + module;
   var windowname = "Report Module";
   var leftPosition = (window.screen.width / 2) - 400;
   var topPosition = (window.screen.height / 2) - 300;

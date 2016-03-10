@@ -48,7 +48,7 @@
     }
     echo "<div class='heading'>
       <div class='container'>
-        <h1>".$module."</h1>
+        <h1 id='moduleID'>".$module."</h1>
       </div>
     </div>
 

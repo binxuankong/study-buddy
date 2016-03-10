@@ -59,6 +59,10 @@ td {
   z-index: 3;
 }
 
+#logo:hover{
+  background-image: url('../Images/home_logo.png');
+}
+
 .pull-right {
   margin-top: 22px;
 }
@@ -89,13 +93,13 @@ td {
 
 .heading {
   width: 100%;
-  height: 200px;
+  height: 160px;
   background-color: #4da5ff;
 }
 
 .heading .container {
   position: relative;
-  top: 88px;
+  top: 48px;
 }
 
 .heading h1 {

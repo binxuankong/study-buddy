@@ -33,6 +33,13 @@
   font-family: sans-serif;
 }
 
+#emptyTxtArea {
+  color: #ed2939;
+  font-size: 24px;
+  font-weight: bold;  
+  font-family: sans-serif;
+}
+
 .reportedPage h2 {
   color: black;
   font-size: 32px;  
