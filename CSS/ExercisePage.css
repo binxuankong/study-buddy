@@ -10,7 +10,7 @@ td {
   vertical-align: top;
 }
 
-#reportButton {
+button {
   text-align: center;
   background-color: #ed2939;
   border: 1px solid black;
@@ -100,6 +100,11 @@ td {
   font-weight: bold;
 }
 
+.body h5 {
+  visibility: hidden;
+  position: absolute;
+}
+
 .body p {
   font-family: sans-serif;
   color: black;
@@ -129,7 +134,7 @@ td {
   margin-left: 24px;
 }
 
-.body input[type="submit"]{
+.body input[type="submit"] {
   text-align: center;
   background-color: #4da5ff;
   border: 2px solid black;
@@ -140,7 +145,7 @@ td {
   font-size: 22px;
 }
 
-.body button{
+#closeButton {
   text-align: center;
   background-color: #4da5ff;
   border: 2px solid black;

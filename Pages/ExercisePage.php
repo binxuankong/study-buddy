@@ -67,6 +67,7 @@
       $moduleNameRow = $result -> fetch_assoc();
       $moduleName = $moduleNameRow['moduleName'];
       echo "<h2>".$module.": ".$moduleName."</h2><br><br>";
+      echo "<h5 id='moduleID' visibility='hidden'>".$module."</h5>";
       echo "<table>";
       $questions = $_SESSION['passedQuestions'];
       $correctQuestions = 0;
@@ -124,7 +125,7 @@
           $_SESSION['incorrectQuestions'][] = $question[0];
         }
         echo "</td><td width='96px'>";
-        echo "<button id='reportButton' onclick='reportQuestion()'>Report this question</button>";
+        echo "<button id='".$question[0]."' onclick='reportQuestion(this.id)'>Report this question</button>";
         echo "</td></tr>";
       }
       $timeDifference = (2 * $correctQuestions) + count($questions);
@@ -133,7 +134,19 @@
     }
     else if($_SESSION['questionsAccessed'])
     {
+      //get desired module
+      $module = $_GET['module'];
+      //get module name
+      $result = $mysqli -> query("SELECT moduleName FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+      $moduleNameRow = $result -> fetch_assoc();
+      $moduleName = $moduleNameRow['moduleName'];
+      //get module id
+      $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+      $moduleIDRow = $result -> fetch_assoc();
+      $moduleID = $moduleIDRow['moduleID'];
       echo "<form method='post'>";
+      echo "<h2>".$module.": ".$moduleName."</h2><br><br>";
+      echo "<table>";
       $questions = $_SESSION['passedQuestions'];
       for($questionCount = 0; $questionCount < count($questions); $questionCount++)
       {
@@ -146,7 +159,10 @@
             if($result->num_rows == 1) //this is correct
             {
               $questionInfo = $result->fetch_assoc();
-              echo $questionInfo['questionContent']."<br><ul>";
+              echo "<tr><td>";
+              echo $questionCount + 1;
+              echo ". ".$questionInfo['questionContent']."<br>";
+              echo "<ul>";
             }
             else //this cannot happen
             {
@@ -157,13 +173,15 @@
           {
             $result = $mysqli -> query("SELECT answerContent FROM SB_ANSWERS WHERE answerID='$question[$count]'");
             $answerInfo = $result->fetch_assoc();
-            echo "<li>".$answerInfo['answerContent'];
             $checkbox = "$questionCount,$count";
-            echo "<input type='checkbox' name='$checkbox'><br></li>";
+            echo "<li><input type='checkbox' name='$checkbox'>".$answerInfo['answerContent'];
+            echo "<br></li>";
           }
         }
-        echo "</ul>";
+        echo "</ul><br>";
+        echo "</td>";
       }
+      echo "</table><br><br>";
       echo "<input type='submit'value='Submit' name='answered'>";
       echo "</form>";
     }
