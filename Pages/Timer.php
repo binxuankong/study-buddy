@@ -9,7 +9,7 @@
     <title>Set Timer</title>
   </head>
 
-  <body>
+  <body  onload="displayTime();">
     <div id="header">
       <?php include('../Template/header.php'); ?>
     </div>
@@ -40,7 +40,6 @@
                 while($row = $result->fetch_assoc())
                 {
                   $thismodule = $row["moduleCourseID"];
-                  
                   echo "<option value='$thismodule'>$thismodule</option>";
                 }
                 echo '</select><br><h3 id="errorLabel" class="error"></h3>';
@@ -63,9 +62,6 @@
               </div><br>
 	            <button id="Start-Stop" onclick="clickButton();">START</button>
             </div>
-            <script>
-              $('#timer-div').load(displayTime());
-            </script>
           </div>
           <div class="col-md-1">
           </div>

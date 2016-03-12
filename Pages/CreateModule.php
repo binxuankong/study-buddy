@@ -69,14 +69,14 @@
                 $sql -> bind_param("s", $code);
                 $sql -> execute();
                 $sql -> store_result();
-                $sql -> bind_result($fetchedModuleID, $fetchedUserID, $fetchedModuleName, $fetchedModuleCourseID, $fetchedModuleDescription);
+                $sql -> bind_result($fetchedModuleID, $fetchedUserID, $fetchedModuleName, $fetchedModuleCourseID, $fetchedModuleDescription, $fetchedMRS);
                 while($sql -> fetch())
                 {
                   $resultRow['moduleID'] = $fetchedModuleID;
                   $resultRow['userID'] = $fetchedUserID;
                   $resultRow['moduleName'] = $fetchedModuleName;
-                  $resultRow['moduleCourseID'] = $fetechedModuleCourseID;
-                  $resultRow['moduleDescription'] = $fetechedModuleDescription;
+                  $resultRow['moduleCourseID'] = $fetchedModuleCourseID;
+                  $resultRow['moduleDescription'] = $fetchedModuleDescription;
                   $result[] = $resultRow;
                 }
                 $sql -> close();     

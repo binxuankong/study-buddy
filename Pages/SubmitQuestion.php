@@ -139,22 +139,22 @@
                 }
                 echo '</select><br><h3 id="errorLabel" class="error"></h3>';
                 $mysqli -> close();
-                echo "<form method='post'>"
+                echo "<form id='questionsForm'  method='post'>"
                        ."<br>Enter the question:<br>"
                        ."<textarea name='question' rows='3' cols='80' placeholder='e.g. What is the value of the \$test in the following php statement, \$test  = false or true;'></textarea>"
                        ."<br><br>Enter up the answers for this question. if you need more you can add them by clicking the add more answers button"
+                       ."<br><input id='removable' type='button' value='Add more answers' onClick='addInput(\"AnswersFormDiv\")'>"
                        ."<br>(check any answers that are correct)<br>"
                        ."<div id='AnswersFormDiv'>"
-                         ."Answer 1 <input type='text' name='ans[0][0]' size='64'>"
+                         ."Answer 1 <input type='text' name='ans[0][0]' size='64'> "
                          ."<input type='checkbox' name='ans[0][1]' ><br>"
 
-                         ."Answer 2 <input type='text' name='ans[1][0]' size='64'>"
+                         ."Answer 2 <input type='text' name='ans[1][0]' size='64'> "
                          ."<input type='checkbox' name='ans[1][1]'><br>"
                        ."</div>"
                        ."<br><br>"
                        ."<input type='submit' value='Submit Question'>"
-                     ."</form>"
-                   ."<input type='button' value='Add more answers' onClick='addInput(\"AnswersFormDiv\")'>";
+                     ."</form>";
                 }
                 else
                 {
