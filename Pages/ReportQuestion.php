@@ -27,6 +27,16 @@
         .$mysqli -> connect_error);
   }
 
+  // Check if the other reason check box is ticked.
+  $otherReason = false;
+  if(isset($_POST['report']) && !empty($_POST['checklist']))
+  {
+    foreach($_POST['checklist'] as $checkValue)
+    {
+      if ($checkValue == '7')
+        $otherReason = true;
+    }   
+  }
   // The user send the report but none of the check boxes are checked.
   if(isset($_POST['report']) && empty($_POST['checklist']))
   {
@@ -36,19 +46,19 @@
          ."<h3 id='emptyTxtArea'>Please check the boxes which are applicable!</h3>"
          ."<ul>
            <li>The question is completely irrelevant.
-               <input type='checkbox' name='checklist' value='1'></li>
+               <input type='checkbox' name='checklist[]' value='1'></li>
            <li>The question is not suitable for its module.
-               <input type='checkbox' name='checklist' value='2'></li>
+               <input type='checkbox' name='checklist[]' value='2'></li>
            <li>The question/choices contain spelling error.
-               <input type='checkbox' name='checklist' value='3'></li>
+               <input type='checkbox' name='checklist[]' value='3'></li>
            <li>The choices avaible for the question are irrelevant.
-               <input type='checkbox' name='checklist' value='4'></li>
+               <input type='checkbox' name='checklist[]' value='4'></li>
            <li>The correct answer(s) for the question is(are) wrong.
-               <input type='checkbox' name='checklist' value='5'></li>
+               <input type='checkbox' name='checklist[]' value='5'></li>
            <li>The content of the question is offensive.
-               <input type='checkbox' name='checklist' value='6'></li>
+               <input type='checkbox' name='checklist[]' value='6'></li>
            <li>Other reason(s):
-               <input type='checkbox' name='checklist' value='7'><br>
+               <input type='checkbox' name='checklist[]' value='7'><br>
                <textarea name='others' rows='4' cols='68'></textarea></li>
            </ul><br>"
          ."<input type='submit' name='report' value='Send Report'>"
@@ -56,8 +66,8 @@
          ."</div>"
          ."</form>";
   }
-  // The user check other reasons but the text area is empty.
-  else if(isset($_POST['report']) && $_POST['checklist'] == '7' && empty($_POST['others']))
+  // The user checked other reasons but the text area is empty.
+  elseif(isset($_POST['report']) && $otherReason && empty($_POST['others']))
   {
     echo "<form method='post'>"
          ."<div class='reportPage'>"
@@ -65,28 +75,29 @@
          ."<h3 id='emptyTxtArea'>Please state the other reason(s)!</h3>"
          ."<ul>
            <li>The question is completely irrelevant.
-               <input type='checkbox' name='checklist' value='1'></li>
+               <input type='checkbox' name='checklist[]' value='1'></li>
            <li>The question is not suitable for its module.
-               <input type='checkbox' name='checklist' value='2'></li>
+               <input type='checkbox' name='checklist[]' value='2'></li>
            <li>The question/choices contain spelling error.
-               <input type='checkbox' name='checklist' value='3'></li>
+               <input type='checkbox' name='checklist[]' value='3'></li>
            <li>The choices avaible for the question are irrelevant.
-               <input type='checkbox' name='checklist' value='4'></li>
+               <input type='checkbox' name='checklist[]' value='4'></li>
            <li>The correct answer(s) for the question is(are) wrong.
-               <input type='checkbox' name='checklist' value='5'></li>
+               <input type='checkbox' name='checklist[]' value='5'></li>
            <li>The content of the question is offensive.
-               <input type='checkbox' name='checklist' value='6'></li>
+               <input type='checkbox' name='checklist[]' value='6'></li>
            <li>Other reason(s):
-               <input type='checkbox' name='checklist' value='7'><br>
+               <input type='checkbox' name='checklist[]' value='7'><br>
                <textarea name='others' rows='4' cols='68'></textarea></li>
            </ul><br>"
          ."<input type='submit' name='report' value='Send Report'>"
          ."<button onclick='self.close()'>Close</button>"
          ."</div>"
          ."</form>";
+    $otherReason = false;
   }
   // The user send the report and is successful.
-  else if(isset($_POST['report']))
+  elseif(isset($_POST['report']))
   {
     $reportReason = 0;
     $baseRiskPoint = 0;
@@ -132,13 +143,8 @@
     $questionID = $_GET['questionID'];
     $result = $mysqli -> query("SELECT questionRisk FROM SB_QUESTIONS WHERE questionID='$questionID'");
     $questionRiskRow = $result -> fetch_assoc();
-    $questionRisk = $questionRiskRow['questionID'];
-    // These are not supposed to echo. Just for testing.
-    echo "Initial Question Risk Point = ".$questionRisk;
+    $questionRisk = $questionRiskRow['questionRisk'];
     $questionRisk = $questionRisk + $baseRiskPoint;
-    echo "<br>Report Reason = ".$reportReason;
-    echo "<br>Base Risk Point = ".$baseRiskPoint;
-    echo "<br>Question Risk Point = ".$questionRisk;
     $report = "UPDATE SB_QUESTIONS SET questionRisk='$questionRisk' WHERE questionID='$questionID'";
     if ($mysqli->query($report) == true) {
       echo "<div class='reportedPage'>"
