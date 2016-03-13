@@ -2,8 +2,8 @@
 <html>
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
-    <link rel="stylesheet" href="../CSS/Template.css">
-    <title>Template</title>
+    <link rel="stylesheet" href="../CSS/Login.css">
+    <title>Sign Up/Log In</title>
   </head>
 
   <body>
@@ -11,14 +11,6 @@
       <?php include('../Template/header.php'); ?>
     </div>
 
-    <div class="heading">
-      <div class="container">
-        <h1>Sign up / Login</h1>
-      </div>
-    </div>
-	      
-    <div class="body">
-      <div class="container">
         <?php
           if(!(isset($_SESSION['userID']) && isset($_SESSION['userName'])))
           {
@@ -36,7 +28,15 @@
             if(isset($_POST['register']))
             {
               //display the sign up form
-              echo "<form method='post'>"
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Sign Up</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
+              echo "<div id='register'><form method='post'>"
                       ."First name:<br><input name='firstName' type='text'><br>"
                       ."Surname:<br><input name='surname' type='text'><br>"
                       ."Email address:<br><input name='email' type='email'><br>"
@@ -47,7 +47,7 @@
                       ."type='password'><br>"
                       ."<input name='registered' type='submit' "
                       ."value='Register'>"
-                    ."</form>";
+                    ."</form></div>";
             }
             //else if the user filled in the registration form
             else if(isset($_POST['registered']))
@@ -145,9 +145,16 @@
                       $username = test_input($_POST['username']);
                     }
                     //echo error message and display the form
-                    echo "Password does not match the password confirmation "
-                         ."<br>";
-                    echo "<form method='post'>"
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Sign Up</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
+                    echo "<div id='register'><form method='post'>"
+                          ."<div id='invalid'>Password and confirm password do not match.</div><br>"
                           ."First name:<br><input name='firstName' type='text' "
                           ."value='$firstName'><br>"
                           ."Surname:<br><input name='surname' type='text' "
@@ -162,7 +169,7 @@
                           ."type='password'><br>"
                           ."<input name='registered' type='submit' "
                           ."value='Register'>"
-                        ."</form>";
+                        ."</form></div>";
                   }
                 }
               }
@@ -195,8 +202,16 @@
                 {
                   $username = test_input($_POST['username']);
                 }
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Sign Up</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
                 //echo the form
-                echo "<form method='post'>"
+                echo "<div id='register'><form method='post'>"
                       ."First name:<br><input name='firstName' type='text' "
                       ."value='$firstName'><br>"
                       ."Surname:<br><input name='surname' type='text' "
@@ -211,7 +226,7 @@
                       ."type='password'><br>"
                       ."<input name='registered' type='submit' "
                       ."value='Register'>"
-                    ."</form>";
+                    ."</form></div>";
               }
             }
             //user attempted to login
@@ -319,36 +334,55 @@
                 //login failed username or password checks
                 else
                 {
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Log In</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
                   //redisplay logn form with entered username but not password
-                  echo "Invalid username or password";
-                  echo "<form method='post'>"
-                        ."Username:<br><input type='text' name='username' "
-                        ."value='$username'><br>"
-                        ."<Password<br><input type='password' name='password'>"
-                        ."<br>"
-                        ."<input type='submit' name='login' value='login'><br>"
+                  echo "<div id='login'><form method='post'>"
+                        ."<div id='invalid'>Invalid username or password</div><br>"
+                        ."Username:<input type='text' name='username'><br><br>"
+                        ."Password:<input type='password' name='password'>"
+                        ."<br><br>"
+                        ."<input id='loginButton' type='submit' name='login' value='LOG IN'><br>"
+                      ."<p><a href='#'>Forgot your username or password?</a></p>"
                       ."</form>"
+                      ."<p><br>Don't have a Study Buddy account?</p>"
                       ."<form method='post'>"
                         ."<input type='submit' name='register' "
                         ."value='Click Here to sign up'>"
-                      ."</form>";
+                      ."</form></div>";
                 }
               }
               //else no attempt to use page has been made 
               //so display standard form
               else
               {
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Log In</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
                 //display standard login form
-                echo "<form method='post'>"
-                        ."Username:<br><input type='text' name='username'><br>"
-                        ."Password:<br><input type='password' name='password'>"
-                        ."<br>"
-                        ."<input type='submit' name='login' value='login'><br>"
+                echo "<div id='login'><form method='post'>"
+                        ."<br>Username:<input type='text' name='username'><br><br>"
+                        ."Password:<input type='password' name='password'>"
+                        ."<br><br>"
+                        ."<input id='loginButton' type='submit' name='login' value='LOG IN'><br>"
+                      ."<p><a href='#'>Forgot your username or password?</a></p>"
                       ."</form>"
+                      ."<p><br>Don't have a Study Buddy account?</p>"
                       ."<form method='post'>"
                         ."<input type='submit' name='register' "
                         ."value='Click Here to sign up'>"
-                      ."</form>";
+                      ."</form></div>";
               }
             }
           }
