@@ -137,7 +137,7 @@
       {
         $reportReason = $reportReason + 32;
         $baseRiskPoint = $baseRiskPoint + 20;
-        $otherReasons = $_POST['others'];
+        $otherReason = $_POST['others'];
       }
     }
     $questionID = $_GET['questionID'];
@@ -146,6 +146,16 @@
     $questionRisk = $questionRiskRow['questionRisk'];
     $questionRisk = $questionRisk + $baseRiskPoint;
     $report = "UPDATE SB_QUESTIONS SET questionRisk='$questionRisk' WHERE questionID='$questionID'";
+    if (isset($otherReason))
+    {
+      $report = "INSERT INTO SB_REPORTED_QUESTIONS (questionID, reportReason, otherReason)
+                 VALUES ($questionID, $reportReason, $otherReason)";
+    }
+    else
+    {
+      $report = "INSERT INTO SB_REPORTED_QUESTIONS (questionID, reportReason, otherReason)
+                 VALUES ($questionID, $reportReason, NULL)";
+    }
     if ($mysqli->query($report) == true) {
       echo "<div class='reportedPage'>"
           ."<h2>The question has succesfully been reported!</h2>"

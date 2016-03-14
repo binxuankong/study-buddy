@@ -50,6 +50,9 @@
   else if(isset($_POST['report']))
   {
     $report = "UPDATE SB_MODULE_INFO SET moduleReportStatus=1 WHERE moduleCourseID='$module'";
+    $reportReason = $_POST['others'];
+    $report = "INSERT INTO SB_REPORTED_MODULES (moduleID, reportReason)
+               VALUES ($module, $reportReason)";
 
     if ($mysqli->query($report) == true) {
       echo "<div class='reportedPage'>"
