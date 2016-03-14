@@ -55,9 +55,15 @@
     {
       $_SESSION['passedQuestions'] = array();
     }
-    if(!(empty($_SESSION['questionsAccessed'])))
+    if(!(isset($_SESSION['questionsAccessed'])))
     {
       $_SESSION['questionsAccessed'] = false;
+    }
+    if((isset($_SESSION['UserID'])))
+    {
+      $UserID = $_SESSION['UserID'];
+      $getRatingQuery = $mysqli -> query("SELECT userModuleELORating FROM SB_USER_ELO WHERE moduleCourseID='$module' AND userID = '$UserID'");
+      $UserRating = $getRatingQuery --> fetch_assoc();
     }
 
 
@@ -65,6 +71,7 @@
     //EXERCISE----------------------------------------------------------------//
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answered'])) //request method POST
     {
+      //questions answered
       $_SESSION['questionsAccessed'] = false;
       $module = $_GET['module'];
       $result = $mysqli -> query("SELECT moduleName FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
@@ -116,9 +123,11 @@
           }
         }
         echo "</ul>";
-        if($correctlyAnswered)
+        if($correctlyAnswered) //Correct Answer
         {
           $correctQuestions++;
+          $getQuestionRating = $mysqli -> query("SELECT questionELORating FROM SB_QUESTIONS WHERE questionID = '$question[0]'");
+          $questionRating = $getQuestionRating -> fetch_assoc();
           //If previosuly incorrect but now right remove from incorrectQuestions
           if(in_array($question[0], $_SESSION['incorrectQuestions']))
           {
@@ -131,11 +140,31 @@
               }
             }
             $_SESSION['incorrectQuestions'] = $newArray;
+
           }
-          echo "<p id='correct'>Correct!</p><br>";
+
+          $getIfCorrect = $mysqli -> query("SELECT * FROM SB_USER_QUESTION_ATTEMPTS WHERE userID = $UserID AND questionID = $questionID");
+          $correctInfo = $getIfCorrect ->fetch_assoc();
+          $wasCorrect = $correctInfo-> num_rows == 1); //Is in table
+
+          if(!$wasCorrect) //Wasn't previosuly correct
+          {
+            //Recalculate Ratings
+            recalculateRating($userRating, $questionRating, 1);
+            recalculateRating($questionRating, $userRating, 0);
+
+            //Add to table
+            
+
+          }
+          echo "<p id='correct'>CORRECT!</p><br>";
         }
+
         else
         {
+
+          recalculateRating($userRating, $questionRating, 0);
+          recalculateRating($questionRating, $userRating, 1);
           echo "<p id='incorrect'>INCORRECT!</p><br>";
           $_SESSION['incorrectQuestions'][] = $question[0]; //This array stores the previosuly incorrect questionS iD
         }
@@ -145,7 +174,7 @@
       echo "<br>";
       echo "<button id='closeButton' onclick=''>Close</button>";
     }
-    else if($_SESSION['questionsAccessed'])
+    else if($_SESSION['questionsAccessed']) ///CHANGE CSS FOR THIS SECTION ---BIN
     {
       echo "<form method='post'>";
       $questions = $_SESSION['passedQuestions'];
@@ -183,10 +212,10 @@
     }
     else
     {
-
+      //Prodcues all the questions
       $_SESSION['questionsAccessed'] =true;
       //get desired module
-      $module = $_GET['module'];
+      $module = $_GET['module']; //Injection proof this GET
       //get module name
       $result = $mysqli -> query("SELECT moduleName FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
       $moduleNameRow = $result -> fetch_assoc();
@@ -279,11 +308,6 @@
         $chosenQuestionsRows[] = $allQuestions[$chosenLines[$count]];
       }
 
-
-
-
-
-
       //create form
       echo "<form method='post'>";
       //display module name
@@ -367,7 +391,35 @@
       $output2 = $input2 * $w;
 
       return round(($output1 * $sd + $mean), 0,1);
+    }
 
+    function recalculateRating($initialRating, $relativeRating, $score)
+    {
+      //initialRating will be changed relative to relativeRating and the score
+      //score being 1 if question is correct and 0 if question was wrong
+
+      $expectedScore = 1/(1+pow(10,(($relativeRating - $initialRating)/400)));
+      $kFactor = calculateKFactor($initialRating);
+
+      $newRating = $initialRating + $kFactor * ($score - $expectedScore);
+
+      return $newRating;
+
+
+    }
+
+    function calculateKFactor($rating)
+    {
+      if($rating <2100)
+      {
+        return 32;
+      }else if ($rating < 2400) {
+        return 24;
+      } else if ($rating < 2600) {
+        return 16;
+      } else {
+        return 10;
+      }
     }
   ?>
 
