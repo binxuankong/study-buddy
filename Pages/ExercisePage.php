@@ -64,8 +64,9 @@
     {
       $userID = $_SESSION['UserID'];
       $getRatingQuery = $mysqli -> query("SELECT userModuleELORating FROM SB_USER_ELO WHERE moduleCourseID='$module' AND userID = '$userID'");
-      $UserRating = $getRatingQuery --> fetch_assoc();
-    } else {
+      $userRating = $getRatingQuery --> fetch_assoc();
+    } else
+    {
       $userID = -1;
 
     }
@@ -84,6 +85,7 @@
       echo "<h2>".$module.": ".$moduleName."</h2><br><br>";
       $questions = $_SESSION['passedQuestions'];
       $correctQuestions = 0;
+      $questionRatingArray = array();
       for($questionCount = 0; $questionCount < count($questions); $questionCount++)
       {
         $correctlyAnswered = true;
@@ -127,11 +129,13 @@
           }
         }
         echo "</ul>";
+        $getQuestionRating = $mysqli -> query("SELECT questionELORating FROM SB_QUESTIONS WHERE questionID = '$question[0]'");
+        $questionRating = $getQuestionRating -> fetch_assoc();
+        $questionRatingArray[] = $questionRating; //Array of Questions ratings
         if($correctlyAnswered) //Correct Answer
         {
           $correctQuestions++;
-          $getQuestionRating = $mysqli -> query("SELECT questionELORating FROM SB_QUESTIONS WHERE questionID = '$question[0]'");
-          $questionRating = $getQuestionRating -> fetch_assoc();
+
           //If previosuly incorrect but now right remove from incorrectQuestions
           if(in_array($question[0], $_SESSION['incorrectQuestions']))
           {
@@ -153,12 +157,11 @@
             $correctInfo = $getIfCorrect ->fetch_assoc();
             $wasCorrect = ($correctInfo-> num_rows == 1); //Is in table
 
-            if(!$wasCorrect) //Wasn't previosuly correct
+            if(!$wasCorrect ) //Wasn't previosuly correct
             {
               //Recalculate Ratings
-              recalculateRating($userRating, $questionRating, 1);
-              recalculateRating($questionRating, $userRating, 0);
-
+              $userRating = recalculateRating($userRating, $questionRating, 1);
+              $questionRating = recalculateRating($questionRating, $userRating, 0);
               //Add to table
               $addToTable = $mysqli -> query("INSERT INTO SB_USER_QUESTION_ATTEMPTS (UserID, QuestionID) VALUES ($userID, $QuestionID)");
             }
@@ -172,14 +175,34 @@
 
           if($userID != -1)
           {
-          recalculateRating($userRating, $questionRating, 0);
-          recalculateRating($questionRating, $userRating, 1);
+            $userRating = recalculateRating($userRating, $questionRating, 0);
+            $questionRating = recalculateRating($questionRating, $userRating, 1);
           }
 
           echo "<p id='incorrect'>INCORRECT!</p><br>";
           $_SESSION['incorrectQuestions'][] = $question[0]; //This array stores the previosuly incorrect questionS iD
+
+        }//else
+
+        if($userID != -1) //Update question and user rating.
+        {
+          $conn -> query("UPDATE SB_USER_ELO SET userModuleELORating = $userRating WHERE userID = $userID AND moduleID = $moduleID");
+          $conn -> query("UPDATE SB_QUESTIONS SET questionELORating = $questionRating WHERE questionID = $questions[0]");
         }
+      }//for
+      if($userID != -1 && $userRating == 0) //Calculate intial rating, new user
+      {
+
+        $averageRating = array_sum($questionRatingArray)
+                        / count($questionRatingArray);
+
+        $addedFactor = $correctlyAnswered - 3;
+
+        $newRating = $averageRating + 20 * $addedFactor;
+
+        $conn -> query("UPDATE SB_USER_ELO SET userModuleELORating = $userRating WHERE userID = $userID AND moduleID = $moduleID");
       }
+
       echo "</p>";
       $timeDifference = (2 * $correctQuestions) + count($questions);
       echo "<br>";
@@ -327,7 +350,7 @@
       {
         while(count($chosenQuestionsRows) < 5) //questions still need to be added
         {
-          $rating = randomNormal($UserRating,100);
+          $rating = randomNormal($userRating,100);
           $upperRating = $rating + 20;
           $lowerRating = $rating - 20;
 
@@ -465,6 +488,8 @@
         return 10;
       }
     }
+
+
   ?>
 
           </div>
@@ -473,6 +498,5 @@
         </div>
       </div>
     </div>
-
   </body>
 </html>
