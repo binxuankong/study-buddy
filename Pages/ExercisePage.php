@@ -59,11 +59,15 @@
     {
       $_SESSION['questionsAccessed'] = false;
     }
+
     if((isset($_SESSION['UserID'])))
     {
-      $UserID = $_SESSION['UserID'];
-      $getRatingQuery = $mysqli -> query("SELECT userModuleELORating FROM SB_USER_ELO WHERE moduleCourseID='$module' AND userID = '$UserID'");
+      $userID = $_SESSION['UserID'];
+      $getRatingQuery = $mysqli -> query("SELECT userModuleELORating FROM SB_USER_ELO WHERE moduleCourseID='$module' AND userID = '$userID'");
       $UserRating = $getRatingQuery --> fetch_assoc();
+    } else {
+      $userID = -1;
+
     }
 
 
@@ -143,28 +147,35 @@
 
           }
 
-          $getIfCorrect = $mysqli -> query("SELECT * FROM SB_USER_QUESTION_ATTEMPTS WHERE userID = $UserID AND questionID = $questionID");
-          $correctInfo = $getIfCorrect ->fetch_assoc();
-          $wasCorrect = $correctInfo-> num_rows == 1); //Is in table
-
-          if(!$wasCorrect) //Wasn't previosuly correct
+          if($userID != -1)
           {
-            //Recalculate Ratings
-            recalculateRating($userRating, $questionRating, 1);
-            recalculateRating($questionRating, $userRating, 0);
+            $getIfCorrect = $mysqli -> query("SELECT * FROM SB_USER_QUESTION_ATTEMPTS WHERE userID = $userID AND questionID = $questionID");
+            $correctInfo = $getIfCorrect ->fetch_assoc();
+            $wasCorrect = ($correctInfo-> num_rows == 1); //Is in table
 
-            //Add to table
-            
+            if(!$wasCorrect) //Wasn't previosuly correct
+            {
+              //Recalculate Ratings
+              recalculateRating($userRating, $questionRating, 1);
+              recalculateRating($questionRating, $userRating, 0);
 
+              //Add to table
+              $addToTable = $mysqli -> query("INSERT INTO SB_USER_QUESTION_ATTEMPTS (UserID, QuestionID) VALUES ($userID, $QuestionID)");
+            }
           }
+
           echo "<p id='correct'>CORRECT!</p><br>";
         }
 
-        else
+        else //Answered incorrectly
         {
 
+          if($userID != -1)
+          {
           recalculateRating($userRating, $questionRating, 0);
           recalculateRating($questionRating, $userRating, 1);
+          }
+
           echo "<p id='incorrect'>INCORRECT!</p><br>";
           $_SESSION['incorrectQuestions'][] = $question[0]; //This array stores the previosuly incorrect questionS iD
         }
@@ -225,12 +236,16 @@
       $moduleIDRow = $result -> fetch_assoc();
       $moduleID = $moduleIDRow['moduleID'];
       //get all questions from module
-      $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID'");
-      $allQuestions = array();
 
-      while($row = $result->fetch_assoc())
+      if($userID == -1)
       {
-        $allQuestions[] = $row;
+        $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID'");
+        $allQuestions = array();
+
+        while($row = $result->fetch_assoc())
+        {
+          $allQuestions[] = $row;
+        }
       }
 
       $chosenIDs = array();
@@ -242,6 +257,8 @@
 
 
       //Get User Rating
+
+
       $incorrectQuestions = array();
       $incorrectQuestions = $_SESSION['incorrectQuestions'];
       //Get length of InccorectAnswered Array
@@ -259,9 +276,6 @@
         $incorrectQuestionsRequired = floor($incorrectQuestionsLength / 5) + 1;
       }
       //Chose questions from IncorrectAnswered Array - put in chosen lines
-
-
-
       while(count($chosenIDs) < $incorrectQuestionsRequired)
       {
         $randomNumber = rand(0, $incorrectQuestionsLength -1);
@@ -275,6 +289,7 @@
 
       $chosenQuestionsRows = array();
 
+      //Adds the questions info for incorrectQuestions array to chosenQuestionsRows array
       for($count = 0; $count < $incorrectQuestionsRequired; $count++)
       {
         $currentID = $chosenIDs[$count];
@@ -287,26 +302,55 @@
       }
 
 
-
-
-
       //Uses this to populate the other questions
       $chosenLines = array();
-      while( count($chosenLines)< ($numberOfQuestions -count($chosenIDs)) )
-      {
 
-        $randomNumber = rand(1, $result -> num_rows);
-        $randomNumber--;
-        if(!(in_array($randomNumber, $chosenLines)))
+      if($userID == -1) //Random population of questions if not logged in
+      {
+        while( count($chosenLines)< ($numberOfQuestions -count($chosenIDs)) )
         {
-          $chosenLines[] = $randomNumber;
+
+          $randomNumber = rand(1, $result -> num_rows);
+          $randomNumber--;
+          if(!(in_array($randomNumber, $chosenLines)))
+          {
+            $chosenLines[] = $randomNumber;
+          }
+        }
+
+        for ($count=0; $count < count($chosenLines) ; $count++)
+        {
+          $chosenQuestionsRows[] = $allQuestions[$chosenLines[$count]];
         }
       }
-
-      for ($count=0; $count < count($chosenLines) ; $count++)
+      else //User logged in.
       {
-        $chosenQuestionsRows[] = $allQuestions[$chosenLines[$count]];
-      }
+        while(count($chosenQuestionsRows) < 5) //questions still need to be added
+        {
+          $rating = randomNormal($UserRating,100);
+          $upperRating = $rating + 20;
+          $lowerRating = $rating - 20;
+
+          $getQuestions = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE $userRating < $upperRating AND $userRating > $lowerRating");
+          $randomQuestion = $getQuestions -> fetch_assoc();
+
+          if($randomQuestion -> num_rows != 0) //Checks questions in this range
+          {
+            if($randomQuestion -> num_rows == 1) // Only one question so add it
+            {
+              $chosenQuestionsRows[] = $randomQuestion[0];
+            }
+            else //Chose question at random and select it.
+            {
+              $randomNumber = rand(1, $randomQuestion -> num_rows);
+              $randomNumber--;
+
+              $chosenQuestionsRows[] = $randomQuestion[$randomNumber];
+            }
+          }
+
+        }//while
+      }//else
 
       //create form
       echo "<form method='post'>";
