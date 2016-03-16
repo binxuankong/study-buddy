@@ -239,9 +239,9 @@
           {
             $result = $mysqli -> query("SELECT answerContent FROM SB_ANSWERS WHERE answerID='$question[$count]'");
             $answerInfo = $result->fetch_assoc();
-            echo "<li>".$answerInfo['answerContent'];
+            echo "<li><input type='checkbox' name='$checkbox'>";
             $checkbox = "$questionCount,$count";
-            echo "<input type='checkbox' name='$checkbox'><br></li>";
+            echo "<br>".$answerInfo['answerContent']."</li>";
           }
         }
         echo "</ul>";

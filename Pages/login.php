@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Template.css">
-    <title>Study Buddy - Login</title>
+    <title>Template</title>
   </head>
 
   <body>
@@ -16,7 +16,7 @@
         <h1>Sign up / Login</h1>
       </div>
     </div>
-
+	      
     <div class="body">
       <div class="container">
         <?php
@@ -24,10 +24,10 @@
           {
             //create database connection object
             require_once('../config.inc.php');
-            $mysqli = new mysqli($database_host, $database_user,
+            $mysqli = new mysqli($database_host, $database_user, 
                                  $database_pass, $database_name);
             //check database connection
-            if($mysqli -> connect_error)
+            if($mysqli -> connect_error) 
             {
               die('Connect Error ('.$mysqli -> connect_errno.') '
                   .$mysqli -> connect_error);
@@ -53,9 +53,9 @@
             else if(isset($_POST['registered']))
             {
               //check all values were entered
-              if(!(empty($_POST['firstName']) || empty($_POST['surname'])
+              if(!(empty($_POST['firstName']) || empty($_POST['surname']) 
                  || empty($_POST['email']) || empty($_POST['username'])
-                 || empty($_POST['password'])
+                 || empty($_POST['password']) 
                  || empty($_POST['passwordConfirm'])))
               {
                 //store the form values for use.
@@ -77,13 +77,13 @@
                   $saltedPasswordPreHash = $hexedSalt.$password;
                   //hash the salted password using sha512
                   $passwordHash = hash("sha512", $saltedPasswordPreHash);
-
+                  
                   //insert all user info
                   $sql = $mysqli -> prepare("INSERT INTO SB_USER_INFO "
                                             ."(userFirstName, userSurname, "
                                             ."userEmail,  userScreenName) "
                                             ."VALUES (?,?,?,?)");
-                  $sql -> bind_param("ssss", $firstName, $surname, $email,
+                  $sql -> bind_param("ssss", $firstName, $surname, $email, 
                                      $username);
                   $sql -> execute();
                   $sql -> close();
@@ -111,7 +111,7 @@
                     $sql = $mysqli -> prepare("INSERT INTO SB_LOGIN_CREDENTIALS"
                                               ." (userID, userPasswordHash, "
                                               ."userSalt) VALUES (?,?,?)");
-                    $sql -> bind_param("sss", $userID, $passwordHash,
+                    $sql -> bind_param("sss", $userID, $passwordHash, 
                                        $hexedSalt);
                     $sql -> execute();
                     $sql -> close();
@@ -126,8 +126,7 @@
                     $msg = wordwrap($msg,70);
                     $sender = "\"Study Buddy\"";
                     // send email
-                    mail("$email","Study Buddy Sign Up Confirmation",$msg, "",
-                         "-F $sender");
+                    mail("$email","Study Buddy Sign Up Confirmation",$msg, "","-F $sender"); 
                     header("Location: /Pages/login.php");
                     die();
                   }
@@ -135,13 +134,13 @@
                   else
                   {
                     //reproduce form with missing items from registration form.
-
+                
                     //set variables to blank
                     $firstName = "";
                     $surname = "";
                     $email = "";
                     $username = "";
-
+                    
                     //get entered values
                     if(isset($_POST['firstName']))
                     {
@@ -180,56 +179,11 @@
                         ."</form>";
                   }
                 }
-                //reproduce form with missing items from registration form.
-
-                //set variables to blank
-                $firstName = "";
-                $surname = "";
-                $email = "";
-                $username = "";
-                $password = "";
-                $passwordConfirm = "";
-
-                //get entered values
-                if(isset($_POST['firstName']))
-                {
-                  $firstName = test_input($_POST['firstName']);
-                }
-                if(isset($_POST['surname']))
-                {
-                  $surname = test_input($_POST['surname']);
-                }
-                if(isset($_POST['email']))
-                {
-                  $email = test_input($_POST['email']);
-                }
-                if(isset($_POST['username']))
-                {
-                  $username = test_input($_POST['username']);
-                }
-                //echo the form
-                echo "<form method='post'>"
-                      ."First name:<br><input name='firstName' type='text' "
-                      ."value='$firstName'><br>"
-                      ."Surname:<br><input name='surname' type='text' "
-                      ."value='$surname'><br>"
-                      ."Email address:<br><input name='email' type='email' "
-                      ."value='$email'><br>"
-                      ."Username:<br><input name='username' type='text' "
-                      ."value='$username'><br>"
-                      ."Password:<br><input name='password' type='password'>"
-                      ."<br>"
-                      ."Confirm password:<br><input name='passwordConfirm' "
-                      ."type='password'><br>"
-                      ."<input name='registered' type='submit' "
-                      ."value='Register'>"
-                    ."</form>";
-                }
               }
               else
               {
                 //reproduce form with missing items from registration form.
-
+                
                 //set variables to blank
                 $firstName = "";
                 $surname = "";
@@ -237,7 +191,7 @@
                 $username = "";
                 $password = "";
                 $passwordConfirm = "";
-
+                
                 //get entered values
                 if(isset($_POST['firstName']))
                 {
@@ -273,6 +227,7 @@
                       ."value='Register'>"
                     ."</form>";
               }
+            }
             //user attempted to login
             else
             {
@@ -280,7 +235,7 @@
               {
                 //assume login will fail
                 $login = false;
-
+                
                 //get username and entered password
                 $username = test_input($_POST['username']);
                 $enteredPassword = test_input($_POST['password']);
@@ -292,7 +247,7 @@
                 $sql -> bind_param("s", $username);
                 $sql -> execute();
                 $sql -> store_result();
-                $sql -> bind_result($userID, $userScreenName, $userFirstName,
+                $sql -> bind_result($userID, $userScreenName, $userFirstName, 
                                     $userSurname, $userEmail, $userQQ);
                 while($sql -> fetch())
                 {
@@ -393,7 +348,7 @@
                       ."</form>";
                 }
               }
-              //else no attempt to use page has been made
+              //else no attempt to use page has been made 
               //so display standard form
               else
               {
@@ -416,12 +371,12 @@
             header("Location: /Pages/AccountManagement.php");
             die();
           }
-          function test_input($data)
+          function test_input($data) 
           {
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
-            $data = filter_var($data, FILTER_SANITIZE_STRING,
+            $data = filter_var($data, FILTER_SANITIZE_STRING, 
                                FILTER_FLAG_STRIP_HIGH);
             return $data;
           }
