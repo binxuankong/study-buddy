@@ -150,7 +150,7 @@
       <li>If you cannot find the module you want, you can <a href="CreateModule.php">create one</a> here.
       <li>Click the <mark>View Questions</mark> button, and the list of questions for the module you have selected will open in a new window.
       <li>In the new window, you can see the module code, module name, module description and all of the questions available for that module.
-      <li>You can choose to <span class="link" rel ="#ReportQuestion">report a question</a>, <span class="link" rel ="#SubmitQuestion">add a question</a> or <span class="link" rel ="#ReportModule">report the module</a> there.
+      <li>You can choose to <span class="link" rel ="#ReportQuestion">report a question</span>, <span class="link" rel ="#SubmitQuestion">add a question</span> or <span class="link" rel ="#ReportModule">report the module</span> there.
       <li>Click the <mark>Close</mark> button when you are done.
     </ol>
     <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
@@ -161,7 +161,7 @@
       <li>Go to the <a href="AllQuestions.php">view questions</a> page and select the module that you want to report.
       <li>Click the <mark>View Questions</mark> button, and the module page will open in a new window.
       <li>Go the the bottom of the page where you can find the <mark>Report this module</mark> button.
-      <li>Click the buttona and the report module page will pop-up.
+      <li>Click the button and the report module page will pop-up.
       <li>Type in the reason of reporting the module at the text area given.
       <li>Click the <mark>Send Report</mark> button once you are done.
       <li>Exit the window by clicking the <mark>Close</mark> button.
