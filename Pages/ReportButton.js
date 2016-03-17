@@ -20,3 +20,15 @@ function reportModule()
   var myWindow = window.open(mylink, windowname, "height=600px, width=800px, top=" + topPosition + ", left=" + leftPosition + "location=no, statusbar=no, toolbar=no");
   myWindow.focus();
 }
+
+function logIn()
+{
+  window.opener.location.href = "login.php";
+  window.close();
+}
+
+function signUp()
+{
+  window.opener.location.href = "login.php";
+  window.close();
+}

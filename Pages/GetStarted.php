@@ -35,37 +35,37 @@
 
   <h2 id="HowToHelp">How can we help you?</h2><br>
   <ul id="index">
-    <li><a href="#CreateAccount">Create your own account</a></li>
-    <li><a href="#LogIn">Log in to your account</a></li>
-    <li><a href="#ChangePassword">Change or reset your password</a></li>
-    <li><a href="#CreateModule">Create your own module</a></li>
-    <li><a href="#SubmitQuestion">Submit your own question</a></li>
-    <li><a href="#StartExercise">Start your exercise</a></li>
-    <li><a href="#AboutTimer">Learn how the timer works</a></li>
-    <li><a href="#ViewQuestions">View the available modules and questions</a></li>
-    <li><a href="#ReportModule">Report unsuitable modules</a></li>
-    <li><a href="#ReportQuestion">Report unsuitable questions</a></li>
-    <li><a href="">Learn how the questions are picked for you</a></li>
+    <li><span class="link" rel ="#CreateAccount">Create your own account</span></li>
+    <li><span class="link" rel="#LogIn">Log in to your account</span></li>
+    <li><span class="link" rel ="#ChangePassword">Change or reset your password</span></li>
+    <li><span class="link" rel ="#CreateModule">Create your own module</span></li>
+    <li><span class="link" rel ="#SubmitQuestion">Submit your own question</span></li>
+    <li><span class="link" rel ="#StartExercise">Start your exercise</span></li>
+    <li><span class="link" rel ="#AboutTimer">Learn how the timer works</span></li>
+    <li><span class="link" rel ="#ViewQuestions">View the available modules and questions</span></li>
+    <li><span class="link" rel ="#ReportModule">Report unsuitable modules</span></li>
+    <li><span class="link" rel ="#ReportQuestion">Report unsuitable questions</span></li>
+    <li><span class="link" rel="#">Learn how the questions are picked for you</span></li>
   </ul>
 
   <div class="help">
     <h3 id="CreateAccount">Create your own account</h3>
     <p>Creating your own <mark>Study Buddy account</mark> is as easy as it gets.<br>To create an account, follow these steps:
     <ol>
-      <li>Click the <a href="#">SIGN UP/LOG IN</a> at the top right corner of the website.</li>
+      <li>Click the <a href="./Pages/login.php">SIGN UP/LOG IN</a> at the top right corner of the website.</li>
       <li>Enter your name, username, email address and password.</li>
       <li>Click <mark>Sign Up</mark>.</li>
     </ol></p>
-    <br><br><a href="#HowToHelp">Back to top</a>
+    <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
 
     <h3 id="LogIn">Log in to your account</h3>
     <p>To log in, follow these steps:
     <ol>
-      <li>Click the <a href="#">SIGN UP/LOG IN</a> at the top right corner of the website.</li>
+      <li>Click the <a href="./Pages/login.php">SIGN UP/LOG IN</a> at the top right corner of the website.</li>
       <li>Enter your <mark>Study Buddy username</mark> and <mark>Password</mark>, then click <mark>Log In</mark>.</li>
-      <li>If you don't have a <mark>Study Buddy account</mark>, <a href="#">click here</a> to create one.</li>
+      <li>If you don't have a <mark>Study Buddy account</mark>, <span class="link" rel ="#">click here</a> to create one.</li>
     </ol></p>
-    <br><br><a href="#HowToHelp">Back to top</a>
+    <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
 
     <h3 id="ChangePassword">Change or reset your password</h3>
     <p>Changing your password regularly is a good idea. It is easy to do so.<br>Or maybe you've forgotten your password. Don't worry, it's easy to reset too.
@@ -88,7 +88,7 @@
       <li>Enter your new password again in <mark>Repeat new password</mark>.</li>
       <li>Click <mark>Set New Password</mark>.</li>
     </ol></p>
-    <br><br><a href="#HowToHelp">Back to top</a>
+    <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
 
     <h3 id="CreateModule">Create your own module</h3>
     <p>To create your own module to revise on, follow these steps:</p>
@@ -101,7 +101,7 @@
       <li>To avoid any conflict, first check whether the module you want to create exists before submitting.</li>
     </ol>
     <p>Only users with a <mark>Study Buddy account</mark> are able to create a module.</p>
-    <br><br><a href="#HowToHelp">Back to top</a>
+    <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
 
     <h3 id="SubmitQuestion">Submit your own question</h3>
     <p>To create your own question for a module, follow these steps:</p>
@@ -116,7 +116,7 @@
       <li>You can view your question at the <a href="AllQuestions.php">View questions</a> page.</li>
     </ol>
     <p>Only users with a <mark>Study Buddy account</mark> are able to submit a question.</p>
-    <br><br><a href="#HowToHelp">Back to top</a>
+    <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
 
     <h3 id="StartExercise">Start your exercise</h3>
     <p>Feeling productive and want to do some revision? Study Buddy is an easy way to help keep your brain active.<br> To start your revision, follow these simple steps:</p>
@@ -132,7 +132,7 @@
     <li>Click <mark>Close</mark> to exit the exercise page, and wait for the next exercise page to pop-up.</li>
     <li>To stop the revision, click <mark>STOP</mark> to end the timer.</li>
     </ol>
-    <br><br><a href="#HowToHelp">Back to top</a>
+    <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
 
     <h3 id="AboutTimer">Learn about the timer</h3>
     <p>Wondering how does the <mark>TIMER</mark> works?<br>
@@ -140,7 +140,7 @@
      <mark>For every question the user gets correct, the timer will increase by 30 seconds.<br>
      For every question the user gets wrong, the timer will decrease by 1 minute.</mark><br>
      For example, a user sets the initial countdown time as 8 minutes. The user gets 4 correct and 1 wrong answers for his/her first exercise, so the timer increases by 1 minute. The time for the next exercise to pop-up is now 9 minutes. For the second exercise, he/she gets 2 correct and 3 wrong answers. The timer decreases by 2 minutes, so the time for the next exercise to pop-up is 7 minutes.</p>
-    <br><br><a href="#HowToHelp">Back to top</a>
+    <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
 
     <h3 id="ViewQuestions">View modules and questions</h3>
     <p>To view the modules and questions currently available for <mark>Study Buddy</mark>:</p>
@@ -150,10 +150,10 @@
       <li>If you cannot find the module you want, you can <a href="CreateModule.php">create one</a> here.
       <li>Click the <mark>View Questions</mark> button, and the list of questions for the module you have selected will open in a new window.
       <li>In the new window, you can see the module code, module name, module description and all of the questions available for that module.
-      <li>You can choose to <a href="#ReportQuestion">report a question</a>, <a href="#SubmitQuestion">add a question</a> or <a href="#ReportModule">report the module</a> there.
+      <li>You can choose to <span class="link" rel ="#ReportQuestion">report a question</a>, <span class="link" rel ="#SubmitQuestion">add a question</a> or <span class="link" rel ="#ReportModule">report the module</a> there.
       <li>Click the <mark>Close</mark> button when you are done.
     </ol>
-    <br><br><a href="#HowToHelp">Back to top</a>
+    <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
 
     <h3 id="ReportModule">Report a module</h3>
     <p>Found a module that is unsuitable for the website? Follow the steps below to report the module:</p>
@@ -168,7 +168,7 @@
     </ol>
     <p>Reporting a module might cause the module and all of its questions to be deleted.<br>
     Only users with a <mark>Study Buddy account</mark> are able to report a module.</p>
-    <br><br><a href="#HowToHelp">Back to top</a>
+    <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
 
     <h3 id="ReportQuestion">Report a question</h3>
     <p>Found a question that is unsuitable for the website or is unsuitable for the module it is in? There are two ways to report a question.</p>
@@ -194,7 +194,7 @@
       <li>Exit the window by clicking the <mark>Close</mark> button.
     </ol>
     <p>Only users with a <mark>Study Buddy account</mark> are able to report a question.</p>
-    <br><br><a href="#HowToHelp">Back to top</a>
+    <br><br><span class="link" rel ="#HowToHelp">Back to top</span>
   </div>
 
           </div>

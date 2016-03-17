@@ -21,6 +21,15 @@ button {
   margin-top: 8px;
 }
 
+span {
+  color: #4da5ff;
+  cursor: pointer;
+}
+
+span:hover{
+  color: #2a52be;
+}
+
 .nav div {
   background-color: #f7f7f7;
   top: -2px;

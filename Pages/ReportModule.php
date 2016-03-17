@@ -4,6 +4,7 @@
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Report.css">
+    <script src="./ReportButton.js"></script>
     <title>Report this Module</title>
   </head>
 
@@ -17,6 +18,10 @@
     <div class="container">
 
 <?php
+session_start();
+// Only show the report page if the user is logged in
+if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
+{
   require_once('../config.inc.php');
   $mysqli = new mysqli($database_host, $database_user, 
                        $database_pass, $database_name);
@@ -86,6 +91,19 @@
          ."</div>"
          ."</form>";
   }
+}
+// If not prompt the user to create an account.
+else {
+  echo "<div class='errorPage'>"
+         ."<h2>You must be logged in to report the module.</h2>"
+         ."<img src='../Images/report_unsuccessful.png'>"
+         ."<h3>Please log in below, or create an account if you do not have one.</h3>"
+         ."<table><tr>"
+         ."<td><button id='login' onclick='logIn()'>Log In</button></td>"
+         ."<td><button id='signup' onclick='signUp()'>Sign Up</button></td>"
+         ."<td><button id='close' onclick='self.close()'>Close</button></td>"
+         ."</tr></table></div>";
+}
 ?>
 
     </div>

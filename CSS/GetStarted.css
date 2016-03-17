@@ -44,6 +44,15 @@
   font-family: sans-serif;
 }
 
+span {
+  color: #4da5ff;
+  cursor: pointer;
+}
+
+span:hover{
+  color: #2a52be;
+}
+
 mark {
   color: black;
   font-size: 18px;

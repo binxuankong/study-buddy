@@ -4,6 +4,7 @@
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Report.css">
+    <script src="./ReportButton.js"></script>
     <title>Report this Question</title>
   </head>
 
@@ -17,6 +18,10 @@
     <div class="container">
  
 <?php
+session_start();
+// Only show the report page if the user is logged in
+if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
+{
   require_once('../config.inc.php');
   $mysqli = new mysqli($database_host, $database_user, 
                        $database_pass, $database_name);
@@ -101,6 +106,7 @@
   {
     $reportReason = 0;
     $baseRiskPoint = 0;
+    // Update the reportReason and baseRiskPoint based on the check values.
     foreach($_POST['checklist'] as $checkValue)
     {
       if($checkValue =='1')
@@ -140,12 +146,23 @@
         $otherReason = $_POST['others'];
       }
     }
+    $userID = $_SESSION['userID'];
     $questionID = $_GET['questionID'];
     $result = $mysqli -> query("SELECT questionRisk FROM SB_QUESTIONS WHERE questionID='$questionID'");
     $questionRiskRow = $result -> fetch_assoc();
     $questionRisk = $questionRiskRow['questionRisk'];
+    // Add the current questionRisk with the baseRiskPoint.
     $questionRisk = $questionRisk + $baseRiskPoint;
-    $report = "UPDATE SB_QUESTIONS SET questionRisk='$questionRisk' WHERE questionID='$questionID'";
+    $result = $mysqli -> query("SELECT * FROM SB_REPORTED_QUESTIONS WHERE questionID='
+$questionID' AND userID = '$userID'");
+    $checkRow = $result -> fetch_assoc();
+    // Check whether the user reported the question or not.
+    // If the user has already reported the question, do not update questionRisk.
+    if ($row['total'] == 0)
+    {
+      $report = "UPDATE SB_QUESTIONS SET questionRisk='$questionRisk' WHERE questionID='$questionID'";
+    }
+    // Add the datas to the reported questions table.
     if (isset($otherReason))
     {
       $report = "INSERT INTO SB_REPORTED_QUESTIONS (questionID, reportReason, otherReason)
@@ -202,6 +219,19 @@
          ."</div>"
          ."</form>";
   }
+}
+// If not prompt the user to create an account.
+else {
+  echo "<div class='errorPage'>"
+         ."<h2>You must be logged in to report the question.</h2>"
+         ."<img src='../Images/report_unsuccessful.png'>"
+         ."<h3>Please log in below, or create an account if you do not have one.</h3>"
+         ."<table><tr>"
+         ."<td><button id='login' onclick='logIn()'>Log In</button></td>"
+         ."<td><button id='signup' onclick='signUp()'>Sign Up</button></td>"
+         ."<td><button id='close' onclick='self.close()'>Close</button></td>"
+         ."</tr></table></div>";
+}
 ?>
 
     </div>

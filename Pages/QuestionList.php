@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../CSS/QuestionList.css">
     <script src="./ReportButton.js"></script>
     <script src="jquery.js"></script>
+    <script src="Anchor.js"></script>
     <title>List of Questions</title>
   </head>
 
@@ -58,8 +59,9 @@
           <div class='col-md-1'>
           </div>
           <div class='col-md-10'>";
-    echo "<h2>".$moduleName."</h2>";
-    echo "<p>".$moduleDescription."</p><br>";
+    echo "<h2 id='top'>".$moduleName."</h2>";
+    echo "<p>".$moduleDescription."<br><br>";
+    echo "<span class='link' rel='#addQuestion'>Go to bottom</span></p><br>";
     echo "<table>";
     $questionNumber = 0;
     $questionArray = array();
@@ -100,6 +102,7 @@
     echo "</table>";
   ?>
 
+  <p><span class="link" rel="#top">Go to top</span></p><br><br>
   <a href="SubmitQuestion.php"><button id="addQuestion">Add more questions</button></a><br>
   <button id="reportModule" onclick='reportModule()'>Report this module</button><br>
   <button id="closeButton" onclick="self.close()">Close</button>
