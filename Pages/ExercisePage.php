@@ -67,13 +67,22 @@
       $getRatingQuery = $mysqli -> query("SELECT userModuleELORating FROM SB_USER_ELO WHERE moduleID='$module' AND userID = '$userID'");
       $userRatingInfo = $getRatingQuery -> fetch_assoc();
       $userRating = $userRatingInfo['userModuleELORatingELO'];
+
     } else
     {
       $userID = -1;
 
     }
+    $module = $_GET['module'];
+    $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+    $moduleIDRow = $result -> fetch_assoc();
+    $moduleID = $moduleIDRow['moduleID'];
+
+
 
     echo $userID;
+    echo "User Rating: " . $userRating;
+
 
     //EXERCISE----------------------------------------------------------------//
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['answered'])) //request method POST
@@ -107,8 +116,7 @@
             }
             else //this cannot happen
             {
-              echo "Lets fuck shit up";
-              echo " ".$question[0];
+
               echo "ERROR CODE 4386346879346643986376439756346";
             }
           }
@@ -159,6 +167,7 @@
 
           if($userID != -1)
           {
+            $wasCorrect = false;
             $getIfCorrect = $mysqli -> query("SELECT * FROM SB_USER_QUESTION_ATTEMPTS WHERE userID = $userID AND questionID = $question[0]");
             if($getIfCorrect -> num_rows ==1)
             {
@@ -169,12 +178,15 @@
             if(!$wasCorrect ) //Wasn't previosuly correct
             {
               //Recalculate Ratings
-              echo $userRating;
-              echo $questionRating;
-              //$userRating = recalculateRating($userRating, $questionRating, 1);
-              //$questionRating = recalculateRating($questionRating, $userRating, 0);
+              echo "Before Calculation".$userRating;
+              echo " ".$questionRating;
+
+              $userRating = recalculateRating($userRating, $questionRating, 1);
+              $questionRating = recalculateRating($questionRating, $userRating, 0);
+              echo "After Calculation".$userRating;
+              echo " ".$questionRating;
               //Add to table
-              //$addToTable = $mysqli -> query("INSERT INTO SB_USER_QUESTION_ATTEMPTS (UserID, QuestionID) VALUES ($userID, $QuestionID)");
+              $addToTable = $mysqli -> query("INSERT INTO SB_USER_QUESTION_ATTEMPTS (UserID, QuestionID) VALUES ($userID, $question[0])");
             }
           }
 
@@ -184,27 +196,28 @@
         else //Answered incorrectly
         {
 
-          if($userID != -1)
+          if($userID != -1 && $userRating != 0)
           {
-            echo $userRating;
-            echo $questionRating;
-            //$userRating = recalculateRating($userRating, $questionRating, 0);
-            //$questionRating = recalculateRating($questionRating, $userRating, 1);
+
+
+            $userRating = recalculateRating($userRating, $questionRating, 0);
+            $questionRating = recalculateRating($questionRating, $userRating, 1);
+
+
+            $mysqli -> query("UPDATE SB_USER_ELO SET userModuleELORating = $userRating WHERE userID = $userID AND moduleID = $moduleID");
+
+
+            $mysqli -> query("UPDATE SB_QUESTIONS SET questionELORating = $questionRating WHERE questionID = $question[0]");
+
+
+            echo "<br>".$userRating."\t"."$questionRating";
           }
-
-          echo "<p id='incorrect'>INCORRECT!</p><br>";
-          $_SESSION['incorrectQuestions'][] = $question[0]; //This array stores the previosuly incorrect questionS iD
-
-        }//else
-
-        if($userID != -1) //Update question and user rating.
-        {
-          $mysqli -> query("UPDATE SB_USER_ELO SET userModuleELORating = $userRating WHERE userID = $userID AND moduleID = $module");
-          $mysqli -> query("UPDATE SB_QUESTIONS SET questionELORating = $questionRating WHERE questionID = $questions[0]");
-        }
+        echo "<p id='incorrect'>INCORRECT!</p><br>";
+        $_SESSION['incorrectQuestions'][] = $question[0]; //This array stores the previosuly incorrect questionS iD
         echo "</td><td width='96px'>";
         echo "<button id='reportButton' onclick='reportButton()'>Report this question</button>";
         echo "</td></tr>";
+        }
       }//for
       if($userID != -1 && $userRating == 0) //Calculate intial rating, new user
       {
@@ -214,9 +227,14 @@
 
         $addedFactor = $correctlyAnswered - 3;
 
-        $newRating = $averageRating + 20 * $addedFactor;
+        $newRating = round($averageRating,0,1) + 40 * $addedFactor;
 
-        $mysqli -> query("UPDATE SB_USER_ELO SET userModuleELORating = $userRating WHERE userID = $userID AND moduleID = $module");
+        if($mysqli -> query("INSERT INTO SB_USER_ELO VALUES ($userID, $moduleID, $newRating)")===true)
+        {
+          echo "New User Rating added: ". $newRating;
+        }
+
+
       }
 
       echo "</p>";
@@ -272,12 +290,10 @@
       $moduleNameRow = $result -> fetch_assoc();
       $moduleName = $moduleNameRow['moduleName'];
       //get module id
-      $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
-      $moduleIDRow = $result -> fetch_assoc();
-      $moduleID = $moduleIDRow['moduleID'];
+
       //get all questions from module
       $allQuestions = array();
-      if($userID == -1)
+      if($userID == -1 || $userRating == 0)
       {
         $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID'");
 
@@ -360,6 +376,7 @@
 
         for ($count=0; $count < count($chosenLines) ; $count++)
         {
+
           $chosenQuestionsRows[] = $allQuestions[$chosenLines[$count]];
         }
       }
@@ -370,9 +387,6 @@
           $rating = randomNormal($userRating,100);
           $upperRating = $rating + 20;
           $lowerRating = $rating - 20;
-
-          echo $upperRating;
-          echo $lowerRating;
 
           $getQuestions = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE $userRating < $upperRating AND $userRating > $lowerRating");
           $randomQuestion = $getQuestions -> fetch_assoc();
@@ -492,9 +506,9 @@
       $expectedScore = 1/(1+pow(10,(($relativeRating - $initialRating)/400)));
       $kFactor = calculateKFactor($initialRating);
 
-      $newRating = $initialRating + $kFactor * ($score - $expectedScore);
+      $newRating = (int)$initialRating + $kFactor * ($score - $expectedScore);
 
-      return $newRating;
+      return round($newRating,0,1);
 
 
     }
