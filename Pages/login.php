@@ -3,7 +3,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
-    <link rel="stylesheet" href="../CSS/Template.css">
+    <link rel="stylesheet" href="../CSS/Login.css">
     <title>Study Buddy - Login</title>
   </head>
 
