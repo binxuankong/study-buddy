@@ -84,6 +84,7 @@
       $moduleNameRow = $result -> fetch_assoc();
       $moduleName = $moduleNameRow['moduleName'];
       echo "<h2>".$module.": ".$moduleName."</h2><br><br>";
+      echo "<h5 id='moduleID' visibility='hidden'>".$module."</h5>";
       echo "<table>";
       $questions = $_SESSION['passedQuestions'];
       $correctQuestions = 0;
@@ -137,7 +138,6 @@
         if($correctlyAnswered) //Correct Answer
         {
           $correctQuestions++;
-
           //If previosuly incorrect but now right remove from incorrectQuestions
           if(in_array($question[0], $_SESSION['incorrectQuestions']))
           {
@@ -168,7 +168,6 @@
               $addToTable = $mysqli -> query("INSERT INTO SB_USER_QUESTION_ATTEMPTS (UserID, QuestionID) VALUES ($userID, $QuestionID)");
             }
           }
-
           echo "<p id='correct'>CORRECT!</p><br>";
         }
 
@@ -192,7 +191,7 @@
           $conn -> query("UPDATE SB_QUESTIONS SET questionELORating = $questionRating WHERE questionID = $questions[0]");
         }
         echo "</td><td width='96px'>";
-        echo "<button id='reportButton' onclick='reportButton()'>Report this question</button>";
+        echo "<button id='".$question[0]."' onclick='reportQuestion(this.id)'>Report this question</button>";
         echo "</td></tr>";
       }//for
       if($userID != -1 && $userRating == 0) //Calculate intial rating, new user
@@ -215,7 +214,19 @@
     }
     else if($_SESSION['questionsAccessed']) ///CHANGE CSS FOR THIS SECTION ---BIN
     {
+      //get desired module
+      $module = $_GET['module'];
+      //get module name
+      $result = $mysqli -> query("SELECT moduleName FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+      $moduleNameRow = $result -> fetch_assoc();
+      $moduleName = $moduleNameRow['moduleName'];
+      //get module id
+      $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+      $moduleIDRow = $result -> fetch_assoc();
+      $moduleID = $moduleIDRow['moduleID'];
       echo "<form method='post'>";
+      echo "<h2>".$module.": ".$moduleName."</h2><br><br>";
+      echo "<table>";
       $questions = $_SESSION['passedQuestions'];
       for($questionCount = 0; $questionCount < count($questions); $questionCount++)
       {
@@ -228,7 +239,10 @@
             if($result->num_rows == 1) //this is correct
             {
               $questionInfo = $result->fetch_assoc();
-              echo $questionInfo['questionContent']."<br><ul>";
+              echo "<tr><td>";
+              echo $questionCount + 1;
+              echo ". ".$questionInfo['questionContent']."<br>";
+              echo "<ul>";
             }
             else //this cannot happen
             {
@@ -244,8 +258,10 @@
             echo "<br>".$answerInfo['answerContent']."</li>";
           }
         }
-        echo "</ul>";
+        echo "</ul><br>";
+        echo "</td>";
       }
+      echo "</table><br><br>";
       echo "<input type='submit'value='Submit' name='answered'>";
       echo "</form>";
     }

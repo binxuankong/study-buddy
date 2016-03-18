@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -27,7 +28,7 @@
             <td id="module"><a href="./Pages/CreateModule.php">Submit a module</a></td>
             <td id="question"><a href="./Pages/SubmitQuestion.php">Submit a question</a></td>
             <td id="getstarted"><a href="./Pages/Timer.php">Start timer</a></td>
-            <td id="bugreport"><a href="#">View questions</a></td>
+            <td id="bugreport"><a href="./Pages/AllQuestions.php">View questions</a></td>
           </tr>
         </tbody>
       </table>

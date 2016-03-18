@@ -1,6 +1,5 @@
 table {
   width: 100%;
-  background-color: #f7f7f7;
 }
 
 td {
@@ -11,15 +10,18 @@ td {
   vertical-align: top;
 }
 
-#reportButton {
+button {
+  display: block;
   text-align: center;
-  background-color: #4da5ff;
+  background-color: #ed2939;
   border: 1px solid black;
   width: 92px;
   font-family: sans-serif;
   color: black;
   font-size: 14px;
   margin-top: 6px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nav div {
@@ -90,7 +92,7 @@ td {
 .body .container {
   position: relative;
   top: 28px;
-  margin-left: 160px;
+  margin-left: 132px;
   margin-bottom: 62px;
 }
 
@@ -99,6 +101,11 @@ td {
   color: black;
   font-size: 32px;
   font-weight: bold;
+}
+
+.body h5 {
+  visibility: hidden;
+  position: absolute;
 }
 
 .body p {
@@ -120,17 +127,17 @@ td {
 
 #correct {
   font-weight: bold;
-  color: green;
+  color: #2cec43;
   margin-left: 24px;
 }
 
 #incorrect {
   font-weight: bold;
-  color: red;
+  color: #eb2a2a;
   margin-left: 24px;
 }
 
-.body input[type="submit"]{
+.body input[type="submit"] {
   text-align: center;
   background-color: #4da5ff;
   border: 2px solid black;
@@ -141,7 +148,7 @@ td {
   font-size: 22px;
 }
 
-.body button{
+#closeButton {
   text-align: center;
   background-color: #4da5ff;
   border: 2px solid black;

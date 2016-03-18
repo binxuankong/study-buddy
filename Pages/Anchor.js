@@ -1,4 +1,4 @@
-function offsetAnchor() {
+/* function offsetAnchor() {
     if(location.hash.length !== 0) {
         window.scrollTo(window.scrollX, window.scrollY - 100);
     }
@@ -14,4 +14,12 @@ $(window).on("hashchange", function () {
 // seems necessary to allow the browser to jump to the anchor first.
 window.setTimeout(function() {
     offsetAnchor();
-}, 1)
+}, 1) */
+
+$(document).ready(function(){
+    $('.link').on('click',function (e) {
+        $('html, body').stop().animate({
+            'scrollTop': $($(this).attr('rel')).offset().top - 100
+        }, 'slow', 'swing', function () {});
+    });
+})

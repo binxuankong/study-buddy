@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,14 +12,6 @@
       <?php include('../Template/header.php'); ?>
     </div>
 
-    <div class="heading">
-      <div class="container">
-        <h1>Sign up / Login</h1>
-      </div>
-    </div>
-	      
-    <div class="body">
-      <div class="container">
         <?php
           if(!(isset($_SESSION['userID']) && isset($_SESSION['userName'])))
           {
@@ -164,6 +157,14 @@
                   $username = test_input($_POST['username']);
                   $missingFieldError = "Please enter a username";
                 }
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Sign Up</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
                 //echo the form
                 displayRegistrationForm($missingFieldError);
               }
@@ -273,36 +274,55 @@
                 //login failed username or password checks
                 else
                 {
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Log In</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
                   //redisplay logn form with entered username but not password
-                  echo "Invalid username or password";
-                  echo "<form method='post'>"
-                        ."Username:<br><input type='text' name='username' "
-                        ."value='$username'><br>"
-                        ."<Password<br><input type='password' name='password'>"
-                        ."<br>"
-                        ."<input type='submit' name='login' value='login'><br>"
+                  echo "<div id='login'><form method='post'>"
+                        ."<div id='invalid'>Invalid username or password</div><br>"
+                        ."Username:<input type='text' name='username'><br><br>"
+                        ."Password:<input type='password' name='password'>"
+                        ."<br><br>"
+                        ."<input id='loginButton' type='submit' name='login' value='LOG IN'><br>"
+                      ."<p><a href='#'>Forgot your username or password?</a></p>"
                       ."</form>"
+                      ."<p><br>Don't have a Study Buddy account?</p>"
                       ."<form method='post'>"
                         ."<input type='submit' name='register' "
                         ."value='Click Here to sign up'>"
-                      ."</form>";
+                      ."</form></div>";
                 }
               }
               //else no attempt to use page has been made 
               //so display standard form
               else
               {
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Log In</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
                 //display standard login form
-                echo "<form method='post'>"
-                        ."Username:<br><input type='text' name='username'><br>"
-                        ."Password:<br><input type='password' name='password'>"
-                        ."<br>"
-                        ."<input type='submit' name='login' value='login'><br>"
+                echo "<div id='login'><form method='post'>"
+                        ."<br>Username:<input type='text' name='username'><br><br>"
+                        ."Password:<input type='password' name='password'>"
+                        ."<br><br>"
+                        ."<input id='loginButton' type='submit' name='login' value='LOG IN'><br>"
+                      ."<p><a href='#'>Forgot your username or password?</a></p>"
                       ."</form>"
+                      ."<p><br>Don't have a Study Buddy account?</p>"
                       ."<form method='post'>"
                         ."<input type='submit' name='register' "
                         ."value='Click Here to sign up'>"
-                      ."</form>";
+                      ."</form></div>";
               }
             }
           }

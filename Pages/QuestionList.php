@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -6,17 +7,14 @@
     <link rel="stylesheet" href="../CSS/QuestionList.css">
     <script src="./ReportButton.js"></script>
     <script src="jquery.js"></script>
-    <script> 
-      $(function(){
-        $("#header").load("header.html"); 
-        $("#footer").load("footer.html"); 
-      });
-    </script>
+    <script src="Anchor.js"></script>
     <title>List of Questions</title>
   </head>
 
   <body>
-    <div id="header"></div>
+    <div id="header">
+      <?php include('../Template/header.php'); ?>
+    </div>
 
   <?php
     //import database credentials
@@ -52,7 +50,7 @@
     }
     echo "<div class='heading'>
       <div class='container'>
-        <h1>".$module."</h1>
+        <h1 id='moduleID'>".$module."</h1>
       </div>
     </div>
 
@@ -62,8 +60,9 @@
           <div class='col-md-1'>
           </div>
           <div class='col-md-10'>";
-    echo "<h2>".$moduleName."</h2>";
-    echo "<p>".$moduleDescription."</p><br>";
+    echo "<h2 id='top'>".$moduleName."</h2>";
+    echo "<p>".$moduleDescription."<br><br>";
+    echo "<span class='link' rel='#addQuestion'>Go to bottom</span></p><br>";
     echo "<table>";
     $questionNumber = 0;
     $questionArray = array();
@@ -98,13 +97,15 @@
       $questionNumber = $questionNumber + 1;
 
       echo "</td><td width='100px'>";
-      echo "<button id='reportButton' onclick='reportButton()'>Report this question</button>";
+      echo "<button id='".$questionID."' onclick='reportQuestion(this.id)'>Report this question</button>";
       echo "</td></tr>";
     }
     echo "</table>";
   ?>
 
+  <p><span class="link" rel="#top">Go to top</span></p><br><br>
   <a href="SubmitQuestion.php"><button id="addQuestion">Add more questions</button></a><br>
+  <button id="reportModule" onclick='reportModule()'>Report this module</button><br>
   <button id="closeButton" onclick="self.close()">Close</button>
           </div>
           <div class="col-md-1">
@@ -113,7 +114,8 @@
       </div>
     </div>
 
-    <div id="footer"></div>
-
+    <div id="footer">
+      <?php include('../Template/footer.php'); ?>
+    </div>
   </body>
 </html>
