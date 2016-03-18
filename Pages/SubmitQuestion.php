@@ -40,8 +40,15 @@
                   foreach($_POST['ans'] as $newAns)
                   {
                     $ansRow = array();
-                    $ansRow[] = test_input($newAns[0];)
-                    $ansRow[] = test_input($newAns[1]);
+                    $ansRow[] = test_input($newAns[0]);
+                    if(count($newAns) == 2)
+                    {
+                      $ansRow[] = test_input($newAns[1]);
+                    }
+                    else
+                    {
+                      $ansRow[] = 0;
+                    }
                     $ans[] = $ansRow;
                   }
                   //retrieve module ID
@@ -54,7 +61,7 @@
                   $sql -> close();
                   
                   $result = array();
-                  $sql = $mysqli -> prepare("SELECT questionID FROM SB_MODULE_INFO WHERE questionContent=?");
+                  $sql = $mysqli -> prepare("SELECT questionID FROM SB_QUESTIONS WHERE questionContent=?");
                   $sql -> bind_param("s", $question);
                   $sql -> execute();
                   $sql -> store_result();
@@ -78,13 +85,13 @@
                       $sql -> execute();
                       $sql -> close();
                     }
-                    echo "Question Submitted. Thank you for contributing to Study Buddy"
+                    echo "Question Submitted. Thank you for contributing to Study Buddy";
                   }
                 }
                 else
                 {
                   $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO ORDER BY moduleID ASC");
-                  echo '<br><p>Choose a module to add a question to</p><select id="moduleDropdown" name="module">';
+                  echo '<br><p>Choose a module to add a question to</p><form id="questionsForm"  method="post"><select id="moduleDropdown" name="module">';
                   echo "<option value='Choose a module'>Choose a module</option>";
                   while($row = $result->fetch_assoc())
                   {
@@ -94,8 +101,7 @@
                   }
                   echo '</select><br><h3 id="errorLabel" class="error"></h3>';
                   $mysqli -> close();
-                  echo "<form id='questionsForm'  method='post'>"
-                         ."<br>Enter the question:<br>"
+                  echo "<br>Enter the question:<br>"
                          ."<textarea name='question' rows='3' cols='80' placeholder='e.g. What is the value of the \$test in the following php statement, \$test  = false or true;'></textarea>"
                          ."<br><br>Enter up the answers for this question. if you need more you can add them by clicking the add more answers button"
                          ."<br><input id='removable' type='button' value='Add more answers' onClick='addInput(\"AnswersFormDiv\")'>"
@@ -136,7 +142,7 @@
                   }
                   $displayCount = $count + 1;
                   echo "Answer $displayCount <input type='text' name='ans[$count][0]' size='64' value='$value'> ";
-                  echo "input type='checkbox' name='ans[$count][1]' value="$ans[1]"><br>"
+                  echo "input type='checkbox' name='ans[$count][1]' value='$ans[1]'><br>";
                   $count++;
                 }
                 echo "</div>"
