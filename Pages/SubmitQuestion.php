@@ -52,6 +52,34 @@
                   $sql -> bind_param("sss", $submittingUserID, $moduleID, $question);
                   $sql -> execute();
                   $sql -> close();
+                  
+                  $result = array();
+                  $sql = $mysqli -> prepare("SELECT questionID FROM SB_MODULE_INFO WHERE questionContent=?");
+                  $sql -> bind_param("s", $question);
+                  $sql -> execute();
+                  $sql -> store_result();
+                  $sql -> bind_result($fetchedQuestionID);
+                  while($sql -> fetch())
+                  {
+                    $result[] = $fetchedQuestionID;
+                  }
+                  $sql -> close();
+                  if(count($result) != 1)
+                  {
+                    die('Question submission failure');
+                  }
+                  else
+                  {
+                    $questionID = $result[0];
+                    foreach($ans as $ansRow)
+                    {
+                      $sql = $mysqli -> prepare("INSERT INTO SB_ANSWERS (questionID, answerContent, answerCorrect) VALUES (?,?,?)");
+                      $sql -> bind_param("sss", $questionID, $ansRow[0], $ansRow[1]);
+                      $sql -> execute();
+                      $sql -> close();
+                    }
+                    echo "Question Submitted. Thank you for contributing to Study Buddy"
+                  }
                 }
                 else
                 {
