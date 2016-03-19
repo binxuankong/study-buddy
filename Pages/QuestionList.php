@@ -8,7 +8,7 @@
     <script src="./ReportButton.js"></script>
     <script src="jquery.js"></script>
     <script src="Anchor.js"></script>
-    <title>List of Questions</title>
+    <title>Study Buddy - List of Questions</title>
   </head>
 
   <body>

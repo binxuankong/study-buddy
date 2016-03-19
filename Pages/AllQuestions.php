@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../CSS/AllQuestions.css">
     <script src="./ViewQuestions.js"></script>
     <script src="jquery.js"></script>
-    <title>View All Questions</title>
+    <title>Study Buddy - View All Questions</title>
   </head>
 
   <body>
