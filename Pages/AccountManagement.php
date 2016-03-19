@@ -4,7 +4,7 @@
 
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
-    <link rel="stylesheet" href="../CSS/Template.css">
+    <link rel="stylesheet" href="../CSS/AccountManagement.css">
     <script src="jquery.js"></script>
     <title>Study Buddy - Account Management</title>
   </head>
@@ -22,6 +22,10 @@
 	      
     <div class="body">
       <div class="container">
+        <div class="row">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-10">
         <?php
           if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
           {
@@ -53,24 +57,23 @@
               $resultRow['userQQ'] = $fetchedUserQQ;
               $result[] = $resultRow;
             }
-            $sql -> close(); 
-            echo "<div>";
-            echo "Account details";
+            $sql -> close();
+            echo "<div id='accountDetails'>";
+            echo "<h2>Account details</h2>";
             echo "<table>";
               echo "<tr>";
-                echo "<td>Username</td>";
-                echo "<td>".$result[0]['screenName']."</td>";
+                echo "<td width='200px'>Username:</td>";
+                echo "<td><mark>".$result[0]['screenName']."</mark></td>";
               echo "</tr>";
               echo "<tr>";
-                echo "<td>Name</td>";
-                echo "<td>".$result[0]['firstName']." ".$result[0]['surname']."</td>";
+                echo "<td>Name:</td>";
+                echo "<td><mark>".$result[0]['firstName']." ".$result[0]['surname']."</mark></td>";
               echo "</tr>";
               echo "<tr>";
-                echo "<td>Email address</td>";
-                echo "<td>".$result[0]['email']."</td>";
+                echo "<td>Email address:</td>";
+                echo "<td><mark>".$result[0]['email']."</mark></td>";
               echo "</tr>";
             echo "</table>";
-            echo "</div>";
             
             $result1 = array();
             $result1Row = array();
@@ -92,28 +95,36 @@
               $result1[] = $result1Row;
             }
             $sql -> close(); 
-            echo "<div>";
-            echo "<br>Your Modules<br>";
+            echo "</div>";
+            echo "<div id='modules'>";
+            echo "<h2>Your Modules</h2>";
             if(count($result1) > 0)
             {
               echo "<table>";
               foreach($result1 as $userModule)
               {
                 echo "<tr>";
-                  echo "<td>".$userModule['moduleName']."</td>";
-                  echo "<td>".$userModule['courseID']."</td>";
-                  echo "<td>".$userModule['description']."</td>";
+                echo "<th>Module Code</th>";
+                echo "<th>Module Name</th>";
+                echo "<th>Module Description</th>";
+                echo "</tr>";
+                echo "<tr>";
+                  echo "<td width='150px'>".$userModule['courseID']."</td>";
+                  echo "<td width='200px'>".$userModule['moduleName']."</td>";
+                  echo "<td width='530px'>".$userModule['description']."</td>";
                 echo "</tr>";
               }
               echo "</table>";
             }
             else
             {
-              echo "<a href='/Pages/CreateModule.php'>You have not created any modules. You can create one here.</a>";
+              echo "You have not created any modules.<br>";
+              echo "<a href='/Pages/CreateModule.php'>You can create one here.</a>";
             }
             echo "</div>";
-            echo "<div>";
-            echo "<br>Your Questions<br>";
+
+            echo "<div id='questions'>";
+            echo "<h2>Your Questions</h2>";
             // Parameterise SQL statement.
             $result2 = array();
             $result2Row = array();
@@ -151,17 +162,22 @@
             }
             else
             {
-              echo "<a href='/Pages/SubmitQuestion.php'>You have not created any questions. You can create one here.</a>";
+              echo "You have not created any questions.<br>";
+              echo "<a href='/Pages/SubmitQuestion.php'>You can create one here.</a>";
             }
             echo "</div>";
             
-            echo "<br><br><a href='CloseAccount.php'>Click here to close your account</a>";
+            echo "<a href='CloseAccount.php'><button>Click here to close your account</button></a>";
           }
           else
           {
             echo "You are not logged in";
           }
         ?>
+          </div>
+          <div class="col-md-1">
+          </div>
+        </div>
       </div>
     </div>
 

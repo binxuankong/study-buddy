@@ -157,14 +157,6 @@
                   $username = test_input($_POST['username']);
                   $missingFieldError = "Please enter a username";
                 }
-    echo "<div class='heading'>
-      <div class='container'>
-        <h1>Sign Up</h1>
-      </div>
-    </div>
-	      
-    <div class='body'>
-      <div class='container'>";
                 //echo the form
                 displayRegistrationForm($missingFieldError);
               }
@@ -384,7 +376,15 @@
               $username = test_input($_POST['username']);
             }
             //echo the form
-            echo "<form method='post'>"
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Sign Up</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
+            echo "<div id='register'><form method='post'>"
                   ."$error<br>"
                   ."First name:<br><input name='firstName' type='text' "
                   ."value='$firstName'><br>"
@@ -400,7 +400,7 @@
                   ."type='password'><br>"
                   ."<input name='registered' type='submit' "
                   ."value='Register'>"
-                ."</form>";
+                ."</form></div>";
           }
         ?>
       </div>

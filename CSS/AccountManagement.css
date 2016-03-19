@@ -95,129 +95,82 @@
 }
 
 .body {
+  word-wrap: break-word;
   width: 880px;
-}
-
-#login {
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
-  font-family: sans-serif;
-  color: black;
-  font-size: 22px;
-}
-
-#register {
-  margin-left: 220px;
   font-family: sans-serif;
   color: black;
   font-size: 18px;
 }
 
-.body #login input[type="text"] {
-  background-color: #f7f7f7;
-  border: 1px solid black;
-  margin-left: 10px;
-  width: 550px;
-}
-
-
-.body #login input[type="password"] {
-  background-color: #f7f7f7;
-  border: 1px solid black;
-  margin-left: 14px;
-  width: 550px;
-}
-
-.body #register input[type="text"] {
-  background-color: #f7f7f7;
-  border: 1px solid black;
-  margin-left: 28px;
-  width: 640px;
-  margin-top: 6px;
-  margin-bottom: 24px;
-}
-
-.body #register input[type="password"] {
-  background-color: #f7f7f7;
-  border: 1px solid black;
-  margin-left: 28px;
-  width: 640px;
-  margin-top: 6px;
-  margin-bottom: 24px;
-}
-
-.body #register input[type="email"] {
-  background-color: #f7f7f7;
-  border: 1px solid black;
-  margin-left: 28px;
-  width: 640px;
-  margin-top: 6px;
-  margin-bottom: 24px;
-}
-
-#login #loginButton {
+#moduleDropdown {
+  width: 50%;
   display: block;
+}
+
+.body input[type="submit"] {
   text-align: center;
-  margin-top: 12px;
-  margin-bottom: 36px;
-  margin-left: auto;
-  margin-right: auto;
   background-color: #4da5ff;
-  border: 1px solid #4da5ff;
-  border-radius: 24px;
-  height: 48px;
-  width: 240px;
+  border: 1px solid black;
+  width: 160px;
   font-family: sans-serif;
-  color: white;
+  color: black;
+  font-size: 18px;
+}
+
+.body h2 {
+  color: black;
+  font-size: 36px;  
+  font-family: sans-serif;
   font-weight: bold;
-  font-size: 18px;
+  margin-bottom: 24px;
 }
 
-.body p {
+mark {
+  color: #5a5a5a;
+  background-color: white;
   font-size: 18px;
-  text-align: center;
-}
-
-.body #login input[type="submit"] {
-  display: block;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #4da5ff;
-  border: 1px solid black;
-  height: 42px;
-  width: 288px;
   font-family: sans-serif;
-  color: black;
-  font-size: 18px;
 }
 
-.body #register input[type="submit"] {
-  display: block;
-  text-align: center;
-  text-transform: uppercase;
+#modules h2 {
+  color: black;
+  font-size: 36px;  
+  font-family: sans-serif;
+  font-weight: bold;
   margin-top: 64px;
-  margin-left: 228px;
-  background-color: #4da5ff;
-  border: 1px solid #4da5ff;
-  border-radius: 24px;
-  height: 48px;
-  width: 240px;
-  font-family: sans-serif;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
+  margin-bottom: 24px;
 }
 
-#invalid {
-  background-color: #ed2939;
-  color: white;
+#questions h2 {
+  color: black;
+  font-size: 36px;  
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 64px;
+  margin-bottom: 24px;
+}
+
+#modules td {
+  color: #5a5a5a;
+  font-size: 18px;
+  font-family: sans-serif;
+}
+
+#questions td {
+  color: #5a5a5a;
+  font-size: 18px;
+  font-family: sans-serif;
+}
+
+.body button {
   text-align: center;
-  width: 66%;
-  height: 36px;
-  margin-left: auto;
-  margin-right: auto;
+  background-color: #4da5ff;
+  border: 1px solid black;
+  margin-top: 64px;
+  width: 300px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
 }
 
 .learn-more {
