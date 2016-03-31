@@ -71,6 +71,7 @@
     } else
     {
       $userID = -1;
+      $userRating = -1;
 
     }
     $module = $_GET['module'];
@@ -82,6 +83,10 @@
 
     echo $userID;
     echo "User Rating: " . $userRating;
+    if($userRating == 0)
+    {
+      echo "0";
+    }
 
 
     //EXERCISE----------------------------------------------------------------//
