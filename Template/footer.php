@@ -2,7 +2,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-             <h2><img src="../Images/new_logo.png" alt="Studdy Buddy"></img>Study Buddy</h2>
+             <h2><img src="/Images/new_logo.png" alt="Studdy Buddy"></img>Study Buddy</h2>
           </div>
           <div class="col-md-3">
             <h3>About Us</h3>

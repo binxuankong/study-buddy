@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -6,17 +7,13 @@
     <link rel="stylesheet" href="../CSS/AllQuestions.css">
     <script src="./ViewQuestions.js"></script>
     <script src="jquery.js"></script>
-    <script> 
-      $(function(){
-        $("#header").load("header.html"); 
-        $("#footer").load("footer.html"); 
-      });
-    </script>
     <title>View All Questions</title>
   </head>
 
-  <body onload="displayTime()">
-    <div id="header"></div>
+  <body>
+    <div id="header">
+      <?php include('../Template/header.php'); ?>
+    </div>
   
     <div class="heading">
       <div class="container">
@@ -64,7 +61,9 @@
       </div>
     </div>
 
-    <div id="footer"></div>
+    <div id="footer">
+      <?php include('../Template/footer.php'); ?>
+    </div>
 
   </body>
 </html>

@@ -6,19 +6,13 @@
     <link rel="stylesheet" href="../CSS/GetStarted.css">
     <script src="jquery.js"></script>
     <script src="Anchor.js"></script>
-    <script> 
-      $(function(){
-        $("#header").load("header.html"); 
-        $("#footer").load("footer.html"); 
-      });
-    </script>
 
     <title>Get Started</title>
   </head>
 
   <body>
     <div id="header"></div>
-
+      <?php require_once('../Template/header.php'); ?>
     <div class="heading">
       <div class="container">
         <h1>Get Started</h1>
@@ -146,7 +140,7 @@
       </div>
     </div>
 
-    <div id="footer"></div>
+    <div id="footer"><?php require_once('../Template/footer.php'); ?></div>
 	
   </body>
 </html>
