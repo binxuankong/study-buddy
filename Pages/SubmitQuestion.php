@@ -53,8 +53,58 @@
                     $ans[] = $ansRow;
                   }
                   //retrieve module ID
-                  //validate legitimacy of answers and question
-                  
+                  $result = array();
+                  $sql = $mysqli -> prepare("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseCode=?");
+                  $sql -> bind_param("s", $module);
+                  $sql -> execute();
+                  $sql -> store_result();
+                  $sql -> bind_result($fetchedModuleID);
+                  while($sql -> fetch())
+                  {
+                    $result[] = $fetchedModuleID;
+                  }
+                  $sql -> close();
+                  $moduleID = $result[0];
+//validate legitimacy of answers and question-----------------------------------
+                  //check quantity of checked answers
+                  //assume question is bad
+                  $goodQuestion = false;
+                  $numberOfAnswers = 0;
+                  $numberOfCorrectAnswers = 0;
+                  foreach($ans as $row)
+                  {
+                    if(isset($row[1]) && !empty($row[0]))
+                    {
+                      $numberOfCorrectAnswers++;
+                    }
+                    if(!empty($row[0]))
+                    {
+                      $numberOfAnswers++;
+                    }
+                  }
+                  $answers = array();
+                  if($numberOfCorrectAnswers > 0 
+                     && $numberOfCorrectAnswers < $numberOfAnswers)
+                  {
+                    foreach($ans as $row)
+                    {
+                      if(isset($row[1]) && !empty($row[0]))
+                      {
+                        $numberOfCorrectAnswers++;
+                        break;
+                      }
+                      if(!empty($row[0]))
+                      {
+                        $numberOfAnswers++;
+                        break;
+                      }
+                      $answers[] = $row;
+                    }
+                  }
+                  if(count($answers) == 0)
+                  {
+                    die("AN ERROR HAS OCCURED");
+                  }
                   //insert question into DB
                   $sql = $mysqli -> prepare("INSERT INTO SB_QUESTIONS (userID, moduleID, questionContent) VALUES (?,?,?)");
                   $sql -> bind_param("sss", $submittingUserID, $moduleID, $question);
