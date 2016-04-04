@@ -22,4 +22,4 @@ $(document).ready(function(){
             'scrollTop': $($(this).attr('rel')).offset().top - 100
         }, 'slow', 'swing', function () {});
     });
-})
+});

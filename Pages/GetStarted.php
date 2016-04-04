@@ -37,7 +37,7 @@
   <h2 id="HowToHelp">How can we help you?</h2><br>
   <ul id="index">
     <li><span class="link" rel ="#CreateAccount">Create your own account</span></li>
-    <li><span class="link" rel="#LogIn">Log in to your account</span></li>
+    <li><span class="link" rel ="#LogIn">Log in to your account</span></li>
     <li><span class="link" rel ="#ChangePassword">Change or reset your password</span></li>
     <li><span class="link" rel ="#CreateModule">Create your own module</span></li>
     <li><span class="link" rel ="#SubmitQuestion">Submit your own question</span></li>
@@ -46,7 +46,6 @@
     <li><span class="link" rel ="#ViewQuestions">View the available modules and questions</span></li>
     <li><span class="link" rel ="#ReportModule">Report unsuitable modules</span></li>
     <li><span class="link" rel ="#ReportQuestion">Report unsuitable questions</span></li>
-    <li><span class="link" rel="#">Learn how the questions are picked for you</span></li>
   </ul>
 
   <div class="help">
