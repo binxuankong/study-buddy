@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Template.css">
     <script src="jquery.js"></script>
-    <title>Feedback</title>
+    <title>Study Buddy - Feedback</title>
   </head>
 
   <body>
@@ -32,10 +32,10 @@
           <form method="post">
           <br>      
           Subject:<br>
-          <input type:"text" name="subject" size="51"><br><br>
+          <input type:"text" name="subject" size="71"><br><br>
 
           Your Comments:<br>
-          <textarea name="comments" rows="10" cols="50"></textarea> <br><br>
+          <textarea name="comments" rows="10" cols="70"></textarea> <br><br>
         </p>
 		      
           <input type="submit" value="Send Feedback">	

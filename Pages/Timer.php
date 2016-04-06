@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../CSS/Timer.css">
     <script src="./TimerScript.js"></script>
     <script src="jquery.js"></script>
-    <title>Set Timer</title>
+    <title>Study Buddy - Set Timer</title>
   </head>
 
   <body  onload="displayTime();">

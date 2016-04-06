@@ -99,8 +99,7 @@ else {
          ."<img src='../Images/report_unsuccessful.png'>"
          ."<h3>Please log in below, or create an account if you do not have one.</h3>"
          ."<table><tr>"
-         ."<td><button id='login' onclick='logIn()'>Log In</button></td>"
-         ."<td><button id='signup' onclick='signUp()'>Sign Up</button></td>"
+         ."<td><button id='login' onclick='logIn()'>Log In/Sign Up</button></td>"
          ."<td><button id='close' onclick='self.close()'>Close</button></td>"
          ."</tr></table></div>";
 }

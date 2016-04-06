@@ -42,7 +42,7 @@
     $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
     $moduleIDRow = $result -> fetch_assoc();
     $moduleID = $moduleIDRow['moduleID'];
-    $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID'");
+    $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID' AND questionRisk<100");
     $allQuestions = array();
     while($row = $result->fetch_assoc())
     {

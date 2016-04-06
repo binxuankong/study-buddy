@@ -4,7 +4,7 @@
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Report.css">
-    <title>Report this Question</title>
+    <title>Study Buddy - Report this Question</title>
   </head>
 
   <body>

@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/ExercisePage.css">
     <script src="./ReportButton.js"></script>
-    <title>Exercise Page</title>
+    <title>Study Buddy - Exercise Page</title>
   </head>
   <body>
     <div class="nav">
@@ -365,7 +365,7 @@
       for($count = 0; $count < $incorrectQuestionsRequired; $count++)
       {
         $currentID = $chosenIDs[$count];
-        $thisQuestion = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE questionID=$currentID ");
+        $thisQuestion = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE questionID=$currentID");
 
         while($row = $thisQuestion->fetch_assoc())
         {

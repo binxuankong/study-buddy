@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Template.css">
     <script src="jquery.js"></script>
-    <title>Create Module</title>
+    <title>Study Buddy - Create Module</title>
   </head>
 
   <body>

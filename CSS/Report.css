@@ -121,6 +121,10 @@ button {
   font-size: 18px;
 }
 
+#login {
+  width: 220px;
+}
+
 .reportPage button {
   margin-right: 180px;
   float: right;

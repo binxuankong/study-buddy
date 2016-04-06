@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/AboutUs.css">
     <script src="jquery.js"></script>
-    <title>About Us</title>
+    <title>Study Buddy - About Us</title>
   </head>
 
   <body>
