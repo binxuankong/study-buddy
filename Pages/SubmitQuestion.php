@@ -44,7 +44,7 @@
                     $ansRow[] = test_input($newAns[0]);
                     if(count($newAns) == 2)
                     {
-                      $ansRow[] = test_input($newAns[1]);
+                      $ansRow[] = 1;
                     }
                     else
                     {
@@ -73,7 +73,7 @@
                   $numberOfCorrectAnswers = 0;
                   foreach($ans as $row)
                   {
-                    if(isset($row[1]) && !empty($row[0]))
+                    if($row[1] == 1 && !empty($row[0]))
                     {
                       $numberOfCorrectAnswers++;
                     }
@@ -83,23 +83,19 @@
                     }
                   }
                   $answers = array();
-                  if($numberOfCorrectAnswers > 0 
-                     && $numberOfCorrectAnswers < $numberOfAnswers)
+                  foreach($ans as $row)
                   {
-                    foreach($ans as $row)
+                    if(empty($row[0]))
                     {
-                      if(isset($row[1]) && !empty($row[0]))
-                      {
-                        $numberOfCorrectAnswers++;
-                        break;
-                      }
-                      if(!empty($row[0]))
-                      {
-                        $numberOfAnswers++;
-                        break;
-                      }
-                      $answers[] = $row;
+                      break;
+                      echo "Failed";
                     }
+                    $answers[] = $row;
+                  }
+                  if(!($numberOfCorrectAnswers > 0 
+                     && $numberOfCorrectAnswers < $numberOfAnswers))
+                  {
+                    die('Something bad happened');
                   }
                   if(count($answers) == 0)
                   {
