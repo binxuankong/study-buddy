@@ -44,6 +44,9 @@
                 $codeErr = "Course code is required";
               } else {
                 $code = strtoupper(test_input($_POST["code"]));
+                if (!preg_match("/^[a-zA-Z0-9 ]*$/",$name)) {
+                  $codeErr = "Only letters, numbers, and white space allowed"; 
+                }
               }
 
               if (empty($_POST["description"])) {
