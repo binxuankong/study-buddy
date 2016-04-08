@@ -46,7 +46,24 @@
     }
     //create needed session variables
     $module = $_GET['module'];//NEED TO PROTECT THIS
+
+    $modulesArrray = array();
+    $getID = $mysqli -> prepare("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID = ?");
+    $getID -> bind_param("s", $module);
+    $getID -> execute();
+    $getID -> store_result();
+    $getID -> bind_result($moduleID);
+    while( $getID -> fetch())
+    {
+      $modulesArray[] = $moduleID;
+    }
+
+    $moduleID = $modulesArray[0];
+
+    echo $moduleID;
+
     if(!(isset($_SESSION['incorrectQuestions'])))
+
     {
 
       $_SESSION['incorrectQuestions'] = array();
@@ -64,24 +81,23 @@
     if((isset($_SESSION['userID'])))
     {
       $userID = $_SESSION['userID'];
-      $getRatingQuery = $mysqli -> query("SELECT userModuleELORating FROM SB_USER_ELO WHERE moduleID='$module' AND userID = '$userID'");
+      $getRatingQuery = $mysqli -> query("SELECT userModuleELORating FROM SB_USER_ELO WHERE moduleID='$moduleID' AND userID = '$userID' ");
       $userRatingInfo = $getRatingQuery -> fetch_assoc();
-      $userRating = $userRatingInfo['userModuleELORatingELO'];
+      $userRating = $userRatingInfo['userModuleELORating'];
 
     } else
     {
       $userID = -1;
+      $userRating = -1;
 
     }
-    $module = $_GET['module'];
-    $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
-    $moduleIDRow = $result -> fetch_assoc();
-    $moduleID = $moduleIDRow['moduleID'];
-
-
 
     echo $userID;
     echo "User Rating: " . $userRating;
+    if($userRating == 0)
+    {
+      echo "0";
+    }
 
 
     //EXERCISE----------------------------------------------------------------//
@@ -178,13 +194,11 @@
             if(!$wasCorrect ) //Wasn't previosuly correct
             {
               //Recalculate Ratings
-              echo "Before Calculation".$userRating;
-              echo " ".$questionRating;
+
 
               $userRating = recalculateRating($userRating, $questionRating, 1);
               $questionRating = recalculateRating($questionRating, $userRating, 0);
-              echo "After Calculation".$userRating;
-              echo " ".$questionRating;
+
               //Add to table
               $addToTable = $mysqli -> query("INSERT INTO SB_USER_QUESTION_ATTEMPTS (UserID, QuestionID) VALUES ($userID, $question[0])");
             }
@@ -209,7 +223,7 @@
             $mysqli -> query("UPDATE SB_QUESTIONS SET questionELORating = $questionRating WHERE questionID = $question[0]");
 
 
-            echo "<br>".$userRating."\t"."$questionRating";
+          
           }
         echo "<p id='incorrect'>INCORRECT!</p><br>";
         $_SESSION['incorrectQuestions'][] = $question[0]; //This array stores the previosuly incorrect questionS iD
