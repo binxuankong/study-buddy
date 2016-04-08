@@ -1,24 +1,17 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Template.css">
+    <script src="jquery.js"></script>
     <title>Create Module</title>
   </head>
 
   <body>
-    <div class="nav">
-      <div class="container">
-        <ul class="pull-left">
-           <a href="../index.html"><img src="../Images/new_logo.png" alt="Study Buddy">
-           <li id="webpagename">Study Buddy</li></a>
-        </ul>
-        <ul class="pull-right">
-          <li><a href="#"><img src="../Images/new_user.png" alt="User Profile"></a></li>
-          <li id="signup"><a href="#">Sign Up/Log In</a></li>
-        </ul>
-      </div>
+    <div id="header">
+      <?php include('../Template/header.php'); ?>
     </div>
 
     <div class="heading">
@@ -34,81 +27,93 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-10">
-
-
-          <!-- Some code from www.w3school.com -->
-          <?php  
-          //Import database credentials
-          //require_once('../config.inc.php');
-          //create database conection
-          //$mysqli = new mysqli($database_host, $database_user,
-          //                     $database_pass, $database_name);
-                               
+          <?php          
           $codeErr = $nameErr = $descriptionErr = "";
           $name = $code = $description = $message = "";
-
-          if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (empty($_POST["name"])) {
-              $nameErr = "Course name is required";
-            } else {
-              $name = test_input($_POST["name"]);
-              if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-                $nameErr = "Only letters and white space allowed"; 
-              }
-            }
-
-            if (empty($_POST["code"])) {
-              $codeErr = "Course code is required";
-            } else {
-              $code = strtoupper(test_input($_POST["code"]));
-            }
-
-            if (empty($_POST["description"])) {
-              $descriptionErr = "Course description is required";
-            } else {
-              $description = test_input($_POST["description"]);
-            }
-
-            if ($codeErr == "" and $nameErr == "" and $descriptionErr == "") {
-              $group_dbnames = array(
-                "2015_comp10120_m3",
-              );
-
-              require_once('../config.inc.php');
-
-              $mysqli = new mysqli($database_host, $database_user,
-                                   $database_pass, $database_name);              
-
-              if($mysqli -> connect_error) {
-                die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
-              } 
-
-              $sql = "SELECT * FROM SB_MODULE_INFO WHERE moduleCourseID='" . $code . "'";
-
-              $result = $mysqli -> query($sql);
-                       
-              if ($result -> num_rows > 0) {
-                $message = "The course has already been created. Please check if all information is correct.";
+          if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
+          {           
+            $submittingUserID = $_SESSION['userID'];
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              if (empty($_POST["name"])) {
+                $nameErr = "Course name is required";
               } else {
+                $name = test_input($_POST["name"]);
+              }
 
-                $sql = "INSERT INTO SB_MODULE_INFO (moduleName, moduleCourseID, moduleDescription) "
-                ."VALUES ('" . $name . "', '" . $code . "', '" . $description . "')";
+              if (empty($_POST["code"])) {
+                $codeErr = "Course code is required";
+              } else {
+                $code = strtoupper(test_input($_POST["code"]));
+              }
 
-                $mysqli -> query($sql);
-                $message = "Thank you for contributing to Study Buddy. The module is created successfully.";
+              if (empty($_POST["description"])) {
+                $descriptionErr = "Course description is required";
+              } else {
+                $description = test_input($_POST["description"]);
+              }
 
-              } // else
+              if ($codeErr == "" and $nameErr == "" and $descriptionErr == "") {
 
-              $mysqli -> close();
-             
-            } // if
+                require_once('../config.inc.php');
 
+                $mysqli = new mysqli($database_host, $database_user,
+                                     $database_pass, $database_name);              
+
+                if($mysqli -> connect_error) {
+                  die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
+                } 
+
+                // Parameterise SQL statement.
+                $result = array();
+                $resultRow = array();
+                $sql = $mysqli -> prepare("SELECT * FROM SB_MODULE_INFO WHERE moduleCourseID=?");
+                $sql -> bind_param("s", $code);
+                $sql -> execute();
+                $sql -> store_result();
+                $sql -> bind_result($fetchedModuleID, $fetchedUserID, $fetchedModuleName, $fetchedModuleCourseID, $fetchedModuleDescription, $fetchedMRS);
+                while($sql -> fetch())
+                {
+                  $resultRow['moduleID'] = $fetchedModuleID;
+                  $resultRow['userID'] = $fetchedUserID;
+                  $resultRow['moduleName'] = $fetchedModuleName;
+                  $resultRow['moduleCourseID'] = $fetchedModuleCourseID;
+                  $resultRow['moduleDescription'] = $fetchedModuleDescription;
+                  $result[] = $resultRow;
+                }
+                $sql -> close();     
+                if (count($result) > 0)
+                {
+                  $message = "The course entered already exists. Please check if all information is correct.";
+                }
+                else
+                {
+
+                  // Parameterise SQL statement.
+                  $sql = $mysqli -> prepare("INSERT INTO SB_MODULE_INFO (userID, moduleName, moduleCourseID, moduleDescription) VALUES (?,?,?,?)");
+                  $sql -> bind_param("ssss", $submittingUserID, $name, $code, $description);
+                  $sql -> execute();
+                  $sql -> close();
+                  $message = "Thank you for contributing to Study Buddy. The module has been created successfully.";
+
+                } // else
+
+                $mysqli -> close();
+               
+              } // if
+
+            }
+          }
+          else
+          {
+            echo "You must be signed in to create create a module.<br>"
+                 ."<a href='login.php'>Please click here to sign in or register</a>";
           }
 
           function test_input($data) {
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
+            $data = filter_var($data, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
             return $data;
           }
 
@@ -125,30 +130,22 @@
           <form method="post">
 	        <p>         
           Module Code:
-
-          <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>">
+          <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>" required>
           <span class="error"><?php echo $codeErr;?></span>
+          </p><br>
 
-          <br><br>
           Module Name:
           <input type="text" name="name" size="50"
-          placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>">
+          placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>" required>
           <span class="error"><?php echo $nameErr;?></span>
-          <br><br>
-          Module Description:<br>
+          </p><br>
 
-          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" 
-          rows="4" cols="63"></textarea>
-
-          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63"><?php echo $description;?></textarea>
-          <span class="error"><?php echo $descriptionErr;?></span>
-
+          Module Description: <span class="error"><?php echo $descriptionErr;?></span><br>
+          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63" required><?php echo $description;?></textarea>
           <br><br><br>
           <input type="submit" value="Submit Module">
-          </p>
           </form>
-
-	      
+          
           </div>
           <div class="col-md-1">
           </div>
@@ -156,29 +153,8 @@
       </div>
     </div>
 
-    <div class="learn-more">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3">
-            <h2><img src="../Images/new_logo.png" alt="Study Buddy"></img>Study Buddy</h2>
-          </div>
-          <div class="col-md-3">
-            <h3>About Us</h3>
-            <p>The team behind this website is the M3 Group of the School of Computer Science from the University of Manchester.</p>
-            <p><a href="#">Learn more about each members of the team</a></p>
-          </div>
-          <div class="col-md-3">
-            <h3>Get Started</h3>
-            <p>Stop wasting precious time and come join us now to start your revision.</p>
-            <p><a href="#">Get going with Study Buddy</a></p>
-          </div>
-          <div class="col-md-3">
-            <h3>Feedback</h3>
-            <p>Contact us if you encounter any problems or if you have any suggestions to improve our website and let us solve your problems.</p>
-            <p><a href="Feedback.html">Send a feedback</a></p>
-          </div>
-        </div>
-      </div>
+    <div id="footer">
+      <?php include('../Template/footer.php'); ?>
     </div>
 	
   </body>

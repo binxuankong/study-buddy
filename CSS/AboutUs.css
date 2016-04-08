@@ -1,92 +1,24 @@
-#timer-div{
-  width: 80%;
-}
-
-#chooseAModuleLabel {
-  font-family: sans-serif;
-  color: black;
-  font-size: 18px;
-}
-
-select {
-  font-family: sans-serif;
-  color: black;
-  font-size: 22px;
-}
-
-#initialTimeLabel {
-  margin-top: 36px;
-  font-family: sans-serif;
-  color: black;
-  font-size: 18px;
-}
-
-#moduleDropdown {
-  width: 50%;
-  margin: auto;
-  display: block;
-}
-
-option {
-  font-family: sans-serif;
-  color: black;
-  font-size: 18px;
-}
-
-.rounded {
-  width: 80%;
-  margin: auto;
-  height: 64px;
-  border: 3px solid black;
-  border-radius: 20px;
-  font-family: sans-serif;
-  background-color: #f7f7f7;
-  font-size: 18px;
-}
-
-#timerBox {
+table {
   width: 100%;
-  height: 64px;
+  margin-top: 32px;
+  background-color: #f7f7f7;
 }
 
-#time {
-  font-size: 36px;
-}
-
-#timerBox img {
-  width: 18px;
-  height: 18px;
-}
-
-.rounded td {
-  text-align: center;
-}
-
-.centered {
-  margin: auto;
-  width: 50%;
-}
-
-#setclock {
-
-}
-
-#Start-Stop {
-  width: 80%;
-  height: 10vh;
-  margin: auto;
-  background-color: #4da5ff;
-  display: block;
-  border: 2px solid black;
+td {
+  height: 282px;
+  color: #5a5a5a;
+  font-size: 22px;  
   font-family: sans-serif;
   text-align: center;
-  text-decoration: none;
-  font-size: 28px;
-  color: black;
+  border: 5px white solid;
 }
 
-.error {
-  color: red;
+#theTeam img{
+  height: 180px;
+  width: 180px;
+  margin-bottom: 28px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nav div {
@@ -185,6 +117,38 @@ option {
   margin-bottom: 168px;
 }
 
+.body h2 {
+  color: black;
+  font-size: 36px;  
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 86px;
+  text-align: center;
+}
+
+.body {
+  word-wrap: break-word;
+  width: 880px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
+#moduleDropdown {
+  width: 50%;
+  display: block;
+}
+
+.body input[type="submit"]{
+  text-align: center;
+  background-color: #4da5ff;
+  border: 1px solid black;
+  width: 160px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
 .learn-more {
   background-color: #f7f7f7;
 }
@@ -215,4 +179,8 @@ option {
 
 .learn-more a {
   color: #4da5ff;
+}
+
+.error {
+  color: red;
 }

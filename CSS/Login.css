@@ -95,26 +95,129 @@
 }
 
 .body {
-  word-wrap: break-word;
   width: 880px;
+}
+
+#login {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: sans-serif;
+  color: black;
+  font-size: 22px;
+}
+
+#register {
+  margin-left: 220px;
   font-family: sans-serif;
   color: black;
   font-size: 18px;
 }
 
-#moduleDropdown {
-  width: 50%;
-  display: block;
+.body #login input[type="text"] {
+  background-color: #f7f7f7;
+  border: 1px solid black;
+  margin-left: 10px;
+  width: 560px;
 }
 
-.body input[type="submit"]{
+
+.body #login input[type="password"] {
+  background-color: #f7f7f7;
+  border: 1px solid black;
+  margin-left: 14px;
+  width: 560px;
+}
+
+.body #register input[type="text"] {
+  background-color: #f7f7f7;
+  border: 1px solid black;
+  margin-left: 28px;
+  width: 640px;
+  margin-top: 6px;
+  margin-bottom: 24px;
+}
+
+.body #register input[type="password"] {
+  background-color: #f7f7f7;
+  border: 1px solid black;
+  margin-left: 28px;
+  width: 640px;
+  margin-top: 6px;
+  margin-bottom: 24px;
+}
+
+.body #register input[type="email"] {
+  background-color: #f7f7f7;
+  border: 1px solid black;
+  margin-left: 28px;
+  width: 640px;
+  margin-top: 6px;
+  margin-bottom: 24px;
+}
+
+#login #loginButton {
+  display: block;
   text-align: center;
+  margin-top: 12px;
+  margin-bottom: 36px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #4da5ff;
+  border: 1px solid #4da5ff;
+  border-radius: 24px;
+  height: 48px;
+  width: 240px;
+  font-family: sans-serif;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.body p {
+  font-size: 18px;
+  text-align: center;
+}
+
+.body #login input[type="submit"] {
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #4da5ff;
   border: 1px solid black;
-  width: 160px;
+  height: 42px;
+  width: 288px;
   font-family: sans-serif;
   color: black;
   font-size: 18px;
+}
+
+.body #register input[type="submit"] {
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 64px;
+  margin-left: 228px;
+  background-color: #4da5ff;
+  border: 1px solid #4da5ff;
+  border-radius: 24px;
+  height: 48px;
+  width: 240px;
+  font-family: sans-serif;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#invalid {
+  background-color: #ed2939;
+  color: white;
+  text-align: center;
+  width: 66%;
+  height: 36px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .learn-more {
