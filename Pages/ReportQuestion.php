@@ -166,6 +166,10 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     // Calculate the true risk point from the baseRiskPoint.
     $trueRiskPoint = $baseRiskPoint * ($reporterQuestionQuality / $creatorQuestionQuality);
     $trueRiskPoint = round($trueRiskPoint);
+    // Update the user quality of creator.
+    if ($creatorQuestionQuality > 1) {
+      $creatorQuestionQuality = $creatorQuestionQuality - 1;
+    }
     // Add the current questionRisk with the trueRiskPoint.
     $questionRisk = $questionRisk + $trueRiskPoint;
     $result = $mysqli -> query("SELECT * FROM SB_REPORTED_QUESTIONS WHERE questionID='
