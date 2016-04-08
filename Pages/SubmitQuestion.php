@@ -54,7 +54,7 @@
                   }
                   //retrieve module ID
                   $result = array();
-                  $sql = $mysqli -> prepare("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseCode=?");
+                  $sql = $mysqli -> prepare("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID=?");
                   $sql -> bind_param("s", $module);
                   $sql -> execute();
                   $sql -> store_result();
