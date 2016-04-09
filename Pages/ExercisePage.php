@@ -190,6 +190,9 @@
             }
           }
           echo "<p id='correct'>CORRECT!</p><br>";
+          echo "</td><td width='96px'>";
+          echo "<button id='".$question[0]."' onclick='reportQuestion(this.id)'>Report this question</button>";
+          echo "</td></tr>";
         }
 
         else //Answered incorrectly
