@@ -98,6 +98,15 @@
                   $sql -> close();
                   $message = "Thank you for contributing to Study Buddy. The module has been created successfully.";
 
+                  // Update the user quality of the creator.
+                  $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$submittingUserID'");
+                  $creatorQuestionQualityRow = $result -> fetch_assoc();
+                  $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+                  $creatorQuestionQuality = $creatorQuestionQuality + 15;
+                  if ($creatorQuestionQuality > 500) {
+                    $creatorQuestionQuality = 500;
+                  }
+
                 } // else
 
                 $mysqli -> close();

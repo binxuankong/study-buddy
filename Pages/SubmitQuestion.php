@@ -87,6 +87,15 @@
                       $sql -> close();
                     }
                     echo "Question Submitted. Thank you for contributing to Study Buddy";
+
+                    // Update the user quality of the creator.
+                    $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$submittingUserID'");
+                    $creatorQuestionQualityRow = $result -> fetch_assoc();
+                    $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+                    $creatorQuestionQuality = $creatorQuestionQuality + 5;
+                    if ($creatorQuestionQuality > 500) {
+                     $creatorQuestionQuality = 500;
+                   }
                   }
                 }
                 else
