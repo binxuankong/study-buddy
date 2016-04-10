@@ -62,7 +62,7 @@
                   </table>
                 </div>
               </div><br>
-	            <button id="Start-Stop" onclick="clickButton();">START</button>
+	            <button id="Start-Stop" onclick="clickButton();">Start Timer</button>
             </div>
           </div>
           <div class="col-md-1">
