@@ -123,6 +123,23 @@
   color: black;
 }
 
+#removable {
+  background-color: #0097fa;
+  border: 2px solid black;
+  width: 200px;
+}
+
+#removableDisabled {
+  background-color: #d3d3d3;
+  border: 2px solid black;
+  width: 200px;
+}
+
+
+#disabled {
+  background-color: #d3d3d3;
+}
+
 .learn-more {
   background-color: #f7f7f7;
 }

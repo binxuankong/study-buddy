@@ -123,6 +123,22 @@
               {
                 echo "You must be signed in to create submit a question.<br>"
                      ."<a href='login.php'>Please click here to sign in or register</a>";
+                echo '<br><br><p>Choose a module to add a question to</p><form id="questionsForm"  method="post"><select disabled id="moduleDropdown" name="module">';
+                echo "<option value='Choose a module'>Choose a module</option></select>";
+                  echo "<br>Enter the question:<br>"
+                         ."<textarea disabled name='question' rows='3' cols='80' placeholder='e.g. What is the value of the \$test in the following php statement, \$test  = false or true;'></textarea>"
+                         ."<br><br>Enter up the answers for this question. if you need more you can add them by clicking the add more answers button"
+                         ."<br><input disabled id='removableDisabled' type='button' value='Add more answers' onClick='addInput(\"AnswersFormDiv\")'>"
+                         ."<br>(check any answers that are correct)<br>"
+                         ."<div id='AnswersFormDiv'>"
+                           ."Answer 1 <input disabled type='text' name='ans[0][0]' size='64'> "
+                           ."<input disabled type='checkbox' name='ans[0][1]' ><br>"
+
+                           ."Answer 2 <input disabled type='text' name='ans[1][0]' size='64'> "
+                           ."<input disabled type='checkbox' name='ans[1][1]'><br>"
+                         ."</div>"
+                         ."<br><br>"
+                         ."<input disabled id='disabled' type='submit' value='Submit Question'>";
               }
               function redisplayForm($error = "")
               {

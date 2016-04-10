@@ -126,28 +126,53 @@
 
           <?php 
             echo $message;
-          ?>
-          <br><br>
-	      
+            echo "<br><br>";
+          ?> 
 
-          <form method="post">
+      <?php
+        if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
+        {
+          echo "
+          <form method='post'>
 	        <p>         
           Module Code:
-          <input type="text" name="code" placeholder="e.g. COMP16121" value="<?php echo $code;?>" required>
-          <span class="error"><?php echo $codeErr;?></span>
+          <input type='text' name='code' placeholder='e.g. COMP16121' value='$code' required>
+          <span class='error'>$codeErr</span>
           </p><br>
 
           Module Name:
-          <input type="text" name="name" size="50"
-          placeholder="e.g. Object Orientated Programming with Java" value="<?php echo $name;?>" required>
-          <span class="error"><?php echo $nameErr;?></span>
+          <input type='text' name='name' size='50'
+          placeholder='e.g. Object Orientated Programming with Java' value='$name' required>
+          <span class='error'>$nameErr</span>
           </p><br>
 
-          Module Description: <span class="error"><?php echo $descriptionErr;?></span><br>
-          <textarea name="description" placeholder="e.g. First Year Java Course for Computer Science" rows="4" cols="63" required><?php echo $description;?></textarea>
+          Module Description: <span class='error'>$descriptionErr</span><br>
+          <textarea name='description' placeholder='e.g. First Year Java Course for Computer Science' rows='4' cols='63' required>$description</textarea>
           <br><br><br>
-          <input type="submit" value="Submit Module">
-          </form>
+          <input type='submit' value='Submit Module'>
+          </form>";
+        } else {
+          echo "
+          <form method='post'>
+	        <p>         
+          Module Code:
+          <input disabled type='text' name='code' placeholder='e.g. COMP16121' value='$code' required>
+          <span class='error'>$codeErr</span>
+          </p><br>
+
+          Module Name:
+          <input disabled type='text' name='name' size='50'
+          placeholder='e.g. Object Orientated Programming with Java' value='$name' required>
+          <span class='error'>$nameErr</span>
+          </p><br>
+
+          Module Description: <span class='error'>$descriptionErr</span><br>
+          <textarea disabled name='description' placeholder='e.g. First Year Java Course for Computer Science' rows='4' cols='63' required>$description</textarea>
+          <br><br><br>
+          <input disabled id ='disabled' type='submit' value='Submit Module'>
+          </form>";
+        }
+      ?>
           
           </div>
           <div class="col-md-1">
