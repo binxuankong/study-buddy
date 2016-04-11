@@ -131,10 +131,11 @@ function resetTimer()
   else
     if (time >= 60)
       decreaseTime();
-
+  /* This part is not working
   document.getElementById("errorLabel").innerHTML = "";
   displayTime();
   document.getElementById("Start-Stop").innerHTML = "Stop";
   timer = setInterval(tick, 1000);
   document.getElementById("initialTimeLabel").innerHTML = "Time until exercise:";
+  */
 }
