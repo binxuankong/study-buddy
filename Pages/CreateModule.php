@@ -95,8 +95,13 @@
                   $sql = $mysqli -> prepare("INSERT INTO SB_MODULE_INFO (userID, moduleName, moduleCourseID, moduleDescription) VALUES (?,?,?,?)");
                   $sql -> bind_param("ssss", $submittingUserID, $name, $code, $description);
                   $sql -> execute();
+                  $sql -> bind_result($result);
                   $sql -> close();
-                  $message = "Thank you for contributing to Study Buddy. The module has been created successfully.";
+                  if ($result === TRUE) {
+                    $message = "Thank you for contributing to Study Buddy. The module has been created successfully.";
+                  } else {
+                    echo "Sorry, creation of module failed. Please try again later.";
+                  }
 
                   // Update the user quality of the creator.
                   $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$submittingUserID'");
