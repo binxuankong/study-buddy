@@ -37,7 +37,10 @@
       }
 
         $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO");
-        echo "<br><p>Choose a module to view all the questions available for this module</p><br><select id='moduleDropdown' name='module'>";
+        echo "<br><p>Choose a module to view all the questions available for this module "
+            ."<span class='dropt' title='Choose Module'><img src='../Images/information.png'>"
+            ."<span style='width:500px;'>Choose the module that you want to view the questions available.<br>If you cannot find the module you want, you can create one in the <b>Create a Module</b> page.</span></span>"
+            ."</p><br><select id='moduleDropdown' name='module'>";
         echo "<option value='Choose a module'>Choose a module</option>";
         while($row = $result->fetch_assoc())
         {
@@ -51,7 +54,7 @@
 
     <button id="viewQuestions" onclick="clickButton();">View Questions</button>
 
-    <p>Can't find the module you want?</p>
+    <p>Cannot find the module you want?</p>
     <a href="CreateModule.php">Create your own module here</a>
 
           </div>
