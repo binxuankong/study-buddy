@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/ExercisePage.css">
     <script src="./ReportButton.js"></script>
+    <script src="./TimerScript.js"></script>
     <title>Study Buddy - Exercise Page</title>
   </head>
   <body>
@@ -242,7 +243,7 @@
       echo "</p>";
       $timeDifference = (2 * $correctQuestions) + count($questions);
       echo "</table><br>";
-      echo "<button id='closeButton' onclick='self.close()'>Close</button>";
+      echo "<button id='closeButton' onclick='self.close(); clickButton();'>Close</button>";
 
      // Update the user quality of user.
       if($userID != -1) {
