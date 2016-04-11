@@ -188,13 +188,13 @@ $questionID' AND userID = '$userID'");
     // Add the datas to the reported questions table.
     if (isset($otherReason))
     {
-      $report = "INSERT INTO SB_REPORTED_QUESTIONS (questionID, reportReason, otherReason)
-                 VALUES ($questionID, $reportReason, $otherReason)";
+      $report = "INSERT INTO SB_REPORTED_QUESTIONS (questionID, reportReason, otherReason, userID)
+                 VALUES ($questionID, $reportReason, $otherReason, $userID)";
     }
     else
     {
-      $report = "INSERT INTO SB_REPORTED_QUESTIONS (questionID, reportReason, otherReason)
-                 VALUES ($questionID, $reportReason, NULL)";
+      $report = "INSERT INTO SB_REPORTED_QUESTIONS (questionID, reportReason, otherReason, userID)
+                 VALUES ($questionID, $reportReason, NULL, $userID)";
     }
     if ($mysqli->query($report) == true) {
       echo "<div class='reportedPage'>"
