@@ -71,6 +71,10 @@
     } else
     {
       $userID = -1;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 84626b8b2e5cd8062d617707e059f7446990133c
     }
     $module = $_GET['module'];
     $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");

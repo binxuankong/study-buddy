@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -9,7 +10,7 @@
     <title>Set Timer</title>
   </head>
 
-  <body>
+  <body  onload="displayTime();">
     <div id="header">
       <?php include('../Template/header.php'); ?>
     </div>
@@ -34,17 +35,17 @@
                 {
                   die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
                 }
-                $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO");
+                $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO ORDER BY moduleCourseID ASC");
                 echo '<br><h5 id="chooseAModuleLabel">Choose a module to revise</h5><br><select id="moduleDropdown" name="module">';
                 echo "<option value='Choose a module'>Choose a module</option>";
                 while($row = $result->fetch_assoc())
                 {
                   $thismodule = $row["moduleCourseID"];
-                  
                   echo "<option value='$thismodule'>$thismodule</option>";
                 }
                 echo '</select><br><h3 id="errorLabel" class="error"></h3>';
                 $mysqli -> close();
+
               ?>
               <div>
                 <h5 id="initialTimeLabel">Set an initial time</h5><br>
@@ -63,9 +64,6 @@
               </div><br>
 	            <button id="Start-Stop" onclick="clickButton();">START</button>
             </div>
-            <script>
-              $('#timer-div').load(displayTime());
-            </script>
           </div>
           <div class="col-md-1">
           </div>

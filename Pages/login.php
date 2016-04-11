@@ -1,9 +1,10 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
-    <link rel="stylesheet" href="../CSS/Template.css">
-    <title>Template</title>
+    <link rel="stylesheet" href="../CSS/Login.css">
+    <title>Study Buddy - Login</title>
   </head>
 
   <body>
@@ -11,14 +12,6 @@
       <?php include('../Template/header.php'); ?>
     </div>
 
-    <div class="heading">
-      <div class="container">
-        <h1>Sign up / Login</h1>
-      </div>
-    </div>
-	      
-    <div class="body">
-      <div class="container">
         <?php
           if(!(isset($_SESSION['userID']) && isset($_SESSION['userName'])))
           {
@@ -36,18 +29,7 @@
             if(isset($_POST['register']))
             {
               //display the sign up form
-              echo "<form method='post'>"
-                      ."First name:<br><input name='firstName' type='text'><br>"
-                      ."Surname:<br><input name='surname' type='text'><br>"
-                      ."Email address:<br><input name='email' type='email'><br>"
-                      ."Username:<br><input name='username' type='text'><br>"
-                      ."Password:<br><input name='password' type='password'>"
-                      ."<br>"
-                      ."Confirm password:<br><input name='passwordConfirm' "
-                      ."type='password'><br>"
-                      ."<input name='registered' type='submit' "
-                      ."value='Register'>"
-                    ."</form>";
+              displayRegistrationForm();
             }
             //else if the user filled in the registration form
             else if(isset($_POST['registered']))
@@ -69,107 +51,83 @@
                 //if password matches confirmation password
                 if(strcmp($password, $passwordConfirm) == 0)
                 {
-                  //generate the user salt
-                  $generatedSalt = openssl_random_pseudo_bytes(32);
-                  //convert the salt to text
-                  $hexedSalt = bin2hex($generatedSalt);
-                  //append the password to the salt
-                  $saltedPasswordPreHash = $hexedSalt.$password;
-                  //hash the salted password using sha512
-                  $passwordHash = hash("sha512", $saltedPasswordPreHash);
-                  
-                  //insert all user info
-                  $sql = $mysqli -> prepare("INSERT INTO SB_USER_INFO "
-                                            ."(userFirstName, userSurname, "
-                                            ."userEmail,  userScreenName) "
-                                            ."VALUES (?,?,?,?)");
-                  $sql -> bind_param("ssss", $firstName, $surname, $email, 
-                                     $username);
-                  $sql -> execute();
-                  $sql -> close();
-                  //retrieve the userID
-                  $resultUID = array();
-                  $resultUIDRow = array();
-                  $sql = $mysqli -> prepare("SELECT userID FROM SB_USER_INFO "
-                                            ."WHERE userScreenName=?");
-                  $sql -> bind_param("s", $username);
-                  $sql -> execute();
-                  $sql -> store_result();
-                  $sql -> bind_result($userID);
-                  while($sql -> fetch())
+                  if(validatePassword($password))
                   {
-                    $resultUIDRow['userID'] = $userID;
-                    $resultUID[] = $resultUIDRow;
-                  }
-                  $sql -> close();
-                  //check that a user exists
-                  if(count($resultUID) == 1)
-                  {
-                    //get the relevant user's ID
-                    $userID = $resultUID[0]['userID'];
-                    //insert the hashed password and the salt
-                    $sql = $mysqli -> prepare("INSERT INTO SB_LOGIN_CREDENTIALS"
-                                              ." (userID, userPasswordHash, "
-                                              ."userSalt) VALUES (?,?,?)");
-                    $sql -> bind_param("sss", $userID, $passwordHash, 
-                                       $hexedSalt);
+                    //generate the user salt
+                    $generatedSalt = openssl_random_pseudo_bytes(32);
+                    //convert the salt to text
+                    $hexedSalt = bin2hex($generatedSalt);
+                    //append the password to the salt
+                    $saltedPasswordPreHash = $hexedSalt.$password;
+                    //hash the salted password using sha512
+                    $passwordHash = hash("sha512", $saltedPasswordPreHash);
+                    //insert all user info
+                    $sql = $mysqli -> prepare("INSERT INTO SB_USER_INFO "
+                                              ."(userFirstName, userSurname, "
+                                              ."userEmail,  userScreenName) "
+                                              ."VALUES (?,?,?,?)");
+                    $sql -> bind_param("ssss", $firstName, $surname, $email, 
+                                       $username);
                     $sql -> execute();
                     $sql -> close();
+                    //retrieve the userID
+                    $resultUID = array();
+                    $resultUIDRow = array();
+                    $sql = $mysqli -> prepare("SELECT userID FROM SB_USER_INFO "
+                                              ."WHERE userScreenName=?");
+                    $sql -> bind_param("s", $username);
+                    $sql -> execute();
+                    $sql -> store_result();
+                    $sql -> bind_result($userID);
+                    while($sql -> fetch())
+                    {
+                      $resultUIDRow['userID'] = $userID;
+                      $resultUID[] = $resultUIDRow;
+                    }
+                    $sql -> close();
+                    //check that a user exists
+                    if(count($resultUID) == 1)
+                    {
+                      //get the relevant user's ID
+                      $userID = $resultUID[0]['userID'];
+                      //insert the hashed password and the salt
+                      $sql = $mysqli -> prepare("INSERT INTO SB_LOGIN_CREDENTIALS"
+                                                ." (userID, userPasswordHash, "
+                                                ."userSalt) VALUES (?,?,?)");
+                      $sql -> bind_param("sss", $userID, $passwordHash, 
+                                         $hexedSalt);
+                      $sql -> execute();
+                      $sql -> close();
+                      //user registered send email to confirm
+                      // the message
+                      $msg = "Thank you for registering with Study Buddy \n "
+                             ."To login you will need your username, shown below,"
+                             ." and the password that you entered when signing up"
+                             .".\n \n Username: $username";
+
+                      // use wordwrap() if lines are longer than 70 characters
+                      $msg = wordwrap($msg,70);
+                      $sender = "\"Study Buddy\"";
+                      // send email
+                      mail("$email","Study Buddy Sign Up Confirmation",$msg, "","-F $sender"); 
+                      header("Location: /Pages/login.php");
+                      die();
+                    }
+                    else
+                    {
+                      die('An error occured please try again later.');
+                    }
                   }
-                  //password does not match confirmed password
-                  else
-                  {
-                    //reproduce form with missing items from registration form.
-                
-                    //set variables to blank
-                    $firstName = "";
-                    $surname = "";
-                    $email = "";
-                    $username = "";
-                    
-                    //get entered values
-                    if(isset($_POST['firstName']))
-                    {
-                      $firstName = test_input($_POST['firstName']);
-                    }
-                    if(isset($_POST['surname']))
-                    {
-                      $surname = test_input($_POST['surname']);
-                    }
-                    if(isset($_POST['email']))
-                    {
-                      $email = test_input($_POST['email']);
-                    }
-                    if(isset($_POST['username']))
-                    {
-                      $username = test_input($_POST['username']);
-                    }
-                    //echo error message and display the form
-                    echo "Password does not match the password confirmation "
-                         ."<br>";
-                    echo "<form method='post'>"
-                          ."First name:<br><input name='firstName' type='text' "
-                          ."value='$firstName'><br>"
-                          ."Surname:<br><input name='surname' type='text' "
-                          ."value='$surname'><br>"
-                          ."Email address:<br><input name='email' type='email' "
-                          ."value='$email'><br>"
-                          ."Username:<br><input name='username' type='text' "
-                          ."value='$username'><br>"
-                          ."Password:<br><input name='password' "
-                          ."type='password'><br>"
-                          ."Confirm password:<br><input name='passwordConfirm' "
-                          ."type='password'><br>"
-                          ."<input name='registered' type='submit' "
-                          ."value='Register'>"
-                        ."</form>";
-                  }
+                }
+                else
+                {
+                  //reproduce form as passwords do not match.
+                  displayRegistrationForm("Password does not match password confirmation");
                 }
               }
               else
               {
                 //reproduce form with missing items from registration form.
-                
                 //set variables to blank
                 $firstName = "";
                 $surname = "";
@@ -177,41 +135,38 @@
                 $username = "";
                 $password = "";
                 $passwordConfirm = "";
-                
+                $missingFieldError = "";
                 //get entered values
-                if(isset($_POST['firstName']))
+                if(empty($_POST['firstName']))
                 {
                   $firstName = test_input($_POST['firstName']);
+                  $missingFieldError = "Please enter your first name";
                 }
-                if(isset($_POST['surname']))
+                elseif(empty($_POST['surname']))
                 {
                   $surname = test_input($_POST['surname']);
+                  $missingFieldError = "Please enter your surname";
                 }
-                if(isset($_POST['email']))
+                elseif(empty($_POST['email']))
                 {
                   $email = test_input($_POST['email']);
+                  $missingFieldError = "Please enter your email address";
                 }
-                if(isset($_POST['username']))
+                elseif(empty($_POST['username']))
                 {
                   $username = test_input($_POST['username']);
+                  $missingFieldError = "Please enter a username";
                 }
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Sign Up</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
                 //echo the form
-                echo "<form method='post'>"
-                      ."First name:<br><input name='firstName' type='text' "
-                      ."value='$firstName'><br>"
-                      ."Surname:<br><input name='surname' type='text' "
-                      ."value='$surname'><br>"
-                      ."Email address:<br><input name='email' type='email' "
-                      ."value='$email'><br>"
-                      ."Username:<br><input name='username' type='text' "
-                      ."value='$username'><br>"
-                      ."Password:<br><input name='password' type='password'>"
-                      ."<br>"
-                      ."Confirm password:<br><input name='passwordConfirm' "
-                      ."type='password'><br>"
-                      ."<input name='registered' type='submit' "
-                      ."value='Register'>"
-                    ."</form>";
+                displayRegistrationForm($missingFieldError);
               }
             }
             //user attempted to login
@@ -234,7 +189,7 @@
                 $sql -> execute();
                 $sql -> store_result();
                 $sql -> bind_result($userID, $userScreenName, $userFirstName, 
-                                    $userSurname, $userEmail);
+                                    $userSurname, $userEmail, $userQQ);
                 while($sql -> fetch())
                 {
                   $resultCREDRow['userID'] = $userID;
@@ -319,36 +274,55 @@
                 //login failed username or password checks
                 else
                 {
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Log In</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
                   //redisplay logn form with entered username but not password
-                  echo "Invalid username or password";
-                  echo "<form method='post'>"
-                        ."Username:<br><input type='text' name='username' "
-                        ."value='$username'><br>"
-                        ."<Password<br><input type='password' name='password'>"
-                        ."<br>"
-                        ."<input type='submit' name='login' value='login'><br>"
+                  echo "<div id='login'><form method='post'>"
+                        ."<div id='invalid'>Invalid username or password</div><br>"
+                        ."Username:<input type='text' name='username'><br><br>"
+                        ."Password:<input type='password' name='password'>"
+                        ."<br><br>"
+                        ."<input id='loginButton' type='submit' name='login' value='LOG IN'><br>"
+                      ."<p><a href='#'>Forgot your username or password?</a></p>"
                       ."</form>"
+                      ."<p><br>Don't have a Study Buddy account?</p>"
                       ."<form method='post'>"
                         ."<input type='submit' name='register' "
                         ."value='Click Here to sign up'>"
-                      ."</form>";
+                      ."</form></div>";
                 }
               }
               //else no attempt to use page has been made 
               //so display standard form
               else
               {
+    echo "<div class='heading'>
+      <div class='container'>
+        <h1>Log In</h1>
+      </div>
+    </div>
+	      
+    <div class='body'>
+      <div class='container'>";
                 //display standard login form
-                echo "<form method='post'>"
-                        ."Username:<br><input type='text' name='username'><br>"
-                        ."Password:<br><input type='password' name='password'>"
-                        ."<br>"
-                        ."<input type='submit' name='login' value='login'><br>"
+                echo "<div id='login'><form method='post'>"
+                        ."<br>Username:<input type='text' name='username'><br><br>"
+                        ."Password:<input type='password' name='password'>"
+                        ."<br><br>"
+                        ."<input id='loginButton' type='submit' name='login' value='LOG IN'><br>"
+                      ."<p><a href='#'>Forgot your username or password?</a></p>"
                       ."</form>"
+                      ."<p><br>Don't have a Study Buddy account?</p>"
                       ."<form method='post'>"
                         ."<input type='submit' name='register' "
                         ."value='Click Here to sign up'>"
-                      ."</form>";
+                      ."</form></div>";
               }
             }
           }
@@ -365,6 +339,68 @@
             $data = filter_var($data, FILTER_SANITIZE_STRING, 
                                FILTER_FLAG_STRIP_HIGH);
             return $data;
+          }
+          function validatePassword($password) 
+          {
+            if(strlen($password) < 8)
+            {
+              //display form without password
+              displayRegistrationForm("Password must be 8 characters or longer");
+              return false;
+            }
+            $allowedChars = '/[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!£$%^&*()#]/';
+            if(!preg_match($allowedChars, $password))
+            {
+              displayRegistrationForm("Password must only use Lowercase and Uppercase letters, numbers and !£$%^&*()#");
+              return false;
+            }
+            return true;
+          }
+          function displayRegistrationForm($error = "")
+          {
+            //reproduce form with missing items from registration form
+            //set variables to blank
+            $firstName = "";
+            $surname = "";
+            $email = "";
+            $username = "";
+            $password = "";
+            $passwordConfirm = "";
+            //get entered values
+            if(isset($_POST['firstName']))
+            {
+              $firstName = test_input($_POST['firstName']);
+            }
+            if(isset($_POST['surname']))
+            {
+              $surname = test_input($_POST['surname']);
+            }
+            if(isset($_POST['email']))
+            {
+              $email = test_input($_POST['email']);
+            }
+            if(isset($_POST['username']))
+            {
+              $username = test_input($_POST['username']);
+            }
+            //echo the form
+            echo "<form method='post'>"
+                  ."$error<br>"
+                  ."First name:<br><input name='firstName' type='text' "
+                  ."value='$firstName'><br>"
+                  ."Surname:<br><input name='surname' type='text' "
+                  ."value='$surname'><br>"
+                  ."Email address:<br><input name='email' type='email' "
+                  ."value='$email'><br>"
+                  ."Username:<br><input name='username' type='text' "
+                  ."value='$username'><br>"
+                  ."Password:<br><input name='password' type='password'>"
+                  ."<br>"
+                  ."Confirm password:<br><input name='passwordConfirm' "
+                  ."type='password'><br>"
+                  ."<input name='registered' type='submit' "
+                  ."value='Register'>"
+                ."</form>";
           }
         ?>
       </div>

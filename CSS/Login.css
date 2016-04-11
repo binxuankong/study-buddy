@@ -1,35 +1,3 @@
-table {
-  width: 100%;
-}
-
-td {
-  height: 100%;
-  color: black;
-  font-size: 18px;  
-  font-family: sans-serif;
-  vertical-align: top;
-}
-
-button {
-  text-align: center;
-  background-color: #ed2939;
-  border: 1px solid black;
-  width: 92px;
-  font-family: sans-serif;
-  color: black;
-  font-size: 14px;
-  margin-top: 8px;
-}
-
-span {
-  color: #4da5ff;
-  cursor: pointer;
-}
-
-span:hover{
-  color: #2a52be;
-}
-
 .nav div {
   background-color: #f7f7f7;
   top: -2px;
@@ -102,13 +70,13 @@ span:hover{
 
 .heading {
   width: 100%;
-  height: 160px;
+  height: 200px;
   background-color: #4da5ff;
 }
 
 .heading .container {
   position: relative;
-  top: 48px;
+  top: 88px;
 }
 
 .heading h1 {
@@ -121,85 +89,135 @@ span:hover{
 
 .body .container {
   position: relative;
-  top: 28px;
+  top: 56px;
   margin-left: 132px;
-  margin-bottom: 62px;
+  margin-bottom: 168px;
 }
 
-.body h2 {
+.body {
+  width: 880px;
+}
+
+#login {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
   font-family: sans-serif;
-  color: black;
-  font-size: 32px;
-  font-weight: bold;
-}
-
-.body p {
-  font-family: sans-serif;
-  color: black;
-  font-size: 18px;
-}
-
-.body li {
-  font-family: sans-serif;
-  color: black;
-  font-size: 18px;
-}
-
-#correct {
-  font-weight: bold;
-  color: green;
-}
-
-#incorrect {
-  font-weight: bold;
-  color: red;
-}
-
-.body input[type="submit"]{
-  text-align: center;
-  background-color: #4da5ff;
-  border: 2px solid black;
-  width: 160px;
-  font-family: sans-serif;
-  font-weight: bold;
   color: black;
   font-size: 22px;
 }
 
-#addQuestion {
+#register {
+  margin-left: 220px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
+.body #login input[type="text"] {
+  background-color: #f7f7f7;
+  border: 1px solid black;
+  margin-left: 10px;
+  width: 560px;
+}
+
+
+.body #login input[type="password"] {
+  background-color: #f7f7f7;
+  border: 1px solid black;
+  margin-left: 14px;
+  width: 560px;
+}
+
+.body #register input[type="text"] {
+  background-color: #f7f7f7;
+  border: 1px solid black;
+  margin-left: 28px;
+  width: 640px;
+  margin-top: 6px;
+  margin-bottom: 24px;
+}
+
+.body #register input[type="password"] {
+  background-color: #f7f7f7;
+  border: 1px solid black;
+  margin-left: 28px;
+  width: 640px;
+  margin-top: 6px;
+  margin-bottom: 24px;
+}
+
+.body #register input[type="email"] {
+  background-color: #f7f7f7;
+  border: 1px solid black;
+  margin-left: 28px;
+  width: 640px;
+  margin-top: 6px;
+  margin-bottom: 24px;
+}
+
+#login #loginButton {
+  display: block;
   text-align: center;
+  margin-top: 12px;
+  margin-bottom: 36px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #4da5ff;
+  border: 1px solid #4da5ff;
+  border-radius: 24px;
+  height: 48px;
+  width: 240px;
+  font-family: sans-serif;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.body p {
+  font-size: 18px;
+  text-align: center;
+}
+
+.body #login input[type="submit"] {
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #4da5ff;
   border: 1px solid black;
-  width: 240px;
+  height: 42px;
+  width: 288px;
   font-family: sans-serif;
   color: black;
   font-size: 18px;
-  margin-top: 16px;
 }
 
-#reportModule {
+.body #register input[type="submit"] {
+  display: block;
   text-align: center;
-  background-color: #ed2939;
-  border: 2px solid black;
-  width: 240px;
-  font-family: sans-serif;
-  font-weight: bold;
-  color: black;
-  font-size: 18px;
-  margin-top: 16px;
-}
-
-#closeButton {
-  text-align: center;
+  text-transform: uppercase;
+  margin-top: 64px;
+  margin-left: 228px;
   background-color: #4da5ff;
-  border: 2px solid black;
-  width: 160px;
+  border: 1px solid #4da5ff;
+  border-radius: 24px;
+  height: 48px;
+  width: 240px;
   font-family: sans-serif;
+  color: white;
   font-weight: bold;
-  color: black;
-  margin-top: 16px;
-  margin-bottom: 16px;
   font-size: 18px;
+}
+
+#invalid {
+  background-color: #ed2939;
+  color: white;
+  text-align: center;
+  width: 66%;
+  height: 36px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .learn-more {
@@ -207,7 +225,7 @@ span:hover{
 }
 
 .learn-more h2 {
-  margin-top: 6px;
+  margin-top: 2px;
   font-family: sans-serif;
   color: #5a5a5a;
   font-size: 28px;
@@ -215,7 +233,7 @@ span:hover{
 }
 
 .learn-more img {
-  margin-top: -12px;
+  margin-top: -8px;
   margin-left: -44px;
   position: relative;
   width: 58px;
@@ -231,5 +249,9 @@ span:hover{
 }
 
 .learn-more a {
-  color: #0097fa;
+  color: #4da5ff;
+}
+
+.error {
+  color: red;
 }
