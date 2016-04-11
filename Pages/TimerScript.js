@@ -76,7 +76,7 @@ function clickButton()
       document.getElementById("moduleDropdown").disabled = false;
     }
   }
-  else
+  else if (start && time != 0)
   {
       document.getElementById("moduleDropdown").disabled = false;
       document.getElementById("Start-Stop").innerHTML = "Start";
@@ -85,7 +85,11 @@ function clickButton()
       start = false;
       document.getElementById("initialTimeLabel").innerHTML = "Set an initial time:";
       clearInterval(timer);
-    
+  }
+  else
+  {
+    time = chosenTime;
+    timer = setInterval(tick, 1000);
   }
 } // clickButton
 

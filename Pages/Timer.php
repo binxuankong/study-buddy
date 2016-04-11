@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../CSS/Timer.css">
     <script src="./TimerScript.js"></script>
     <script src="jquery.js"></script>
-    <title>Set Timer</title>
+    <title>Study Buddy - Set Timer</title>
   </head>
 
   <body  onload="displayTime();">
@@ -62,7 +62,7 @@
                   </table>
                 </div>
               </div><br>
-	            <button id="Start-Stop" onclick="clickButton();">START</button>
+	            <button id="Start-Stop" onclick="clickButton();">Start Timer</button>
             </div>
           </div>
           <div class="col-md-1">

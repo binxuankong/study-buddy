@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Report.css">
     <script src="./ReportButton.js"></script>
-    <title>Report this Question</title>
+    <title>Study Buddy - Report Question</title>
   </head>
 
   <body>
@@ -151,8 +151,31 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     $result = $mysqli -> query("SELECT questionRisk FROM SB_QUESTIONS WHERE questionID='$questionID'");
     $questionRiskRow = $result -> fetch_assoc();
     $questionRisk = $questionRiskRow['questionRisk'];
-    // Add the current questionRisk with the baseRiskPoint.
-    $questionRisk = $questionRisk + $baseRiskPoint;
+    // Get the userQuestionQuality from the creator and the reporter.
+    // userQuestionQuality of the reporter.
+    $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$userID'");
+    $reporterQuestionQualityRow = $result -> fetch_assoc();
+    $reporterQuestionQuality = $reporterQuestionQualityRow['userID'];
+    // userQuestionQuality of the creator.
+    $result = $mysqli -> query("SELECT userID FROM SB_QUESTION WHERE questionID='$questionID'");
+    $creatorUserIDRow = $result -> fetch_assoc();
+    $creatorUserID = $creatorUserIDRow['userID'];
+    $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$creatorUserID'");
+    $creatorQuestionQualityRow = $result -> fetch_assoc();
+    $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+    // Calculate the true risk point from the baseRiskPoint.
+    $trueRiskPoint = $baseRiskPoint * ($reporterQuestionQuality / $creatorQuestionQuality);
+    $trueRiskPoint = round($trueRiskPoint);
+    // Add the current questionRisk with the trueRiskPoint.
+    $questionRisk = $questionRisk + $trueRiskPoint;
+    // Update the user quality of creator.
+    $creatorQuestionQuality = $creatorQuestionQuality - 10;
+    if ($questionRisk > 100) {
+      $creatorQuestionQuality = $creatorQuestionQuality - 25;
+    }
+    if ($creatorQuestionQuality < 50) {
+      $creatorQuestionQuality = 50;
+    }
     $result = $mysqli -> query("SELECT * FROM SB_REPORTED_QUESTIONS WHERE questionID='
 $questionID' AND userID = '$userID'");
     $checkRow = $result -> fetch_assoc();
@@ -227,8 +250,7 @@ else {
          ."<img src='../Images/report_unsuccessful.png'>"
          ."<h3>Please log in below, or create an account if you do not have one.</h3>"
          ."<table><tr>"
-         ."<td><button id='login' onclick='logIn()'>Log In</button></td>"
-         ."<td><button id='signup' onclick='signUp()'>Sign Up</button></td>"
+         ."<td><button id='login' onclick='logIn()'>Log In/Sign Up</button></td>"
          ."<td><button id='close' onclick='self.close()'>Close</button></td>"
          ."</tr></table></div>";
 }

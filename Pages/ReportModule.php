@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/Report.css">
     <script src="./ReportButton.js"></script>
-    <title>Report this Module</title>
+    <title>Study Buddy - Report Module</title>
   </head>
 
   <body>
@@ -59,6 +59,18 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     $report = "INSERT INTO SB_REPORTED_MODULES (moduleID, reportReason)
                VALUES ($module, $reportReason)";
 
+    // Update the user quality of the creator.
+    $result = $mysqli -> query("SELECT userID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+    $creatorUserIDRow = $result -> fetch_assoc();
+    $creatorUserID = $creatorUserIDRow['userID'];
+    $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$creatorUserID'");
+    $creatorQuestionQualityRow = $result -> fetch_assoc();
+    $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+    $creatorQuestionQuality = $creatorQuestionQuality - 25;
+    if ($creatorQuestionQuality < 50) {
+      $creatorQuestionQuality = 50;
+    }
+
     if ($mysqli->query($report) == true) {
       echo "<div class='reportedPage'>"
          ."<h2>The module has succesfully been reported!</h2>"
@@ -99,8 +111,7 @@ else {
          ."<img src='../Images/report_unsuccessful.png'>"
          ."<h3>Please log in below, or create an account if you do not have one.</h3>"
          ."<table><tr>"
-         ."<td><button id='login' onclick='logIn()'>Log In</button></td>"
-         ."<td><button id='signup' onclick='signUp()'>Sign Up</button></td>"
+         ."<td><button id='login' onclick='logIn()'>Log In/Sign Up</button></td>"
          ."<td><button id='close' onclick='self.close()'>Close</button></td>"
          ."</tr></table></div>";
 }

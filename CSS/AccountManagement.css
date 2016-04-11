@@ -107,37 +107,70 @@
   display: block;
 }
 
-.body input[type="submit"]{
-  width: 33%;
-  height: 64px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #4da5ff;
-  display: block;
-  border: 2px solid black;
-  border-radius: 32px;
-  font-family: sans-serif;
+.body input[type="submit"] {
   text-align: center;
-  text-decoration: none;
-  font-size: 22px;
+  background-color: #4da5ff;
+  border: 1px solid black;
+  width: 160px;
+  font-family: sans-serif;
   color: black;
+  font-size: 18px;
 }
 
-#removable {
-  background-color: #0097fa;
-  border: 2px solid black;
-  width: 200px;
+.body h2 {
+  color: black;
+  font-size: 36px;  
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-bottom: 24px;
 }
 
-#removableDisabled {
-  background-color: #d3d3d3;
-  border: 2px solid black;
-  width: 200px;
+mark {
+  color: #5a5a5a;
+  background-color: white;
+  font-size: 18px;
+  font-family: sans-serif;
 }
 
+#modules h2 {
+  color: black;
+  font-size: 36px;  
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 64px;
+  margin-bottom: 24px;
+}
 
-#disabled {
-  background-color: #d3d3d3;
+#questions h2 {
+  color: black;
+  font-size: 36px;  
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 64px;
+  margin-bottom: 24px;
+}
+
+#modules td {
+  color: #5a5a5a;
+  font-size: 18px;
+  font-family: sans-serif;
+}
+
+#questions td {
+  color: #5a5a5a;
+  font-size: 18px;
+  font-family: sans-serif;
+}
+
+.body button {
+  text-align: center;
+  background-color: #4da5ff;
+  border: 1px solid black;
+  margin-top: 64px;
+  width: 300px;
+  font-family: sans-serif;
+  color: black;
+  font-size: 18px;
 }
 
 .learn-more {
