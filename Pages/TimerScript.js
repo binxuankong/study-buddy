@@ -109,3 +109,37 @@ function openWindow()
   var myWindow = window.open(mylink, windowname, "type=fullwindow,fullscreen=yes,height=screen.availHeight,width=screen.availWidth,left=0,top=0,resizeable=no,scrollbars=yes");
   myWindow.focus();
 }
+
+function resetTimer()
+{
+  // Close the popup window
+  window.close();
+
+  // Refresh the timer page after the popup window was closed
+  window.onunload = refreshParent;
+  function refreshParent() {
+    window.opener.location.reload();
+  }
+
+  // Take the time chosen by the user
+  time = chosenTime;
+
+  // Take the number of correct questions from ExcercisePage.php
+  var answeredCorrectly = "<?php echo $correctQuestions; ?>";
+  // If all questions are answered correctly, and the time is less than 10 minutes, increase the time by 30s
+  if (answeredCorrectly == 5) {
+    if (time < 600)
+      increaseTime();
+  }
+  //if not, and the time is 1 minute or more, decrease it by 30s
+  else
+    if (time >= 60)
+      decreaseTime();
+  /* This part is not working
+  document.getElementById("errorLabel").innerHTML = "";
+  displayTime();
+  document.getElementById("Start-Stop").innerHTML = "Stop";
+  timer = setInterval(tick, 1000);
+  document.getElementById("initialTimeLabel").innerHTML = "Time until exercise:";
+  */
+}

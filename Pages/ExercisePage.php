@@ -29,7 +29,6 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-10">
-
   <?php
     //import database credentials
     require_once('../config.inc.php');
@@ -85,12 +84,11 @@
       $getRatingQuery = $mysqli -> query("SELECT userModuleELORating FROM SB_USER_ELO WHERE moduleID='$moduleID' AND userID = '$userID' ");
       $userRatingInfo = $getRatingQuery -> fetch_assoc();
       $userRating = $userRatingInfo['userModuleELORating'];
-
-    } else
+    } 
+    else
     {
       $userID = -1;
       $userRating = -1;
-
     }
 
     echo $userID;
@@ -257,7 +255,7 @@
       echo "</p>";
       $timeDifference = (2 * $correctQuestions) + count($questions);
       echo "</table><br>";
-      echo "<button id='closeButton' onclick='self.close(); clickButton();'>Close</button>";
+      echo "<button id='closeButton' onclick='resetTimer();'>Close</button>";
 
      // Update the user quality of user.
       if($userID != -1) {
