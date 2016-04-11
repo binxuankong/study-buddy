@@ -50,6 +50,8 @@
           else
           {
             echo "You are not logged in.";
+            echo "<h3><a href='../index.php'>Click here to return to the homepage.</a></h3>";
+            echo "<h3><a href='../index.php'>Click here to log in or sign up.</a></h3>";
           }
         ?>
       </div>

@@ -168,6 +168,14 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     $trueRiskPoint = round($trueRiskPoint);
     // Add the current questionRisk with the trueRiskPoint.
     $questionRisk = $questionRisk + $trueRiskPoint;
+    // Update the user quality of creator.
+    $creatorQuestionQuality = $creatorQuestionQuality - 10;
+    if ($questionRisk > 100) {
+      $creatorQuestionQuality = $creatorQuestionQuality - 25;
+    }
+    if ($creatorQuestionQuality < 50) {
+      $creatorQuestionQuality = 50;
+    }
     $result = $mysqli -> query("SELECT * FROM SB_REPORTED_QUESTIONS WHERE questionID='
 $questionID' AND userID = '$userID'");
     $checkRow = $result -> fetch_assoc();

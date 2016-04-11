@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/ExercisePage.css">
     <script src="./ReportButton.js"></script>
+    <script src="./TimerScript.js"></script>
     <title>Study Buddy - Exercise Page</title>
   </head>
   <body>
@@ -190,6 +191,9 @@
             }
           }
           echo "<p id='correct'>CORRECT!</p><br>";
+          echo "</td><td width='96px'>";
+          echo "<button id='".$question[0]."' onclick='reportQuestion(this.id)'>Report this question</button>";
+          echo "</td></tr>";
         }
 
         else //Answered incorrectly
@@ -239,7 +243,18 @@
       echo "</p>";
       $timeDifference = (2 * $correctQuestions) + count($questions);
       echo "</table><br>";
-      echo "<button id='closeButton' onclick='self.close()'>Close</button>";
+      echo "<button id='closeButton' onclick='self.close(); clickButton();'>Close</button>";
+
+     // Update the user quality of user.
+      if($userID != -1) {
+        $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$userID'");
+        $userQuestionQualityRow = $result -> fetch_assoc();
+        $userQuestionQuality = $userQuestionQualityRow['userID'];
+        $userQuestionQuality = $userQuality + 1;
+        if ($userQuestionQuality > 500) {
+          $userQuestionQuality = 500;
+        }
+      }
     }
     else if($_SESSION['questionsAccessed']) ///CHANGE CSS FOR THIS SECTION ---BIN
     {
@@ -311,7 +326,7 @@
       $allQuestions = array();
       if($userID == -1 || $userRating == 0)
       {
-        $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID'");
+        $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID' AND questionRisk<100");
 
 
         while($row = $result->fetch_assoc())

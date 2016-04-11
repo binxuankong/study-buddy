@@ -280,13 +280,13 @@
                         ."Username:<input type='text' name='username'><br><br>"
                         ."Password:<input type='password' name='password'>"
                         ."<br><br>"
-                        ."<input id='loginButton' type='submit' name='login' value='LOG IN'><br>"
+                        ."<input id='loginButton' type='submit' name='login' value='Log In'><br>"
                       ."<p><a href='#'>Forgot your username or password?</a></p>"
                       ."</form>"
                       ."<p><br>Don't have a Study Buddy account?</p>"
                       ."<form method='post'>"
                         ."<input type='submit' name='register' "
-                        ."value='Click Here to sign up'>"
+                        ."value='Click Here to Sign Up'>"
                       ."</form></div>";
                 }
               }
@@ -307,13 +307,13 @@
                         ."<br>Username:<input type='text' name='username'><br><br>"
                         ."Password:<input type='password' name='password'>"
                         ."<br><br>"
-                        ."<input id='loginButton' type='submit' name='login' value='LOG IN'><br>"
+                        ."<input id='loginButton' type='submit' name='login' value='Log In'><br>"
                       ."<p><a href='#'>Forgot your username or password?</a></p>"
                       ."</form>"
                       ."<p><br>Don't have a Study Buddy account?</p>"
                       ."<form method='post'>"
                         ."<input type='submit' name='register' "
-                        ."value='Click Here to sign up'>"
+                        ."value='Click Here to Sign Up'>"
                       ."</form></div>";
               }
             }
@@ -385,7 +385,7 @@
     <div class='body'>
       <div class='container'>";
             echo "<div id='register'><form method='post'>"
-                  ."$error<br>"
+                  ."<h3 id='errorLabel' class='error'>$error</h3><br>"
                   ."First name:<br><input name='firstName' type='text' "
                   ."value='$firstName'><br>"
                   ."Surname:<br><input name='surname' type='text' "

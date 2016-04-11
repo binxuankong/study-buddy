@@ -59,6 +59,18 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     $report = "INSERT INTO SB_REPORTED_MODULES (moduleID, reportReason)
                VALUES ($module, $reportReason)";
 
+    // Update the user quality of the creator.
+    $result = $mysqli -> query("SELECT userID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+    $creatorUserIDRow = $result -> fetch_assoc();
+    $creatorUserID = $creatorUserIDRow['userID'];
+    $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$creatorUserID'");
+    $creatorQuestionQualityRow = $result -> fetch_assoc();
+    $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+    $creatorQuestionQuality = $creatorQuestionQuality - 25;
+    if ($creatorQuestionQuality < 50) {
+      $creatorQuestionQuality = 50;
+    }
+
     if ($mysqli->query($report) == true) {
       echo "<div class='reportedPage'>"
          ."<h2>The module has succesfully been reported!</h2>"
