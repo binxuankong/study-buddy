@@ -68,7 +68,7 @@ function clickButton()
       start = true;
       chosenTime = time;
       timer = setInterval(tick, 1000);
-      document.getElementById("initialTimeLabel").innerHTML = "Time until exercise:";
+      document.getElementById("initialTimeLabel").innerHTML = "Time until exercise <span class='dropt' title='Module Description'><img src='../Images/information.png'> <span style='width:500px;'>The timer is now running, counting down the time to the next exercise.<br>When the timer reaches 0, the exercise page will pop-up.<br>When the exercise is completed, the timer will change according to how well you performed in the exercise, and will automatically run again.<br>Click the <b>Stop</b> button to stop the timer.</span></span>";
     }
     else
     {
@@ -83,7 +83,7 @@ function clickButton()
       time = chosenTime;
       displayTime();
       start = false;
-      document.getElementById("initialTimeLabel").innerHTML = "Set an initial time:";
+      document.getElementById("initialTimeLabel").innerHTML = "Set an initial time <span class='dropt' title='Module Description'><img src='../Images/information.png'> <span style='width:500px;'>The initial time of the timer.<br>When the timer reaches 0, the exercise page will pop-up.<br>When the exercise is completed, the timer will change according to how well you performed in the exercise, and will automatically run again.<br>The <b>+</b> button will increase the initial time of the timer by 30 seconds.</br>The <b>-</b> button will decrease the initial time of the timer by 30 seconds.<br>Click the <b>Start Timer</b> button to start the timer.</span></span>";
       clearInterval(timer);
   }
   else
@@ -104,7 +104,7 @@ function openWindow()
   time = chosenTime;
   displayTime();
   document.getElementById("moduleDropdown").disabled = false;
-  document.getElementById("initialTimeLabel").innerHTML = "Set an initial time:";
+  document.getElementById("initialTimeLabel").innerHTML = "Set an initial time <span class='dropt' title='Module Description'><img src='../Images/information.png'> <span style='width:500px;'>The initial time of the timer.<br>When the timer reaches 0, the exercise page will pop-up.<br>When the exercise is completed, the timer will change according to how well you performed in the exercise, and will automatically run again.<br>The <b>+</b> button will increase the initial time of the timer by 30 seconds.</br>The <b>-</b> button will decrease the initial time of the timer by 30 seconds.<br>Click the <b>Start Timer</b> button to start the timer.</span></span>";
   document.getElementById("Start-Stop").innerHTML = "Start";
   var myWindow = window.open(mylink, windowname, "type=fullwindow,fullscreen=yes,height=screen.availHeight,width=screen.availWidth,left=0,top=0,resizeable=no,scrollbars=yes");
   myWindow.focus();

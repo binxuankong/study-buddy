@@ -54,10 +54,11 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
   // The user send the report and is successful.
   else if(isset($_POST['report']))
   {
+    $userID = $_SESSION['userID'];
     $report = "UPDATE SB_MODULE_INFO SET moduleReportStatus=1 WHERE moduleCourseID='$module'";
     $reportReason = $_POST['others'];
-    $report = "INSERT INTO SB_REPORTED_MODULES (moduleID, reportReason)
-               VALUES ($module, $reportReason)";
+    $report = "INSERT INTO SB_REPORTED_MODULES (moduleID, reportReason, userID)
+               VALUES ($module, $reportReason, $userID)";
 
     // Update the user quality of the creator.
     $result = $mysqli -> query("SELECT userID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
