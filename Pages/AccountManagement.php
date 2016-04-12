@@ -102,19 +102,20 @@
             {
               echo "<table>";
               echo "<tr>";
-              echo "<th>Module Code</th>";
-              echo "<th>Module Name</th>";
-              echo "<th>Module Description</th>";
+              echo "<th width='150px'>Module Code</th>";
+              echo "<th width='200px'>Module Name</th>";
+              echo "<th width='530px'>Module Description</th>";
               echo "</tr>";
               foreach($result1 as $userModule)
               {
-                echo "<tr>";
+                echo "<table><tr>";
                   echo "<td width='150px'>".$userModule['courseID']."</td>";
                   echo "<td width='200px'>".$userModule['moduleName']."</td>";
                   echo "<td width='530px'>".$userModule['description']."</td>";
-                echo "</tr>";
+                echo "</tr></table>";
               }
               echo "</table>";
+              echo "<a href='/Pages/CreateModule.php'><button>Create more modules</button></a>";
             }
             else
             {
@@ -150,15 +151,21 @@
             if(count($result2) > 0)
             {
               echo "<table>";
+              echo "<tr>";
+              echo "<th width='150px'>Module Name</th>";
+              echo "<th width='350px'>Question Content</th>";
+              echo "<th width='380px'>Module Description</th>";
+              echo "</tr>";
               foreach($result2 as $userQuestion)
               {
                 echo "<tr>";
-                  echo "<td>".$userQuestion['questionContent']."</td>";
                   echo "<td>".$userQuestion['moduleName']."</td>";
+                  echo "<td>".$userQuestion['questionContent']."</td>";
                   echo "<td>".$userQuestion['moduleDescription']."</td>";
                 echo "</tr>";
               }
               echo "</table>";
+              echo "<a href='/Pages/CreateModule.php'><button>Create more questions</button></a>";
             }
             else
             {
@@ -167,7 +174,7 @@
             }
             echo "</div>";
             
-            echo "<a href='CloseAccount.php'><button>Click here to close your account</button></a>";
+            echo "<br><br><a href='CloseAccount.php'><button>Click here to close your account</button></a>";
           }
           else
           {
