@@ -111,6 +111,8 @@
                   if ($creatorQuestionQuality > 500) {
                     $creatorQuestionQuality = 500;
                   }
+                  $updateCreatorQuality = "UPDATE SB_USER_INFO SET userQuestionQuality='$creatorQuestionQuality' WHERE userID='$submittingUserID'";
+                  $mysqli->query($updateCreatorQuality);
 
                 } // else
 

@@ -72,7 +72,8 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     $creatorQuestionQualityRow = $result -> fetch_assoc();
     $creatorQuestionQuality = $creatorQuestionQualityRow['userQuestionQuality'];
     $creatorQuestionQuality = $creatorQuestionQuality - 25;
-    if ($creatorQuestionQuality < 50) {
+    if ($creatorQuestionQuality < 50)
+    {
       $creatorQuestionQuality = 50;
     }
     $updateCreatorQuality = "UPDATE SB_USER_INFO SET userQuestionQuality='$creatorQuestionQuality' WHERE userID='$creatorUserID'";
