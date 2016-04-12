@@ -183,7 +183,9 @@ $questionID' AND userID = '$userID'");
     // If the user has already reported the question, do not update questionRisk.
     if ($row['total'] == 0)
     {
-      $report = "UPDATE SB_QUESTIONS SET questionRisk='$questionRisk' WHERE questionID='$questionID'";
+      $mysqli -> query("UPDATE SB_QUESTIONS SET questionRisk='$questionRisk' WHERE questionID='$questionID'");
+      $creatorQuestionQuality -= 1;
+      $mysqli -> query("UPDATE SB_USER_INFO SET userQuestionQuality='$creatorQuestionQuality' WHERE userID='$creatorUserID'");
     }
     // Add the datas to the reported questions table.
     if (isset($otherReason))
