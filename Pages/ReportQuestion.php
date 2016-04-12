@@ -155,14 +155,14 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     // userQuestionQuality of the reporter.
     $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$userID'");
     $reporterQuestionQualityRow = $result -> fetch_assoc();
-    $reporterQuestionQuality = $reporterQuestionQualityRow['userID'];
+    $reporterQuestionQuality = $reporterQuestionQualityRow['userQuestionQuality'];
     // userQuestionQuality of the creator.
     $result = $mysqli -> query("SELECT userID FROM SB_QUESTION WHERE questionID='$questionID'");
     $creatorUserIDRow = $result -> fetch_assoc();
     $creatorUserID = $creatorUserIDRow['userID'];
     $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$creatorUserID'");
     $creatorQuestionQualityRow = $result -> fetch_assoc();
-    $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+    $creatorQuestionQuality = $creatorQuestionQualityRow['userQuestionQuality'];
     // Calculate the true risk point from the baseRiskPoint.
     $trueRiskPoint = $baseRiskPoint * ($reporterQuestionQuality / $creatorQuestionQuality);
     $trueRiskPoint = round($trueRiskPoint);

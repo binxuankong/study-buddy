@@ -15,6 +15,7 @@
         <?php
           if(!(isset($_SESSION['userID']) && isset($_SESSION['userName'])))
           {
+//SETUP AND CHECK FOR ERRORS----------------------------------------------------
             //create database connection object
             require_once('../config.inc.php');
             $mysqli = new mysqli($database_host, $database_user, 
@@ -25,6 +26,7 @@
               die('Connect Error ('.$mysqli -> connect_errno.') '
                   .$mysqli -> connect_error);
             }
+//CHECK HOW PAGE WAS REQUESTED AND ACT ON IT------------------------------------
             //if the user clicked the sign up button
             if(isset($_POST['register']))
             {
@@ -53,14 +55,7 @@
                 {
                   if(validatePassword($password))
                   {
-                    //generate the user salt
-                    $generatedSalt = openssl_random_pseudo_bytes(32);
-                    //convert the salt to text
-                    $hexedSalt = bin2hex($generatedSalt);
-                    //append the password to the salt
-                    $saltedPasswordPreHash = $hexedSalt.$password;
-                    //hash the salted password using sha512
-                    $passwordHash = hash("sha512", $saltedPasswordPreHash);
+                    $passwordHash = password_hash($password, PASSWORD_BCRYPT);
                     //insert all user info
                     $sql = $mysqli -> prepare("INSERT INTO SB_USER_INFO "
                                               ."(userFirstName, userSurname, "
@@ -92,10 +87,9 @@
                       $userID = $resultUID[0]['userID'];
                       //insert the hashed password and the salt
                       $sql = $mysqli -> prepare("INSERT INTO SB_LOGIN_CREDENTIALS"
-                                                ." (userID, userPasswordHash, "
-                                                ."userSalt) VALUES (?,?,?)");
-                      $sql -> bind_param("sss", $userID, $passwordHash, 
-                                         $hexedSalt);
+                                                ." (userID, userPasswordHash"
+                                                .") VALUES (?,?)");
+                      $sql -> bind_param("ss", $userID, $passwordHash);
                       $sql -> execute();
                       $sql -> close();
                       //user registered send email to confirm
@@ -211,11 +205,10 @@
                   $sql -> bind_param("s", $userID);
                   $sql -> execute();
                   $sql -> store_result();
-                  $sql -> bind_result($userID, $userSalt, $userPasswordHash);
+                  $sql -> bind_result($userID, $userPasswordHash);
                   while($sql -> fetch())
                   {
                     $resultCRED2Row['userID'] = $userID;
-                    $resultCRED2Row['userSalt'] = $userSalt;
                     $resultCRED2Row['userPasswordHash'] = $userPasswordHash;
                     $resultCRED2[] = $resultCRED2Row;
                   }
@@ -230,15 +223,10 @@
                   {
                     //store the credentials for use
                     $userCredentials = $resultCRED2[0];
-                    $storedSalt = $userCredentials['userSalt'];
                     $storedPasswordHash = $userCredentials['userPasswordHash'];
                   }
-                  //add the password to the retrieved salt
-                  $passwordSalted = $storedSalt.$enteredPassword;
-                  //hash the salted password
-                  $enteredPasswordHash = hash("sha512", $passwordSalted);
                   //compare the entered passwords hash to the stored hash
-                  if($enteredPasswordHash == $storedPasswordHash)
+                  if(password_verify($enteredPassword, $storedPasswordHash))
                   {
                     //set login to true to allow the user to login
                     $login = true;

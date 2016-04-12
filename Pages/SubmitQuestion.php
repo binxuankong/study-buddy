@@ -44,7 +44,7 @@
                     $ansRow[] = test_input($newAns[0]);
                     if(count($newAns) == 2)
                     {
-                      $ansRow[] = test_input($newAns[1]);
+                      $ansRow[] = 1;
                     }
                     else
                     {
@@ -53,8 +53,54 @@
                     $ans[] = $ansRow;
                   }
                   //retrieve module ID
-                  //validate legitimacy of answers and question
-                  
+                  $result = array();
+                  $sql = $mysqli -> prepare("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID=?");
+                  $sql -> bind_param("s", $module);
+                  $sql -> execute();
+                  $sql -> store_result();
+                  $sql -> bind_result($fetchedModuleID);
+                  while($sql -> fetch())
+                  {
+                    $result[] = $fetchedModuleID;
+                  }
+                  $sql -> close();
+                  $moduleID = $result[0];
+//validate legitimacy of answers and question-----------------------------------
+                  //check quantity of checked answers
+                  //assume question is bad
+                  $goodQuestion = false;
+                  $numberOfAnswers = 0;
+                  $numberOfCorrectAnswers = 0;
+                  foreach($ans as $row)
+                  {
+                    if($row[1] == 1 && !empty($row[0]))
+                    {
+                      $numberOfCorrectAnswers++;
+                    }
+                    if(!empty($row[0]))
+                    {
+                      $numberOfAnswers++;
+                    }
+                  }
+                  $answers = array();
+                  foreach($ans as $row)
+                  {
+                    if(empty($row[0]))
+                    {
+                      break;
+                      echo "Failed";
+                    }
+                    $answers[] = $row;
+                  }
+                  if(!($numberOfCorrectAnswers > 0 
+                     && $numberOfCorrectAnswers < $numberOfAnswers))
+                  {
+                    die('Something bad happened');
+                  }
+                  if(count($answers) == 0)
+                  {
+                    die("AN ERROR HAS OCCURED");
+                  }
                   //insert question into DB
                   $sql = $mysqli -> prepare("INSERT INTO SB_QUESTIONS (userID, moduleID, questionContent) VALUES (?,?,?)");
                   $sql -> bind_param("sss", $submittingUserID, $moduleID, $question);
@@ -91,7 +137,7 @@
                     // Update the user quality of the creator.
                     $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$submittingUserID'");
                     $creatorQuestionQualityRow = $result -> fetch_assoc();
-                    $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+                    $creatorQuestionQuality = $creatorQuestionQualityRow['userQuestionQuality'];
                     $creatorQuestionQuality = $creatorQuestionQuality + 5;
                     if ($creatorQuestionQuality > 500) {
                      $creatorQuestionQuality = 500;
@@ -103,8 +149,8 @@
                   $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO ORDER BY moduleID ASC");
                   echo '<br><p>Choose a module to add a question to: '
                      ."<span class='dropt' title='Choose Module'><img src='../Images/information.png'>"
-                     ."<span style='width:500px;'>Select the module that you want the question to be added to.<br>If you cannot find the module you want, you can create a module in the <b>Create a Module</b> page.</span></span></p><form id='questionsForm'  method='post'><select disabled id='moduleDropdown' name='module'>"
-                     .'</p><form id="questionsForm"  method="post"><select id="moduleDropdown" name="module">';
+                     ."<span style='width:500px;'>Select the module that you want the question to be added to.<br>If you cannot find the module you want, you can create a module in the <b>Create a Module</b> page.</span></span></p>"
+                     .'<form id="questionsForm"  method="post"><select id="moduleDropdown" name="module">';
                   echo "<option value='Choose a module'>Choose a module</option>";
                   while($row = $result->fetch_assoc())
                   {
@@ -112,7 +158,7 @@
 
                     echo "<option value='$thismodule'>$thismodule</option>";
                   }
-                  echo '</select><br><h3 id="errorLabel" class="error"></h3>';
+                  echo '</select><h3 id="errorLabel" class="error"></h3>';
                   $mysqli -> close();
                   echo "<br>Enter the question: "
                         ."<span class='dropt' title='Question'><img src='../Images/information.png'>"

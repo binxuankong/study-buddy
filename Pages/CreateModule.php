@@ -106,7 +106,7 @@
                   // Update the user quality of the creator.
                   $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$submittingUserID'");
                   $creatorQuestionQualityRow = $result -> fetch_assoc();
-                  $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+                  $creatorQuestionQuality = $creatorQuestionQualityRow['userQuestionQuality'];
                   $creatorQuestionQuality = $creatorQuestionQuality + 15;
                   if ($creatorQuestionQuality > 500) {
                     $creatorQuestionQuality = 500;

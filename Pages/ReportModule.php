@@ -66,7 +66,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     $creatorUserID = $creatorUserIDRow['userID'];
     $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$creatorUserID'");
     $creatorQuestionQualityRow = $result -> fetch_assoc();
-    $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+    $creatorQuestionQuality = $creatorQuestionQualityRow['userQuestionQuality'];
     $creatorQuestionQuality = $creatorQuestionQuality - 25;
     if ($creatorQuestionQuality < 50) {
       $creatorQuestionQuality = 50;
