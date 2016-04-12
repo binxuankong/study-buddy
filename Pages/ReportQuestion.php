@@ -143,7 +143,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
       {
         $reportReason = $reportReason + 32;
         $baseRiskPoint = $baseRiskPoint + 20;
-        $otherReason = $_POST['others'];
+        $otherReasonValue = $_POST['others'];
       }
     }
     $userID = $_SESSION['userID'];
@@ -157,7 +157,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     $reporterQuestionQualityRow = $result -> fetch_assoc();
     $reporterQuestionQuality = $reporterQuestionQualityRow['userQuestionQuality'];
     // userQuestionQuality of the creator.
-    $result = $mysqli -> query("SELECT userID FROM SB_QUESTION WHERE questionID='$questionID'");
+    $result = $mysqli -> query("SELECT userID FROM SB_QUESTIONS WHERE questionID='$questionID'");
     $creatorUserIDRow = $result -> fetch_assoc();
     $creatorUserID = $creatorUserIDRow['userID'];
     $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$creatorUserID'");
@@ -176,22 +176,25 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     if ($creatorQuestionQuality < 50) {
       $creatorQuestionQuality = 50;
     }
+    $updateCreatorQuality = "UPDATE SB_USER_INFO SET userQuestionQuality='$creatorQuestionQuality' WHERE userID='$creatorUserID'";
+    $mysqli->query($updateCreatorQuality);
+    // Check whether the user reported the question or not.
+    // If the user has already reported the question, do not update questionRisk.
+    $updateQuestionRisk = "UPDATE SB_QUESTIONS SET questionRisk='$questionRisk' WHERE questionID='$questionID'";
+    $mysqli->query($updateQuestionRisk);
     $result = $mysqli -> query("SELECT * FROM SB_REPORTED_QUESTIONS WHERE questionID='
 $questionID' AND userID = '$userID'");
     $checkRow = $result -> fetch_assoc();
-    // Check whether the user reported the question or not.
-    // If the user has already reported the question, do not update questionRisk.
-    if ($row['total'] == 0)
+    if(mysqli_num_rows($result) == 0)
     {
-      $mysqli -> query("UPDATE SB_QUESTIONS SET questionRisk='$questionRisk' WHERE questionID='$questionID'");
-      $creatorQuestionQuality -= 1;
-      $mysqli -> query("UPDATE SB_USER_INFO SET userQuestionQuality='$creatorQuestionQuality' WHERE userID='$creatorUserID'");
+      $updateQuestionRisk = "UPDATE SB_QUESTIONS SET questionRisk='$questionRisk' WHERE questionID='$questionID'";
+      $mysqli->query($updateQuestionRisk);
     }
     // Add the datas to the reported questions table.
-    if (isset($otherReason))
+    if ($otherReason)
     {
       $report = "INSERT INTO SB_REPORTED_QUESTIONS (questionID, reportReason, otherReason, userID)
-                 VALUES ($questionID, $reportReason, $otherReason, $userID)";
+                 VALUES ($questionID, $reportReason, '$otherReasonValue', $userID)";
     }
     else
     {

@@ -262,7 +262,7 @@
         $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$userID'");
         $userQuestionQualityRow = $result -> fetch_assoc();
         $userQuestionQuality = $userQuestionQualityRow['userQuestionQuality'];
-        $userQuestionQuality = $userQuality + 1;
+        $userQuestionQuality = $userQuestionQuality + 1;
         if ($userQuestionQuality > 500) {
           $userQuestionQuality = 500;
         }
@@ -312,7 +312,7 @@
             $checkbox = "$questionCount,$count";
             echo "<li><input type='checkbox' name='$checkbox'>";
 
-            echo "<br>".$answerInfo['answerContent']."</li>";
+            echo $answerInfo['answerContent']."</li>";
           }
         }
         echo "</ul><br>";

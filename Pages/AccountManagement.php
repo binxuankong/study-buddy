@@ -101,13 +101,13 @@
             if(count($result1) > 0)
             {
               echo "<table>";
+              echo "<tr>";
+              echo "<th>Module Code</th>";
+              echo "<th>Module Name</th>";
+              echo "<th>Module Description</th>";
+              echo "</tr>";
               foreach($result1 as $userModule)
               {
-                echo "<tr>";
-                echo "<th>Module Code</th>";
-                echo "<th>Module Name</th>";
-                echo "<th>Module Description</th>";
-                echo "</tr>";
                 echo "<tr>";
                   echo "<td width='150px'>".$userModule['courseID']."</td>";
                   echo "<td width='200px'>".$userModule['moduleName']."</td>";
@@ -140,8 +140,8 @@
               $result2Row['questionID'] = $fetchedQuestionID;
               $result2Row['moduleID'] = $fetchedUserModuleID;
               $result2Row['userID'] = $fetchedUserID;
-              $result2Row['questionContent'] = $fetechedQuestionContent;
-              $result2Row['elo'] = $fetechedELO;
+              $result2Row['questionContent'] = $fetchedQuestionContent;
+              $result2Row['elo'] = $fetchedELO;
               $result2Row['questionRating'] = $fetchedQR;
               $result2Row['moduleName'] = $fetchedModuleName;
               $result2[] = $result2Row;
