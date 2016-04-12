@@ -200,6 +200,25 @@ span.dropt:hover span {
   height: 22px;
 }
 
+.successPage img {
+  display: block;
+  height: 240px;
+  width: 228px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 36px;
+  margin-bottom: 48px;
+}
+
+.successPage h2 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.successPage h3 {
+  font-size: 18px;
+}
+
 .learn-more {
   background-color: #f7f7f7;
 }

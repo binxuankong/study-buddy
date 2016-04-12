@@ -98,7 +98,14 @@
                   $sql -> bind_result($result);
                   $sql -> close();
                   if ($result === TRUE) {
-                    $message = "Thank you for contributing to Study Buddy. The module has been created successfully.";
+                    $message = "<div class='successPage'>
+         <h2>Your question has successfully been added into the module!</h2>
+         <img src='../Images/report_success.png'>
+         <h3>Thank you for contributing to <b>Study Buddy</b>.</h3>
+         <h3>You can view your question in the <a href='AllQuestions.php'>View All Questions</a> page.</h3>
+         <h3>You can start your exercise <a href='Timer.php'>here</a>.</h3>
+         <h3>You can submit another question <a href='SubmitQuestion.php'>here</a>.</h3>
+         </div>";
                   } else {
                     echo "Sorry, creation of module failed. Please try again later.";
                   }
