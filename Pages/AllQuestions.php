@@ -38,7 +38,7 @@
 
         $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO");
         echo "<br><p>Choose a module to view all the questions available for this module "
-            ."<span class='dropt' title='Choose Module'><img src='../Images/information.png'>"
+            ."<span class='dropt'><img src='../Images/information.png'>"
             ."<span style='width:500px;'>Choose the module that you want to view the questions available.<br>If you cannot find the module you want, you can create one in the <b>Create a Module</b> page.</span></span>"
             ."</p><br><select id='moduleDropdown' name='module'>";
         echo "<option value='Choose a module'>Choose a module</option>";

@@ -37,7 +37,7 @@
                 }
                 $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO ORDER BY moduleCourseID ASC");
                 echo '<br><h5 id="chooseAModuleLabel">Choose a module to revise </h5>'
-                     ."<span class='dropt' title='Choose Module'><img src='../Images/information.png'>"
+                     ."<span class='dropt'><img src='../Images/information.png'>"
                      ."<span style='width:500px;'>Select the module that you want to revise.<br>You can view the questions available for the module in the <b>View All Questions</b> page.<br>If you cannot find the module you want, you can create one in the <b>Create a Module</b> page and add questions to the module created in the <b>Submit a Question</b> page.</span></span>"
                      .'<br><select id="moduleDropdown" name="module">';
                 echo "<option value='Choose a module'>Choose a module</option>";
@@ -52,7 +52,7 @@
               ?>
               <div class="setTime">
                 <h5 id="initialTimeLabel">Set an initial time</h5>
-                <span class='dropt' title='Module Description'><img src='../Images/information.png'>
+                <span class='dropt'><img src='../Images/information.png'>
                 <span style='width:500px;'>The initial time of the timer.<br>When the timer reaches 0, the exercise page will pop-up.<br>When the exercise is completed, the timer will change according to how well you performed in the exercise, and will automatically run again.<br>The <b>+</b> button will increase the initial time of the timer by 30 seconds.</br>The <b>-</b> button will decrease the initial time of the timer by 30 seconds.<br>Click the <b>Start Timer</b> button to start the timer.</span></span><br>
                 <div class="rounded" >
                   <table id="timerBox">

@@ -157,7 +157,7 @@
                 {
                   $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO ORDER BY moduleID ASC");
                   echo '<br><p>Choose a module to add a question to: '
-                     ."<span class='dropt' title='Choose Module'><img src='../Images/information.png'>"
+                     ."<span class='dropt'><img src='../Images/information.png'>"
                      ."<span style='width:500px;'>Select the module that you want the question to be added to.<br>If you cannot find the module you want, you can create a module in the <b>Create a Module</b> page.</span></span></p>"
                      .'<form id="questionsForm"  method="post"><select id="moduleDropdown" name="module">';
                   echo "<option value='Choose a module'>Choose a module</option>";
@@ -170,12 +170,12 @@
                   echo '</select><h3 id="errorLabel" class="error"></h3>';
                   $mysqli -> close();
                   echo "<br>Enter the question: "
-                        ."<span class='dropt' title='Question'><img src='../Images/information.png'>"
+                        ."<span class='dropt'><img src='../Images/information.png'>"
                         ."<span style='width:500px;'>Type in the question.<br>Prevent any spelling errors. Keep the question clear and concise.<br>State in the question if it contains more than one correct answer.<br>Print the source of the question if it is taken from any other material.</span></span><br>"
                          ."<textarea name='question' rows='3' cols='80' placeholder='e.g. What is the value of the \$test in the following php statement, \$test  = false or true;'></textarea>"
                          ."<br><br>Enter up the answers for this question. if you need more you can add them by clicking the <b>Add More Answers</b> button"
                          ."<br><input id='removable' type='button' value='Add More Answers' onClick='addInput(\"AnswersFormDiv\")'>"
-                         ."<span class='dropt' title='Add More Answers'><img src='../Images/information.png'>"
+                         ."<span class='dropt'><img src='../Images/information.png'>"
                          ."<span style='width:500px;'>Click the button to add more choices for the question.<br>There can be more than one correct answer for the question.<br>The maximum number of choices for a question is <b>8</b>.</span></span>"
                          ."<br>(check any answers that are correct)<br>"
                          ."<div id='AnswersFormDiv'>"
@@ -197,16 +197,16 @@
                      ."<span style='width:500px;'>Only users with a Study Buddy account are able to submit a question.</span></span><br>"
                      ."<a href='login.php'>Please click here to sign in or register</a>";
                 echo '<br><br><p>Choose a module to add a question to: '
-                     ."<span class='dropt' title='Choose Module'><img src='../Images/information.png'>"
+                     ."<span class='dropt'><img src='../Images/information.png'>"
                      ."<span style='width:500px;'>Select the module that you want the question to be added to.<br>If you cannot find the module you want, you can create a module in the <b>Create a Module</b> page.</span></span></p><form id='questionsForm'  method='post'><select disabled id='moduleDropdown' name='module'>";
                 echo "<option value='Choose a module'>Choose a module</option></select>";
                   echo "<br>Enter the question: "
-                        ."<span class='dropt' title='Question'><img src='../Images/information.png'>"
+                        ."<span class='dropt'><img src='../Images/information.png'>"
                         ."<span style='width:500px;'>Type in the question.<br>Prevent any spelling errors. Keep the question clear and concise.<br>State in the question if it contains more than one correct answer.<br>Print the source of the question if it is taken from any other material.</span></span><br>"
                          ."<textarea disabled name='question' rows='3' cols='80' placeholder='e.g. What is the value of the \$test in the following php statement, \$test  = false or true;'></textarea>"
                          ."<br><br>Enter up the answers for this question. if you need more you can add them by clicking the <b>Add More Answers</b> button"
                          ."<br><input disabled id='removableDisabled' type='button' value='Add More Answers' onClick='addInput(\"AnswersFormDiv\")'> "
-                         ."<span class='dropt' title='Add More Answers'><img src='../Images/information.png'>"
+                         ."<span class='dropt'><img src='../Images/information.png'>"
                          ."<span style='width:500px;'>Click the button to add more choices for the question.<br>There can be more than one correct answer for the question.<br>The maximum number of choices for a question is <b>8</b>.</span></span>"
                          ."<br>(check any answers that are correct)<br>"
                          ."<div id='AnswersFormDiv'>"
@@ -223,12 +223,12 @@
               {
                 echo "<form id='questionsForm'  method='post'>"
                      ."<br>Enter the question: "
-                     ."<span class='dropt' title='Question'><img src='../Images/information.png'>"
+                     ."<span class='dropt'><img src='../Images/information.png'>"
                      ."<span style='width:500px;'>Type in the question.<br>Prevent any spelling errors. Keep the question clear and concise.<br>State in the question if it contains more than one correct answer.<br>Print the source of the question if it is taken from any other material.</span></span><br>"
                      ."<textarea name='question' rows='3' cols='80' placeholder='e.g. What is the value of the \$test in the following php statement, \$test  = false or true;'></textarea>"
                      ."<br><br>Enter up the answers for this question. if you need more you can add them by clicking the <b>Add More Answers</b> button"
                      ."<br><input id='removable' type='button' value='Add More Answers' onClick='addInput(\"AnswersFormDiv\")'>"
-                     ."<span class='dropt' title='Add More Answers'><img src='../Images/information.png'>"
+                     ."<span class='dropt'><img src='../Images/information.png'>"
                      ."<span style='width:500px;'>Click the button to add more choices for the question.<br>There can be more than one correct answer for the question.<br>The maximum number of choices for a question is <b>8</b>.</span></span>"
                      ."<br>(check any answers that are correct)<br>"
                      ."<div id='AnswersFormDiv'>";

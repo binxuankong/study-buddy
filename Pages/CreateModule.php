@@ -157,14 +157,14 @@
           <form method='post'>
 	        <p>         
           Module Code:
-          <span class='dropt' title='ModuleCode'><img src='../Images/information.png'>
+          <span class='dropt'><img src='../Images/information.png'>
           <span style='width:500px;'>The course code of the module.<br>The first part of the module code consists of a group of letters of the abbreviation of the course name.<br>The second part of the module code consists of a group of numbers.<br>The intial number indicates the level of the course unit.<br>The final number indicates the time period in which the course unit is offered.</span></span>
           <input type='text' name='code' placeholder='e.g. COMP16121' value='$code' required>
           <span class='error'>$codeErr</span>
           </p><br>
 
           Module Name:
-          <span class='dropt' title='Module Name'><img src='../Images/information.png'>
+          <span class='dropt'><img src='../Images/information.png'>
           <span style='width:500px;'>The name of the module.<br>Prevent any spelling error in the name. Try to copy the module name as exact as possible.</span></span>
           <input type='text' name='name' size='50'
           placeholder='e.g. Object Orientated Programming with Java' value='$name' required>
@@ -172,7 +172,7 @@
           </p><br>
 
           Module Description:
-          <span class='dropt' title='Module Description'><img src='../Images/information.png'>
+          <span class='dropt'><img src='../Images/information.png'>
           <span style='width:500px;'>The description of the module.<br>The description does not have to be too detailed. Keep it clear and concise.<br>State the unit level and teaching period of the course unit if possible.</span></span>
           <span class='error'>$descriptionErr</span><br>
           <textarea name='description' placeholder='e.g. First Year Java Course for Computer Science' rows='4' cols='63' required>$description</textarea>
@@ -184,14 +184,14 @@
           <form method='post'>
 	        <p>         
           Module Code:
-          <span class='dropt' title='Module Code'><img src='../Images/information.png'>
+          <span class='dropt'><img src='../Images/information.png'>
           <span style='width:500px;'>The course code of the module.<br>The first part of the module code consists of a group of letters of the abbreviation of the course name.<br>The second part of the module code consists of a group of numbers.<br>The intial number indicates the level of the course unit.<br>The final number indicates the time period in which the course unit is offered.</span></span>
           <input disabled type='text' name='code' placeholder='e.g. COMP16121' value='$code' required>
           <span class='error'>$codeErr</span>
           </p><br>
 
           Module Name:
-          <span class='dropt' title='Module Name'><img src='../Images/information.png'>
+          <span class='dropt'><img src='../Images/information.png'>
           <span style='width:500px;'>The name of the module.<br>Prevent any spelling error in the name. Try to copy the module name as exact as possible.</span></span>
           <input disabled type='text' name='name' size='50'
           placeholder='e.g. Object Orientated Programming with Java' value='$name' required>
@@ -199,7 +199,7 @@
           </p><br>
 
           Module Description:
-          <span class='dropt' title='Module Description'><img src='../Images/information.png'>
+          <span class='dropt'><img src='../Images/information.png'>
           <span style='width:500px;'>The description of the module.<br>The description does not have to be too detailed. Keep it clear and concise.<br>State the unit level and teaching period of the course unit if possible.</span></span>
           <span class='error'>$descriptionErr</span><br>
           <textarea disabled name='description' placeholder='e.g. First Year Java Course for Computer Science' rows='4' cols='63' required>$description</textarea>
