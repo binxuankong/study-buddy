@@ -1,8 +1,12 @@
 var timer;
 var start = false;
 var time = 600;
-var chosenTime;
+window.chosenTime;
 
+function setValue(requiredTime)
+{ 
+  time = requiredTime;
+}
 function increaseTime()
 {
   if (!start)
@@ -19,6 +23,26 @@ function decreaseTime()
     if(!(time - 30 < 0))
     {
       time = time - 30;
+    }
+    displayTime();
+  }
+}
+function increaseTimeTen()
+{
+  if (!start)
+  {
+    time = time + 10;
+    displayTime();
+  }
+}
+
+function decreaseTimeTen()
+{
+  if (!start)
+  {
+    if(!(time - 10 < 0))
+    {
+      time = time - 10;
     }
     displayTime();
   }
@@ -110,34 +134,25 @@ function openWindow()
 }
 function resetTimer()
 {
-  // Close the popup window
-  window.close();
-
-  // Refresh the timer page after the popup window was closed
-  window.onunload = refreshParent;
-  function refreshParent() {
-    window.opener.location.reload();
-  }
-
   // Take the time chosen by the user
-  time = chosenTime;
-
+  time = window.opener.chosenTime;
   // Take the number of correct questions from ExcercisePage.php
-  var answeredCorrectly = "<?php echo $correctQuestions; ?>";
+  var answeredCorrectly = timeDiff;
   // If all questions are answered correctly, and the time is less than 10 minutes, increase the time by 30s
-  if (answeredCorrectly == 5) {
+  if (answeredCorrectly > 0) {
     if (time < 600)
-      increaseTime();
+      for(count = answeredCorrectly; count > 0; count--)
+        window.opener.increaseTimeTen();
   }
   //if not, and the time is 1 minute or more, decrease it by 30s
   else
+  {
     if (time >= 60)
-      decreaseTime();
-  /* This part is not working
-  document.getElementById("errorLabel").innerHTML = "";
-  displayTime();
-  document.getElementById("Start-Stop").innerHTML = "Stop";
-  timer = setInterval(tick, 1000);
-  document.getElementById("initialTimeLabel").innerHTML = "Time until exercise:";
-  */
+    {
+      for(count = answeredCorrectly; count < 0; count++)
+        window.opener.decreaseTimeTen();
+    }
+  }
+  window.opener.clickButton();
+  window.close();
 }

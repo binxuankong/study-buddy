@@ -248,7 +248,8 @@
       }
 
       echo "</p>";
-      $timeDifference = (2 * $correctQuestions) + count($questions);
+      $timeDifference = (2 * $correctQuestions) - count($questions);
+      echo "<script>var timeDiff = $timeDifference; </script>";
       echo "</table><br>";
       echo "<button id='closeButton' onclick='resetTimer();'>Close</button>";
 
