@@ -60,7 +60,7 @@
 
     $moduleID = $modulesArray[0];
 
-    echo $moduleID;
+
 
     if(!(isset($_SESSION['incorrectQuestions'])))
 
@@ -84,7 +84,7 @@
       $getRatingQuery = $mysqli -> query("SELECT userModuleELORating FROM SB_USER_ELO WHERE moduleID='$moduleID' AND userID = '$userID' ");
       $userRatingInfo = $getRatingQuery -> fetch_assoc();
       $userRating = $userRatingInfo['userModuleELORating'];
-    } 
+    }
     else
     {
       $userID = -1;
@@ -92,11 +92,7 @@
     }
 
     echo $userID;
-    echo "User Rating: " . $userRating;
-    if($userRating == 0)
-    {
-      echo "0";
-    }
+
 
 
     //EXERCISE----------------------------------------------------------------//
@@ -104,6 +100,7 @@
     {
       //questions answered
       $_SESSION['questionsAccessed'] = false;
+
 
       $result = $mysqli -> query("SELECT moduleName FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
       $moduleNameRow = $result -> fetch_assoc();
@@ -113,7 +110,7 @@
       echo "<table>";
       $questions = $_SESSION['passedQuestions'];
       $correctQuestions = 0;
-      $questionRatingArray = array();
+
       for($questionCount = 0; $questionCount < count($questions); $questionCount++)
       {
         $correctlyAnswered = true;
@@ -225,7 +222,7 @@
             $mysqli -> query("UPDATE SB_QUESTIONS SET questionELORating = $questionRating WHERE questionID = $question[0]");
 
 
-          
+
           }
         echo "<p id='incorrect'>INCORRECT!</p><br>";
         $_SESSION['incorrectQuestions'][] = $question[0]; //This array stores the previosuly incorrect questionS iD
@@ -267,8 +264,10 @@
           $userQuestionQuality = 500;
         }
       }
+
+      $_SESSION['passedQuestions'] = array();
     }
-    else if($_SESSION['questionsAccessed']) ///CHANGE CSS FOR THIS SECTION ---BIN
+    else if($_SESSION['questionsAccessed'])
     {
       //get desired module
       $module = $_GET['module'];
@@ -312,7 +311,7 @@
             $checkbox = "$questionCount,$count";
             echo "<li><input type='checkbox' name='$checkbox'>";
 
-            echo "<br>".$answerInfo['answerContent']."</li>";
+            echo $answerInfo['answerContent']."</li>";
           }
         }
         echo "</ul><br>";
@@ -333,18 +332,21 @@
       $moduleNameRow = $result -> fetch_assoc();
       $moduleName = $moduleNameRow['moduleName'];
       //get module id
-
+      echo "Shit happned";
       //get all questions from module
       $allQuestions = array();
       if($userID == -1 || $userRating == 0)
       {
+        echo "<br>"."Executed";
         $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID' AND questionRisk<100");
 
 
         while($row = $result->fetch_assoc())
         {
           $allQuestions[] = $row;
+
         }
+        echo count($allQuestions);
       }
 
       $chosenIDs = array();
