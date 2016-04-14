@@ -154,8 +154,8 @@
               echo "<table>";
               echo "<tr>";
               echo "<th width='150px'>Module Name</th>";
-              echo "<th width='530px'>Question Content</th>";
-              echo "<th width='200px'></th>";
+              echo "<th width='580px'>Question Content</th>";
+              echo "<th width='150px'></th>";
               echo "</tr>";
               foreach($result2 as $userQuestion)
               {

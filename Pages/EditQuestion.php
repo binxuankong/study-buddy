@@ -4,7 +4,7 @@
 
   <head>
     <link rel="stylesheet" href="../CSS/bootstrap.css">
-    <link rel="stylesheet" href="../CSS/Template.css">
+    <link rel="stylesheet" href="../CSS/EditQuestion.css">
     <script src="jquery.js"></script>
     <title>Study Buddy - Edit Question</title>
   </head>
@@ -139,7 +139,11 @@
           $sql -> bind_param("sss", $questionID, $ansRow[0], $ansRow[1]);
           $sql -> execute();
           $sql -> close();
+          $errorMessage ="<div class='successPage'> <h2>Your question has successfully been edited!</h2> <img src='../Images/report_success.png'> </div>";
         }
+        // Reset questionRisk of the question.
+        $updateQuestionRisk = "UPDATE SB_QUESTIONS SET questionRisk=0 WHERE questionID='$questionID'";
+        $mysqli->query($updateQuestionRisk);
       }
     }
 
@@ -156,13 +160,13 @@
           </div>
           <div class='col-md-10'>";
     echo "<h2>".$moduleCourseID.": ".$moduleName."</h2>";
-    echo "<h3>".$moduleDescription."</h3><br>";
+    echo "<p>".$moduleDescription."</p>";
     if ($questionRisk > 100)
     {
       echo "<h3>Your question has been reported by several other users.</h3>";
-      echo "<h3>Please edit and fix your question.</h3>";
-      echo "<h3>Report Reasons:</h3>";
-      echo "<ul>";
+      echo "<p>Please edit and fix your question.<br><br>";
+      echo "<b>Report Reasons:</b><br>";
+      echo "<ol>";
       if (($reportReason - 64) >= 0)
       {
         $reportReason -= 64;
@@ -198,9 +202,11 @@
         $reportReason -= 1;
         echo "<li>The question/choices contain spelling error.</li>";
       }
+      echo "</ol><br></p>";
     }
-    echo "</ul>"
-         ."<span class='error'>$errorMessage</span>";
+    else
+      echo "<br>";
+    echo "<span class='error'>$errorMessage</span>";
     echo "
       <form method='post'>
       <p>
@@ -212,7 +218,7 @@
     {
       $answerNumber = $answerNumber + 1;
       echo "Answer ".$answerNumber." <input type='text' name='ans[$count][0]' size='64'"
-           ."value='".$answer['answerContent']."'>";
+           ."value='".$answer['answerContent']."'> ";
       if ($answer['answerCorrect'] == 1)
         echo "<input type='checkbox' name='ans[$count][1]' value='1' checked><br>";
       else
@@ -220,12 +226,11 @@
       $count = $count + 1;
     }
     echo "
-      <input type='submit' value ='Save Question'>
+      <input type='submit' value ='Save Question'><br>
+      <button id='closeButton' onclick='self.close()'>Close</button>
       </form>";
 
   ?>
-
-  <button id="closeButton" onclick="self.close()">Close</button>
           </div>
           <div class="col-md-1">
           </div>
