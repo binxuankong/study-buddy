@@ -22,6 +22,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
   $creatorUserEmailRow = $result -> fetch_assoc();
   $creatorUserEmail = $creatorUserEmailRow['userEmail'];
   $email = $creatorUserEmail;
+  $mysqli->close();
 
   $msg = "The question you posted has one or more errors. \n "
          ."You need to revise the question.";
