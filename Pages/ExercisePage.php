@@ -259,14 +259,18 @@
       echo "<button id='closeButton' onclick='resetTimer();'>Close</button>";
 
      // Update the user quality of user.
-      if($userID != -1) {
+      if($userID != -1)
+      {
         $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$userID'");
         $userQuestionQualityRow = $result -> fetch_assoc();
-        $userQuestionQuality = $userQuestionQualityRow['userID'];
-        $userQuestionQuality = $userQuality + 1;
-        if ($userQuestionQuality > 500) {
+        $userQuestionQuality = $userQuestionQualityRow['userQuestionQuality'];
+        $userQuestionQuality = $userQuestionQuality + 1;
+        if ($userQuestionQuality > 500)
+        {
           $userQuestionQuality = 500;
         }
+        $updateUserQuality = "UPDATE SB_USER_INFO SET userQuestionQuality='$userQuestionQuality' WHERE userID='$userID'";
+        $mysqli->query($updateUserQuality);
       }
     }
     else if($_SESSION['questionsAccessed']) ///CHANGE CSS FOR THIS SECTION ---BIN
@@ -313,7 +317,7 @@
             $checkbox = "$questionCount,$count";
             echo "<li><input type='checkbox' name='$checkbox'>";
 
-            echo "<br>".$answerInfo['answerContent']."</li>";
+            echo $answerInfo['answerContent']."</li>";
           }
         }
         echo "</ul><br>";

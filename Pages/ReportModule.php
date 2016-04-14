@@ -55,10 +55,14 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
   else if(isset($_POST['report']))
   {
     $userID = $_SESSION['userID'];
-    $report = "UPDATE SB_MODULE_INFO SET moduleReportStatus=1 WHERE moduleCourseID='$module'";
+    $result = $mysqli -> query("SELECT moduleID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
+    $moduleIDRow = $result -> fetch_assoc();
+    $moduleID = $moduleIDRow['moduleID'];
+    $updateReportStatus = "UPDATE SB_MODULE_INFO SET moduleReportStatus=1 WHERE moduleCourseID='$moduleID'";
+    $mysqli->query($updateReportStatus);
     $reportReason = $_POST['others'];
-    $report = "INSERT INTO SB_REPORTED_MODULES (moduleID, reportReason, userID)
-               VALUES ($module, $reportReason, $userID)";
+    $report = "INSERT INTO SB_REPORTED_MODULES (moduleID, reportOtherReason, userID)
+               VALUES ($moduleID, '$reportReason', $userID)";
 
     // Update the user quality of the creator.
     $result = $mysqli -> query("SELECT userID FROM SB_MODULE_INFO WHERE moduleCourseID='$module'");
@@ -66,11 +70,14 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     $creatorUserID = $creatorUserIDRow['userID'];
     $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$creatorUserID'");
     $creatorQuestionQualityRow = $result -> fetch_assoc();
-    $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+    $creatorQuestionQuality = $creatorQuestionQualityRow['userQuestionQuality'];
     $creatorQuestionQuality = $creatorQuestionQuality - 25;
-    if ($creatorQuestionQuality < 50) {
+    if ($creatorQuestionQuality < 50)
+    {
       $creatorQuestionQuality = 50;
     }
+    $updateCreatorQuality = "UPDATE SB_USER_INFO SET userQuestionQuality='$creatorQuestionQuality' WHERE userID='$creatorUserID'";
+    $mysqli->query($updateCreatorQuality);
 
     if ($mysqli->query($report) == true) {
       echo "<div class='reportedPage'>"
