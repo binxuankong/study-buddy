@@ -95,7 +95,6 @@
                   $sql = $mysqli -> prepare("INSERT INTO SB_MODULE_INFO (userID, moduleName, moduleCourseID, moduleDescription) VALUES (?,?,?,?)");
                   $sql -> bind_param("ssss", $submittingUserID, $name, $code, $description);
                   $sql -> execute();
-                  $sql -> bind_result($result);
                   $sql -> close();
                   
                       $message = "<div class='successPage'>
