@@ -202,6 +202,24 @@ $questionID' AND userID = '$userID'");
                  VALUES ($questionID, $reportReason, NULL, $userID)";
     }
     if ($mysqli->query($report) == true) {
+      
+      $result = $mysqli -> query("SELECT userID FROM SB_REPORTED_QUESTIONS WHERE questionID='$questionID'");
+      $reportedUserIDRow = $result -> fetch_assoc();
+      $reportedUserID = $reportedUserIDRow['userID'];
+
+      $result = $mysqli -> query("SELECT userEmail FROM SB_USER_INFO WHERE userID='$reportedUserID'");
+      $reportedUserEmailRow = $result -> fetch_assoc();
+      $reportedUserEmail = $reportedUserEmailRow['userEmail'];
+      $email = $reportedUserEmail;
+      $msg = "The question you posted has one or more errors. \n "
+           ."You need to revise the question.";
+
+      $msg = wordwrap($msg,70);
+      $sender = "\"Study Buddy\"";
+      $subject = "Study Buddy Question Report"
+
+      mail("$email","$subject",$msg, "","-F $sender"); 
+
       echo "<div class='reportedPage'>"
           ."<h2>The question has succesfully been reported!</h2>"
           ."<img src='../Images/report_success.png'>"
@@ -217,6 +235,7 @@ $questionID' AND userID = '$userID'");
          ."</div>";
     }
     $mysqli->close();
+
   }
   // The normal report page.
   else
