@@ -11,6 +11,7 @@
           $username = $_SESSION['userName'];
           echo "<li><a href='/Pages/AccountManagement.php'><img src='/Images/new_user.png' alt='User Profile'></a></li>";
           echo "<li id='signup'><a href='/Pages/AccountManagement.php'>$username</a></li>";
+          echo "<li id='logout'><img src='/Images/logout.png' alt='Log Out'></li>";
         }
         else
         {
