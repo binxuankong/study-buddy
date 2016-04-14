@@ -61,7 +61,6 @@
     $moduleID = $modulesArray[0];
 
 
-
     if(!(isset($_SESSION['incorrectQuestions'])))
 
     {
@@ -84,14 +83,15 @@
       $getRatingQuery = $mysqli -> query("SELECT userModuleELORating FROM SB_USER_ELO WHERE moduleID='$moduleID' AND userID = '$userID' ");
       $userRatingInfo = $getRatingQuery -> fetch_assoc();
       $userRating = $userRatingInfo['userModuleELORating'];
+
     }
+
     else
     {
       $userID = -1;
       $userRating = -1;
     }
 
-    echo $userID;
 
 
 
@@ -221,8 +221,6 @@
 
             $mysqli -> query("UPDATE SB_QUESTIONS SET questionELORating = $questionRating WHERE questionID = $question[0]");
 
-
-
           }
         echo "<p id='incorrect'>INCORRECT!</p><br>";
         $_SESSION['incorrectQuestions'][] = $question[0]; //This array stores the previosuly incorrect questionS iD
@@ -255,14 +253,18 @@
       echo "<button id='closeButton' onclick='resetTimer();'>Close</button>";
 
      // Update the user quality of user.
-      if($userID != -1) {
+      if($userID != -1)
+      {
         $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$userID'");
         $userQuestionQualityRow = $result -> fetch_assoc();
-        $userQuestionQuality = $userQuestionQualityRow['userID'];
-        $userQuestionQuality = $userQuality + 1;
-        if ($userQuestionQuality > 500) {
+        $userQuestionQuality = $userQuestionQualityRow['userQuestionQuality'];
+        $userQuestionQuality = $userQuestionQuality + 1;
+        if ($userQuestionQuality > 500)
+        {
           $userQuestionQuality = 500;
         }
+        $updateUserQuality = "UPDATE SB_USER_INFO SET userQuestionQuality='$userQuestionQuality' WHERE userID='$userID'";
+        $mysqli->query($updateUserQuality);
       }
 
       $_SESSION['passedQuestions'] = array();
@@ -332,12 +334,12 @@
       $moduleNameRow = $result -> fetch_assoc();
       $moduleName = $moduleNameRow['moduleName'];
       //get module id
-      echo "Shit happned";
+
       //get all questions from module
       $allQuestions = array();
       if($userID == -1 || $userRating == 0)
       {
-        echo "<br>"."Executed";
+
         $result = $mysqli -> query("SELECT * FROM SB_QUESTIONS WHERE moduleID='$moduleID' AND questionRisk<100");
 
 
@@ -346,7 +348,7 @@
           $allQuestions[] = $row;
 
         }
-        echo count($allQuestions);
+        
       }
 
       $chosenIDs = array();

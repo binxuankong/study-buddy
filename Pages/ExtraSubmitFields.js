@@ -12,7 +12,7 @@ function addInput(divName)
     counter++;
     if(counter == limit)
     {
-      document.getElementById("questionsForm").removeChild(document.getElementById("removable"));
+      document.getElementById("removable").id = "removableDisabled";
     }
   }
 }

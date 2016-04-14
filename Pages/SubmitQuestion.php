@@ -132,16 +132,25 @@
                       $sql -> execute();
                       $sql -> close();
                     }
-                    echo "Question Submitted. Thank you for contributing to Study Buddy";
+                    echo "<div class='successPage'>"
+         ."<h2>Your question has successfully been added into the module!</h2>"
+         ."<img src='../Images/report_success.png'>"
+         ."<h3>Thank you for contributing to <b>Study Buddy</b>.</h3>"
+         ."<h3>You can view your question in the <a href='AllQuestions.php'>View All Questions</a> page.</h3>"
+         ."<h3>You can start your exercise <a href='Timer.php'>here</a>.</h3>"
+         ."<h3>You can submit another question <a href='SubmitQuestion.php'>here</a>.</h3>"
+         ."</div>";
 
                     // Update the user quality of the creator.
                     $result = $mysqli -> query("SELECT userQuestionQuality FROM SB_USER_INFO WHERE userID='$submittingUserID'");
                     $creatorQuestionQualityRow = $result -> fetch_assoc();
-                    $creatorQuestionQuality = $creatorQuestionQualityRow['userID'];
+                    $creatorQuestionQuality = $creatorQuestionQualityRow['userQuestionQuality'];
                     $creatorQuestionQuality = $creatorQuestionQuality + 5;
                     if ($creatorQuestionQuality > 500) {
                      $creatorQuestionQuality = 500;
                    }
+                   $updateCreatorQuality = "UPDATE SB_USER_INFO SET userQuestionQuality='$creatorQuestionQuality' WHERE userID='$submittingUserID'";
+                   $mysqli->query($updateCreatorQuality);
                   }
                 }
                 else
@@ -149,8 +158,8 @@
                   $result = $mysqli -> query("SELECT moduleCourseID FROM SB_MODULE_INFO ORDER BY moduleID ASC");
                   echo '<br><p>Choose a module to add a question to: '
                      ."<span class='dropt' title='Choose Module'><img src='../Images/information.png'>"
-                     ."<span style='width:500px;'>Select the module that you want the question to be added to.<br>If you cannot find the module you want, you can create a module in the <b>Create a Module</b> page.</span></span></p><form id='questionsForm'  method='post'><select disabled id='moduleDropdown' name='module'>"
-                     .'</p><form id="questionsForm"  method="post"><select id="moduleDropdown" name="module">';
+                     ."<span style='width:500px;'>Select the module that you want the question to be added to.<br>If you cannot find the module you want, you can create a module in the <b>Create a Module</b> page.</span></span></p>"
+                     .'<form id="questionsForm"  method="post"><select id="moduleDropdown" name="module">';
                   echo "<option value='Choose a module'>Choose a module</option>";
                   while($row = $result->fetch_assoc())
                   {
@@ -158,7 +167,7 @@
 
                     echo "<option value='$thismodule'>$thismodule</option>";
                   }
-                  echo '</select><br><h3 id="errorLabel" class="error"></h3>';
+                  echo '</select><h3 id="errorLabel" class="error"></h3>';
                   $mysqli -> close();
                   echo "<br>Enter the question: "
                         ."<span class='dropt' title='Question'><img src='../Images/information.png'>"
