@@ -43,7 +43,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
          ."<div class='reportPage'>"
          ."<h3>What is wrong with the module <em>".$module.": ".$moduleName."</em>?</h3>"
          ."<h3 id='emptyTxtArea'>Please state the reason for you to report this module!</h3>"
-         ."<p><textarea name='others' rows='10' cols='76'></textarea><br>
+         ."<p><textarea name='others' rows='10' cols='50'></textarea><br>
           <mark>Reporting a module might cause the module and all of its questions to be deleted.</mark>
           </p><br>"
          ."<input type='submit' name='report' value='Send Report'>"

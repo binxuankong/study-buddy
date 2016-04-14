@@ -93,7 +93,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
                <input type='checkbox' name='checklist[]' value='6'></li>
            <li>Other reason(s):
                <input type='checkbox' name='checklist[]' value='7'><br>
-               <textarea name='others' rows='4' cols='68'></textarea></li>
+               <textarea name='others' rows='4' cols='50'></textarea></li>
            </ul><br>"
          ."<input type='submit' name='report' value='Send Report'>"
          ."<button onclick='self.close()'>Close</button>"
