@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html><body>
 <?php
   if(session_destroy())
   {
@@ -14,3 +16,4 @@
     echo "AN ERROR OCCURED";
   }
 ?>
+</body></html>
