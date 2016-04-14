@@ -5,13 +5,14 @@
        <li id="webpagename">Study Buddy</li></a>
     </ul>
     <ul class="pull-right">
-      <?php        
+      <?php
+        session_start();       
         if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
         {
           $username = $_SESSION['userName'];
           echo "<li><a href='/Pages/AccountManagement.php'><img src='/Images/new_user.png' alt='User Profile'></a></li>";
           echo "<li id='signup'><a href='/Pages/AccountManagement.php'>$username</a></li>";
-          echo "<li id='logout'><img src='/Images/logout.png' alt='Log Out'></li>";
+          echo "<li id='logout'><a href='/Template/Logout.php'><img src='/Images/logout.png' alt='Log Out'></a></li>";
         }
         else
         {

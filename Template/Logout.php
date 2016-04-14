@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html><body>
 <?php
+  session_start();
   if(session_destroy())
   {
     session_unset(); // clear the $_SESSION variable
