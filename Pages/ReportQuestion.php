@@ -16,17 +16,17 @@
     </div>
 
     <div class="container">
- 
+
 <?php
 session_start();
 // Only show the report page if the user is logged in
 if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
 {
   require_once('../config.inc.php');
-  $mysqli = new mysqli($database_host, $database_user, 
+  $mysqli = new mysqli($database_host, $database_user,
                        $database_pass, $database_name);
 
-  if($mysqli -> connect_error) 
+  if($mysqli -> connect_error)
   {
     die('Connect Error ('.$mysqli -> connect_errno.') '
         .$mysqli -> connect_error);
@@ -40,7 +40,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userName']))
     {
       if ($checkValue == '7')
         $otherReason = true;
-    }   
+    }
   }
   // The user send the report but none of the check boxes are checked.
   if(isset($_POST['report']) && empty($_POST['checklist']))
@@ -202,7 +202,7 @@ $questionID' AND userID = '$userID'");
                  VALUES ($questionID, $reportReason, NULL, $userID)";
     }
     if ($mysqli->query($report) == true) {
-      
+
       $result = $mysqli -> query("SELECT userID FROM SB_REPORTED_QUESTIONS WHERE questionID='$questionID'");
       $reportedUserIDRow = $result -> fetch_assoc();
       $reportedUserID = $reportedUserIDRow['userID'];
@@ -216,9 +216,9 @@ $questionID' AND userID = '$userID'");
 
       $msg = wordwrap($msg,70);
       $sender = "\"Study Buddy\"";
-      $subject = "Study Buddy Question Report"
+      $subject = "Study Buddy Question Report";
 
-      mail("$email","$subject",$msg, "","-F $sender"); 
+      mail("$email","$subject",$msg, "","-F $sender");
 
       echo "<div class='reportedPage'>"
           ."<h2>The question has succesfully been reported!</h2>"
