@@ -107,107 +107,52 @@
   font-size: 18px;
 }
 
-#moduleDropdown {
-  width: 50%;
-  display: block;
+.body h2 {
+  font-family: sans-serif;
+  color: black;
+  font-size: 32px;
+  font-weight: bold;
 }
 
-.body input[type="submit"]{
-  width: 33%;
-  height: 64px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #4da5ff;
-  display: block;
-  border: 2px solid black;
-  border-radius: 32px;
+.body h3 {
   font-family: sans-serif;
+  color: #ed2939;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.body input[type="submit"] {
   text-align: center;
-  text-decoration: none;
-  font-size: 22px;
+  background-color: #4da5ff;
+  border: 1px solid black;
+  width: 160px;
+  font-family: sans-serif;
   color: black;
+  margin-top: 48px;
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+.body button {
+  text-align: center;
+  background-color: #4da5ff;
+  border: 2px solid black;
+  width: 160px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 16px;
+  font-size: 18px;
 }
 
 .body textarea {
   margin-top: 6px;
+  margin-bottom: 12px;
   background-color: #f7f7f7;
 }
 
 .body input[type="text"] {
   background-color: #f7f7f7;
-}
-
-#removable {
-  background-color: #0097fa;
-  border: 2px solid black;
-  width: 200px;
-  margin-right: 6px;
-}
-
-#removableDisabled {
-  background-color: #d3d3d3;
-  border: 2px solid #5a5a5a;
-  width: 200px;
-  color: #5a5a5a;
-  margin-right: 6px;
-}
-
-
-#disabled {
-  background-color: #d3d3d3;
-  border: 2px solid #5a5a5a;
-  color: #5a5a5a;
-}
-
-.dropt span {
-  border-bottom: thin dotted;
-  background: #f7f7f7;
-}
-
-.dropt span:hover {
-  text-decoration: none;
-  background: #f6ee77;
-  z-index: 2;
-}
-
-span.dropt span {
-  position: absolute;
-  left: -9999px;
-  margin: 4px 0 0 0px;
-  padding: 3px 3px 3px 3px;
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
-  z-index: 2;
-}
-
-span.dropt:hover span {
-  left: 2%;
-  background: #f7f7f7;
-}
- 
-span.dropt span {
-  position: absolute;
-  left: -9999px;
-  margin: 10px 0 0 0px;
-  padding: 3px 3px 3px 3px; 
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
-}
-
-span.dropt:hover span {
-  margin: 35px 0 0 112px;
-  background: #f6ee77;
-  z-index: 2;
-  font-size: 14px;
-  color: #5a5a5a;
-}
-
-.dropt img {
-  margin-right: 6px;
-  width: 22px;
-  height: 22px;
 }
 
 .successPage img {
