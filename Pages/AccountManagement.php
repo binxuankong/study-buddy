@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../CSS/bootstrap.css">
     <link rel="stylesheet" href="../CSS/AccountManagement.css">
     <script src="jquery.js"></script>
+    <script src="EditQuestion.js"></script>
     <title>Study Buddy - Account Management</title>
   </head>
 
@@ -152,15 +153,15 @@
               echo "<table>";
               echo "<tr>";
               echo "<th width='150px'>Module Name</th>";
-              echo "<th width='350px'>Question Content</th>";
-              echo "<th width='380px'>Module Description</th>";
+              echo "<th width='580px'>Question Content</th>";
+              echo "<th width='150px'></th>";
               echo "</tr>";
               foreach($result2 as $userQuestion)
               {
                 echo "<tr>";
                   echo "<td>".$userQuestion['moduleName']."</td>";
                   echo "<td>".$userQuestion['questionContent']."</td>";
-                  echo "<td>".$userQuestion['moduleDescription']."</td>";
+                  echo "<td><a id='".$userQuestion['questionContent']."' onclick='editQuestion(this.id)'>Edit this question</a></td>";
                 echo "</tr>";
               }
               echo "</table>";
